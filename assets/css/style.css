@@ -1,0 +1,4577 @@
+:root {
+  --index-w: clamp(190px, 15vw, 240px);
+  --gutter: 28px;
+  --head-h: 110px;                      /* home header band kept above the work detail */
+  --font-size: 16px;
+  --line-height: 1.5;
+
+  --c-bg-neutral: #ededed;
+  --c-page1: #c3f0ef;
+  --c-visited: #c3f0ef;
+  --c-active: #ededed;
+  --c-accent-text: #8be3e1;
+  --c-text: #111;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: none;
+}
+
+body {
+  font-family: 'Gill Sans', 'General Sans', 'Pretendard', -apple-system, 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 300;
+  letter-spacing: -0.3px;
+  overflow: hidden;
+  color: var(--c-text);
+  background: var(--c-bg-neutral);
+  height: 100vh;
+  width: 100vw;
+}
+
+a {
+  color: var(--c-text);
+  text-decoration: none;
+}
+
+a:hover {
+  opacity: 0.4;
+}
+
+ul {
+  list-style: none;
+}
+
+p {
+  display: inline;
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+}
+
+/* ---------------- views : home (index) / about / work detail ----------------
+   One full-screen view at a time, chosen by the body class (page0active =
+   home, page1active = About, page2active = work detail). The class names
+   are kept from the old sliding-tab version since the Ranchu mascot and
+   the Design titles still key off them. */
+
+main {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100%;
+  overflow: hidden;
+  background: var(--c-active);
+}
+
+.page0active .page0,
+.page1active .page1,
+.page2active .page2 {
+  display: block;
+  animation: view-in 0.5s cubic-bezier(.2, .8, .2, 1);
+}
+
+@keyframes view-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.contents {
+  width: 100%;
+  height: 100%;
+  padding: 24px 28px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.contents::-webkit-scrollbar { display: none; }
+
+/* Leaves room above the first line for the fixed "Index ×" button. */
+.page1 .contents,
+.page2 .contents {
+  padding-top: 72px;
+}
+
+/* back to the index: a chevron in the top-left corner, with a padded hit area */
+.view-close {
+  position: fixed;
+  top: 22px;
+  left: 28px;
+  z-index: 70;
+  display: none;
+  align-items: center;
+  padding: 6px;
+  margin: -6px;
+  font: inherit;
+  font-size: 14px;
+  color: var(--c-text);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.view-close span {
+  position: relative;
+  display: block;
+  width: 11px;
+  height: 11px;
+  font-size: 0;
+}
+
+.view-close span::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  border-left: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
+.view-close:hover {
+  opacity: 0.4;
+}
+
+body:not(.page0active) .view-close {
+  display: flex;
+}
+
+.lang-toggle {
+  position: fixed;
+  right: 28px;
+  bottom: 20px;
+  z-index: 70;
+  font-family: 'Pretendard', -apple-system, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--c-text);
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Header / index links swap to Instrument Serif italic on hover — same
+   treatment as the {01} numbering. */
+/* Italic swap: header/index links and the {01} numbering switch to
+   Instrument Serif italic on hover. The serif runs much narrower than
+   Pretendard Medium, so main.js measures both and sets --stretch (the
+   width ratio) plus a fixed box width on each element; the italic is then
+   stretched horizontally to exactly the Pretendard width, so nothing
+   around it shifts. */
+.home-name,
+.nav-link,
+.lang-toggle,
+.home-contact .card-trigger,
+.obj-num,
+.idx-num {
+  display: inline-block;
+  text-align: left;
+  white-space: nowrap;
+  transform-origin: left center;
+}
+
+.home-name:hover,
+.nav-link:hover,
+.lang-toggle:hover,
+.home-contact .card-trigger:hover,
+.obj.is-focus .obj-num,
+.idx-item.is-focus .idx-num,
+.idx-item.is-current .idx-num {
+  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.15em;
+  line-height: 1;
+  transform: scaleX(var(--stretch, 1));
+}
+
+/* On the home view the toggle sits in the index's top row, next to About;
+   in the work detail it steps aside from the big title in the bottom-right. */
+.page0active .lang-toggle {
+  top: 22px;
+  bottom: auto;
+  right: var(--gutter);                 /* KR/EN in the corner, About to its left */
+}
+
+.page2active .lang-toggle {
+  top: 22px;
+  bottom: auto;
+  right: var(--gutter);                 /* KR/EN in the corner, About to its left */
+}
+
+/* ---------------- work detail inside the home frame ----------------
+   Like the reference's project pages, opening a work keeps the home's
+   header (name, intro, About) and the index column in place. The detail
+   view runs the full height behind a transparent header — images scroll
+   all the way up to the top edge, under the header text — and stops just
+   left of the index. The home view is layered on top (transparent, and
+   click-through except for the header and index themselves) so its text
+   stays readable over the scrolling images. */
+.page2active .page0 {
+  display: block;
+  animation: none;
+}
+
+.page2active .home-field,
+.page2active .home-mark,
+.page2active .home-bio {
+  display: none;
+}
+
+.page2 {
+  z-index: 5;
+}
+
+@media all and (min-width: 813px) {
+  :root {
+    --detail-gap: 12px;                 /* page2's right edge -> index column */
+  }
+
+  .page2active .page0 {
+    z-index: 6;
+    background: transparent;
+    pointer-events: none;
+  }
+
+  .page2active .home-head,
+  .page2active .home-index {
+    pointer-events: auto;
+  }
+
+  .page2active .page2 {
+    top: 0;
+    left: 0;
+    right: calc(var(--index-w) + var(--gutter) + var(--detail-gap));
+    width: auto;
+    height: auto;
+    bottom: 0;
+    background: transparent;
+  }
+
+  /* first lines start below the header; after that the images run up
+     to the very top of the viewport */
+  .page2 .contents {
+    padding-top: var(--head-h);
+    padding-right: 0;
+  }
+
+  /* left info column stays pinned just below the header (sticky offsets
+     already count from below .contents' top padding) */
+  .page2 .work-side--left {
+    top: 0;
+  }
+
+  /* tighter right side: image -> progress rail -> index */
+  /* left info column: narrow enough to leave the images room, wide enough for ~20 Korean characters a line */
+  .page2 .work {
+    grid-template-columns: 264px 1fr 16px;
+    column-gap: 12px;
+  }
+
+  .page2 .work-side--right {
+    margin-left: 4px;                   /* 12px column gap -> 16px */
+    padding-top: 0;
+    /* sticky offsets count from below .contents' top padding (the header
+       band), so this lands the rail's center on the viewport's middle */
+    top: calc(50vh - var(--head-h));
+  }
+
+  .page2active .work-bigtitle {
+    right: calc(var(--index-w) + var(--gutter) + var(--detail-gap) + 48px);
+  }
+}
+
+.page2 .work {
+  margin-top: 0;
+  /* Only one work is ever shown here, so it ends the scroll. A bottom
+     margin would leave scroll room past the end of its grid area — and a
+     sticky column can't go past its grid area, so the info column (and
+     the progress rail) got shoved up over that last stretch. */
+  margin-bottom: 0;
+}
+
+.home-name {
+  cursor: pointer;
+}
+
+
+/* the open work is marked in the index the way a hovered row is
+   (its number takes the italic swap — see "Italic swap" above) */
+
+.page2active .idx-groups .idx-item:not(.is-current):not(.is-focus) {
+  opacity: 0.4;
+}
+
+/* desktop: the header itself is the way home, so no Index × button */
+@media all and (min-width: 813px) {
+  body.page2active .view-close {
+    display: none;
+  }
+}
+
+@media all and (max-width: 812px) {
+  .page2active .page0 { display: none; }
+  .page2active .page2 { top: 0; right: 0; }
+  .page2 .contents { padding-top: 72px; }
+  .page2active .work-bigtitle { right: 16px; }
+}
+
+/* ---------------- page 0 : home (category objects + index) ---------------- */
+
+.home {
+  font-family: 'Pretendard', -apple-system, sans-serif;
+  font-weight: 500;
+  --mark: clamp(64px, 12vh, 132px);
+}
+
+.home-head {
+  position: absolute;
+  top: 22px;
+  left: var(--gutter);
+  display: flex;
+  gap: 36px;
+  z-index: 5;
+}
+
+.home-head p,
+.home-bio {
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.home-name {
+  white-space: nowrap;
+}
+
+/* Vertical name on the left edge, in the serif the old tabs used. */
+.home-mark {
+  position: absolute;
+  left: var(--gutter);
+  bottom: 96px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  font-weight: 400;
+  font-size: var(--mark);
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+}
+
+.home-bio {
+  position: absolute;
+  left: var(--gutter);
+  bottom: 22px;
+  white-space: nowrap;                  /* lines break only at the <br> */
+}
+
+/* The scatter area: everything between the vertical name and the index. */
+.home-field {
+  position: absolute;
+  top: 110px;
+  bottom: 60px;
+  left: calc(var(--gutter) + var(--mark) + 16px);
+  right: calc(var(--index-w) + var(--gutter) + 20px);
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+.obj {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w);
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  /* hidden unless its category is the selected one (rules below) */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px);
+  transition: opacity 0.35s ease, transform 0.35s ease, visibility 0s linear 0.35s;
+}
+
+.home[data-cat="design"] .obj[data-cat="design"],
+.home[data-cat="social"] .obj[data-cat="social"],
+.home[data-cat="project"] .obj[data-cat="project"] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  /* staggered entrance, one object after another */
+  transition: opacity 0.6s ease calc(var(--d) * 0.12 + 0.15s),
+              transform 0.7s cubic-bezier(.2, .8, .2, 1) calc(var(--d) * 0.12 + 0.15s),
+              visibility 0s;
+}
+
+.obj-media {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  filter: blur(7px);
+  transition: filter 0.45s ease, transform 0.55s cubic-bezier(.2, .8, .2, 1);
+  animation: obj-drift 7s ease-in-out infinite;
+  animation-delay: calc(var(--d) * -1);
+}
+
+@keyframes obj-drift {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 0 -6px; }
+}
+
+.obj-logo {
+  aspect-ratio: 1 / 1;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.obj-logo img {
+  width: 62%;
+  height: auto;
+}
+
+/* Placeholder object for projects without photography yet: the project's
+   own accent color with its name set in the serif. */
+.obj-tile {
+  aspect-ratio: 4 / 5;
+  background: var(--pt-a);
+  color: #fff;
+  display: flex;
+  align-items: flex-end;
+  padding: 10px;
+  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  font-weight: 400;
+  font-size: clamp(14px, 1.4vw, 20px);
+  line-height: 1;
+}
+
+.obj-label {
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+  display: flex;
+  gap: 8px;
+  padding-bottom: 18px;                 /* a little air between the number and the image */
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+/* Numbering: Pretendard at rest, switching to Instrument Serif italic
+   while its object / index row is hovered (.is-focus). */
+.obj-num,
+.idx-num {
+  font-style: normal;
+}
+
+.obj-num {
+  text-align: left;
+}
+
+
+.obj-name {
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* hovering an object or its index row brings that object into focus */
+.obj.is-focus {
+  z-index: 2;
+}
+
+.obj.is-focus .obj-media {
+  filter: blur(0);
+  transform: rotate(var(--tilt, 3deg)) scale(1.04);
+}
+
+/* each object leans its own way when picked up, like the reference */
+.obj:nth-child(odd)  { --tilt: 3deg; }
+.obj:nth-child(even) { --tilt: -2.5deg; }
+
+.obj.is-focus .obj-name {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---- index column ---- */
+
+.home-index {
+  position: absolute;
+  top: 22px;
+  right: var(--gutter);
+  bottom: 22px;
+  width: var(--index-w);
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.home-nav {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 28px;
+  padding-right: 46px;                  /* room for KR/EN, which takes the corner */
+}
+
+.nav-link,
+.idx-cat,
+.idx-item {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+
+.idx-groups {
+  margin-top: auto;                     /* pinned to the bottom of the column */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;            /* categories open upward from the bottom */
+  overflow-y: auto;
+}
+
+.idx-groups::-webkit-scrollbar { display: none; }
+
+.idx-group + .idx-group {
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.idx-group h2 {
+  font: inherit;
+}
+
+/* Category headers double as the category toggle. */
+.idx-cat {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 14px 0 12px;
+  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.3);
+  transition: color 0.25s ease;
+}
+
+.idx-count {
+  font-family: 'Pretendard', -apple-system, sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.idx-cat:hover,
+.idx-group.is-open .idx-cat {
+  color: var(--c-text);
+}
+
+/* Height-collapse (0fr -> 1fr), same trick as Core Responsibilities. */
+.idx-list {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s cubic-bezier(.2, .8, .2, 1);
+}
+
+.idx-list > ul {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.idx-group.is-open .idx-list {
+  grid-template-rows: 1fr;
+}
+
+.idx-item {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 12px;
+  padding: 7px 0 9px;
+  transition: opacity 0.25s ease;
+}
+
+.idx-list li:last-child .idx-item {
+  padding-bottom: 18px;
+}
+
+.idx-sub {
+  grid-column: 1 / -1;
+  color: #777;
+  font-size: 12px;
+}
+
+/* while one row is hovered, the others fade back */
+.idx-groups.has-focus .idx-item:not(.is-focus) {
+  opacity: 0.3;
+}
+
+.home-contact {
+  padding-top: 34px;
+  font-size: 13px;
+}
+
+.home-contact-label {
+  display: block;
+  margin-bottom: 2px;
+}
+
+.home-contact .card-trigger,
+.home-contact a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  color: var(--c-text);
+}
+
+
+/* ---- narrow screens: index on top, the category's objects in a grid ---- */
+@media all and (max-width: 812px) {
+  .page0active .page0 {
+    overflow-y: auto;
+  }
+  .home {
+    --gutter: 16px;
+    padding: 18px var(--gutter) 28px;
+  }
+  .page0active .home {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .home-head,
+  .home-index,
+  .home-field,
+  .home-bio {
+    position: static;
+    width: auto;
+  }
+  .home-head { gap: 20px; }
+  .home-mark { display: none; }
+  .home-index { order: 1; }
+  .home-field {
+    order: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 34px 14px;
+    padding-top: 22px;
+  }
+  .home-bio { order: 3; }
+  .obj {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: auto;
+    display: none;
+  }
+  .home[data-cat="design"] .obj[data-cat="design"],
+  .home[data-cat="social"] .obj[data-cat="social"],
+  .home[data-cat="project"] .obj[data-cat="project"] {
+    display: block;
+  }
+  .obj-media { filter: none; animation: none; }
+  .home-field { transform: none !important; }
+  .obj-name { opacity: 1; transform: none; }
+  .obj-label { position: static; padding: 14px 0 0; white-space: normal; }
+  /* top row: name on the left, KR/EN + About on the right; the intro
+     runs full width under the name, then the index, then the objects */
+  .page0active .home { position: relative; }
+  .home-head { flex-direction: column; gap: 14px; }
+  .home-nav {
+    position: absolute;
+    top: 18px;
+    right: 52px;                          /* KR/EN takes the corner */
+    z-index: 6;                           /* above the full-width header block, or taps land on it */
+    padding: 0;
+    line-height: 1.45;
+  }
+  .page0active .lang-toggle { position: absolute; top: 18px; right: 16px; line-height: 1.45; }
+  .view-close { top: 18px; left: 16px; line-height: 20px; }
+  /* About / work detail: KR/EN top-right, level with the back chevron */
+  body:not(.page0active) .lang-toggle {
+    top: 14px;
+    bottom: auto;
+    left: auto;
+    right: 16px;
+    line-height: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .obj-media { animation: none; }
+}
+
+/* ---------------- page 1 : intro ---------------- */
+
+/* Everything in the Profile tab, headings and the "Contact her" trigger
+   included, is Pretendard. */
+.page1 .contents {
+  font-family: 'Pretendard', -apple-system, sans-serif;
+  padding-top: 72px;
+}
+
+.information {
+  padding-bottom: 16px;
+}
+
+/* Everything on the Profile tab below the intro paragraph fades up on load,
+   one row/line at a time (see main.js for the stagger). The intro paragraph
+   itself is exempt and just appears normally. */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.reveal-up.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+.information a {
+  text-decoration: underline;
+}
+
+.information p {
+  line-height: 1.5;
+}
+
+/* Every Profile-tab body line — bio, Career, Project History, Core
+   Responsibilities, the Contact-her/명함 trigger — sits at one size
+   regardless of language, so switching KR/EN or mixing English proper nouns
+   into Korean lines never reads as a size jump. Section titles (h4) and the
+   business card popup are intentionally outside `.information`/`.career`
+   and unaffected. */
+.page1 .information p,
+.page1 .career p,
+.page1 .card-trigger {
+  font-size: 15px;
+}
+
+.card-trigger {
+  color: var(--c-accent-text);
+  text-decoration: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.card-trigger:hover {
+  opacity: 0.75;
+}
+
+/* ---------------- business card popup ---------------- */
+
+.bizcard {
+  position: fixed;
+  width: 90mm;
+  height: 50mm;
+  box-sizing: border-box;
+  container-type: inline-size;
+  background: #f9f8f6;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  color: #111;
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(10px) scale(0.96);
+  pointer-events: none;
+  transition: opacity 0.26s cubic-bezier(0.22, 0.68, 0.32, 1), transform 0.26s cubic-bezier(0.22, 0.68, 0.32, 1);
+}
+
+.bizcard.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.bizcard[hidden] {
+  display: none;
+}
+
+.bizcard-intro,
+.bizcard-contact {
+  font-size: 7.14cqw;
+  line-height: 1.167;
+  letter-spacing: -0.02em;
+}
+
+.bizcard-intro {
+  position: absolute;
+  left: 4.2cqw;
+  top: 3.6cqw;
+  margin: 0;
+}
+
+.bizcard-contact {
+  position: absolute;
+  left: 4.2cqw;
+  top: 34.7cqw;
+  display: grid;
+  grid-template-columns: 18.6cqw auto;
+  justify-content: start;
+}
+
+.bizcard-contact a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.bizcard-contact a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.08em;
+  text-decoration-thickness: 1px;
+}
+
+.career h4 {
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.1px;
+  padding-bottom: 8px;
+  margin-top: 44px;
+  color: #666;
+}
+
+.career h4:first-of-type {
+  margin-top: 16px;
+}
+
+.career ul {
+  padding-bottom: 8px;
+}
+
+.career ul li {
+  clear: both;
+  padding: 3px 0;
+}
+
+.career > ul:not(.skills) li > span:nth-child(1) {
+  width: 110px;
+  float: left;
+  color: #666;
+}
+
+.career > ul:not(.skills) li > span:nth-child(2) {
+  width: calc(100% - 110px);
+  float: left;
+}
+
+/* Gap between the three buttons is measured in JS (main.js syncCatGap) so
+   the last button's bottom edge lines up with the Certificate block's
+   bottom line (the GTQi entry) on desktop, where the two columns sit side
+   by side. Falls back to 24px before that runs / on mobile, where the
+   columns stack and alignment doesn't apply. */
+.career ul.skills li {
+  padding: 0;
+  margin-bottom: var(--skill-gap, 24px);
+}
+
+.career ul.skills li:last-child {
+  margin-bottom: 0;
+}
+
+/* Category label stays in English regardless of site language — only the
+   keyword line revealed under it (data-i18n) switches. Rest state: pale
+   blue chip, italic Instrument Serif. Hovering the row (button or the
+   keywords revealed below it) inverts it to solid black. */
+/* Sized to the widest of the three labels (main.js measures it and sets
+   --skill-cat-w on the list); falls back to auto before that runs. Doing it
+   in JS avoids a CSS trap where a max-content grid track would size off the
+   *keyword* content instead, since that's much wider than any label. */
+.skill-category {
+  display: inline-block;
+  width: var(--skill-cat-w, auto);
+  box-sizing: border-box;
+  margin: 0;
+  padding: 5px 32px 5px 0;
+  border: none;
+  border-radius: 0;
+  appearance: none;
+  background: var(--c-visited);
+  color: #111;
+  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.2;
+  text-align: left;
+  cursor: default;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.career ul.skills li:hover .skill-category {
+  background: #111;
+  color: #fff;
+}
+
+/* Height-collapse trick (0fr -> 1fr) so the keyword row expands/contracts
+   smoothly on hover without a hardcoded max-height guess. Fixed width (not
+   auto/max-content): this sits in the same flex item as the button, and an
+   unconstrained keyword line is much wider than any label — English
+   keywords in particular — so letting it size itself made .skills-main
+   itself wider in English than Korean and shifted the whole column
+   sideways depending on language. A fixed width keeps that column's size
+   down to just the buttons, language-independent. */
+.skill-reveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  width: var(--skill-reveal-w, 380px);
+  max-width: 100%;
+  transition: grid-template-rows 0.35s ease;
+}
+
+/* Keywords always stay on one line -- never wrap -- even once .skill-reveal
+   is capped to a narrow fixed width in the stacked layout. If the line is
+   wider than that box it scrolls horizontally within it instead; overflow-y
+   stays hidden so the 0fr/1fr collapse animation above still clips it
+   vertically while it's closed. */
+.skill-tags {
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  opacity: 0;
+  padding-top: 10px;
+  padding-bottom: 4px;
+  transition: opacity 0.25s ease;
+}
+
+.career ul.skills li:hover .skill-reveal {
+  grid-template-rows: 1fr;
+}
+
+.career ul.skills li:hover .skill-tags {
+  opacity: 1;
+  transition-delay: 0.05s;
+}
+
+.skill-tag {
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.3;
+  color: var(--c-text);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Keywords fade in one after another; all fade out together (no delay) the
+   instant the cursor leaves, so closing feels quick rather than laggy. */
+.career ul.skills li:hover .skill-tag {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.career ul.skills li:hover .skill-tag:nth-child(1) { transition-delay: 0.08s; }
+.career ul.skills li:hover .skill-tag:nth-child(2) { transition-delay: 0.14s; }
+.career ul.skills li:hover .skill-tag:nth-child(3) { transition-delay: 0.20s; }
+.career ul.skills li:hover .skill-tag:nth-child(4) { transition-delay: 0.26s; }
+.career ul.skills li:hover .skill-tag:nth-child(5) { transition-delay: 0.32s; }
+
+.skill-tag:not(:last-child)::after {
+  content: '\00b7';
+  margin: 0 8px;
+  color: #999;
+}
+
+.skills-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 28px 32px;
+  margin-top: 44px;
+}
+
+.skills-row .career-block-heading,
+.skills-row h4 {
+  margin-top: 0;
+}
+
+/* Grows/shrinks with the window like any normal column — its width comes
+   from the *container*, not from its own text, so it resizes fluidly on
+   drag but never changes between languages (unlike a shrink-to-fit width,
+   which let the shorter Korean bullets narrow this column and shift
+   Software/Certificate left/right on every EN/KR switch). The max-width
+   keeps it from swallowing the whole row on very wide windows; the
+   min-width is what makes the row wrap — once .skills-side can no longer
+   fit beside it at that width, Software and Certificate drop below Core
+   Responsibilities together, the same way the paragraph text itself
+   reflows on resize. */
+/* Pushed to the far right of the row (margin-left: auto) so Software and
+   Certificate — now the leading block — read first on the left. Sized to
+   its own three buttons rather than flex-grown/capped: the old fluid width
+   was there to keep long keyword prose from resizing this column between
+   languages, but the buttons are a fixed, language-independent width now
+   (see main.js), so plain content sizing is stable on its own. */
+.skills-main {
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+
+/* Software and Certificate move as one unit: wrapping .skills-row directly
+   around three items could drop just the Certificate column to its own
+   line while Software stayed put. Grouping them here means the row only
+   ever has two things to arrange, so they wrap as a pair. Certificate
+   stacks under Software rather than sitting beside it. */
+.skills-side {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex: 0 0 auto;
+}
+
+.skills-software,
+.skills-certificate {
+  flex: 0 0 auto;
+}
+
+.software-icons {
+  display: flex;
+  gap: 8px;
+}
+
+.software-icon {
+  position: relative;
+  display: block;
+  width: 34px;
+  height: 34px;
+  border-radius: 20%;
+  overflow: hidden;
+}
+
+.software-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -webkit-user-drag: none;
+}
+
+.software-icon .sw-hover {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.software-icon:hover .sw-hover {
+  opacity: 1;
+}
+
+.skills-certificate p {
+  display: block;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--c-text);
+  margin-top: 4px;
+  white-space: nowrap;
+}
+
+/* Mirrors the mobile breakpoint below, but driven by main.js measuring
+   whether Software/Certificate and Core Responsibilities actually fit
+   side by side, rather than a fixed viewport width. How much room they
+   need depends on live content (the reveal width, the button width) —
+   not a number CSS can know on its own — so without this, .skills-row's
+   own flex-wrap still drops .skills-main to its own line once it runs out
+   of room, but keeps the side-by-side spacing/margin rules that only make
+   sense there. That read as a broken layout at any width between "fits"
+   and the explicit mobile width below. */
+.skills-row.skills-stacked {
+  flex-direction: column;
+  /* Base .skills-row uses flex-start, which shrink-wraps stacked children
+     to their own content width instead of the full row -- fine for
+     .skills-side, but it left .skill-reveal's 100% below with nothing
+     definite to resolve against, so the keyword line was capped to a flat
+     260px even when the stacked column had far more room than that. Stretch
+     gives every stacked child the row's actual width to work with. */
+  align-items: stretch;
+  gap: 28px;
+}
+
+.skills-row.skills-stacked .skills-main {
+  flex: 1 1 auto;
+  margin-left: 0;
+}
+
+.skills-row.skills-stacked .skills-certificate p {
+  white-space: normal;
+}
+
+/* Fills whatever width the stacked column actually has -- full-width Core
+   Responsibilities, most of the time far more than the keyword line needs
+   -- instead of a flat 260px, so the hover reveal shows the whole sentence
+   on one line without scrolling except on genuinely narrow phones, where
+   .skill-tags' own horizontal scroll (see above) remains the fallback. */
+.skills-row.skills-stacked .skill-reveal {
+  width: 100%;
+  max-width: 100%;
+}
+
+@media all and (max-width: 812px) {
+  .skills-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 28px;
+  }
+
+  /* the fluid basis/max-width above is a *width* for the desktop row; once
+     the row stacks into a column that same sizing would apply to height
+     instead, so let both columns size naturally here. */
+  .skills-main {
+    flex: 1 1 auto;
+    margin-left: 0;
+  }
+
+  .skills-certificate p {
+    white-space: normal;
+  }
+
+  /* Matches .skills-stacked above: fills the actual stacked width instead
+     of a flat px cap, so the keyword line only needs .skill-tags' own
+     horizontal scroll on the narrowest phones, not everywhere below
+     812px. */
+  .skill-reveal {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* ---------------- page 2 / 3 : shared list & work styles ---------------- */
+
+.page2 .contents {
+  font-family: 'Pretendard', -apple-system, sans-serif;
+}
+
+.sub-information {
+  max-width: 640px;
+  padding-bottom: 24px;
+  font-size: 15px;
+  color: var(--c-text);
+}
+
+.page2 .sub-information,
+.page3 .sub-information {
+  max-width: none;
+}
+
+.design-pending {
+  color: var(--c-text);
+}
+
+.pm-list ul {
+  padding-bottom: 8px;
+}
+
+.pm-list ul li {
+  clear: both;
+  padding: 3px 0;
+  color: var(--c-text);
+}
+
+.pm-list ul li > span:nth-child(1) {
+  width: 50px;
+  float: left;
+  opacity: 0.75;
+}
+
+.pm-list ul li > span:nth-child(2) {
+  width: calc(100% - 50px);
+  float: left;
+}
+
+.pm-list .role {
+  color: #aaa;
+}
+
+.design-pending {
+  padding: 40px 0;
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+/* ---------------- page 3 : browser-window project archive ---------------- */
+
+/* The window is always page-height (same as the All tab): .contents pads
+   top/bottom equally, so a 100%-height window lands flush with both margins.
+   Only .browser-body scrolls — the title bar and SORT toolbar stay put and the
+   window's bottom edge/margin is always visible. */
+.browser-window {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  font-family: -apple-system, 'Pretendard', sans-serif;
+}
+
+.browser-window.is-full .browser-body {
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.browser-titlebar {
+  position: relative;
+  flex: 0 0 auto;
+  height: 36px;
+  background: #2c2c2c;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.browser-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.browser-dots span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #6b6b6b;
+  display: block;
+}
+
+.browser-address {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #454545;
+  color: #ddd;
+  font-size: 12px;
+  padding: 4px 18px;
+  border-radius: 6px;
+  letter-spacing: 0.3px;
+}
+
+.browser-toolbar {
+  flex: 0 0 auto;
+  background: #eeece7;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.browser-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.browser-row[hidden] {
+  display: none;
+}
+
+.browser-row + .browser-row {
+  margin-top: 10px;
+}
+
+.browser-label {
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  padding: 2px 7px;
+  color: var(--c-text);
+}
+
+.browser-filter,
+.browser-subfilter,
+.browser-brand {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--c-text);
+  cursor: pointer;
+  padding: 0;
+}
+
+.browser-filter.active,
+.browser-subfilter.active,
+.browser-brand.active {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.browser-brandrow,
+.browser-subrow {
+  padding-left: 58px;
+}
+
+.browser-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 24px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.browser-body::-webkit-scrollbar { display: none; }
+
+.browser-placeholder {
+  display: block;
+  padding: 80px 0;
+  font-size: 13px;
+  color: #999;
+  text-align: center;
+}
+
+.browser-placeholder[hidden] {
+  display: none;
+}
+
+.all-logos {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+}
+
+.all-logos[hidden] {
+  display: none;
+}
+
+.all-logo-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: none;
+  background: none;
+  padding: 12px;
+  cursor: pointer;
+  opacity: 0.9;
+  transition: opacity 0.15s ease;
+  will-change: transform;
+}
+
+.all-logo-badge:hover {
+  opacity: 1;
+}
+
+.all-logo-badge img {
+  height: 130px;
+  width: auto;
+  display: block;
+  pointer-events: none;
+}
+
+@media all and (max-width: 480px) {
+  .all-logo-badge img {
+    height: 76px;
+  }
+}
+
+.campaign-list {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.campaign-list[hidden] {
+  display: none;
+}
+
+.brand-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  /* pulls up into .browser-body's 24px top padding: 12px above, 12px below,
+     so the account badges sit centered between the toolbar and the divider */
+  margin-top: -24px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.brand-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--c-text);
+  opacity: 0.8;
+  transition: opacity 0.15s ease;
+}
+
+.brand-badge:hover {
+  opacity: 1;
+}
+
+.brand-badge img {
+  height: 20px;
+  width: auto;
+  display: block;
+}
+
+.brand-badge-handle {
+  font-size: 12px;
+  letter-spacing: 0.2px;
+}
+
+.brand-header-side {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 3px;
+  /* two text lines (date + desc): every brand header keeps the same height
+     even when it has no date line */
+  min-height: 39px;
+  text-align: right;
+}
+
+.brand-header-date {
+  font-size: 12px;
+  color: #888;
+  letter-spacing: 0.2px;
+}
+
+.brand-header-desc {
+  font-size: 12px;
+  color: #888;
+}
+
+.brand-overview {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.brand-overview li {
+  position: relative;
+  padding-left: 12px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #555;
+}
+
+.brand-overview li::before {
+  content: '';
+  position: absolute;
+  left: 1px;
+  top: 0.72em;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #999;
+}
+
+@media all and (max-width: 480px) {
+  .brand-header-side {
+    margin-left: 0;
+    width: 100%;
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+.campaign-title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  padding-bottom: 4px;
+}
+
+/* ---------------- project teasers : index list -> detail brief ---------------- */
+/* All 5 projects are visible together the moment the tab opens — no paging,
+   no decorative shapes. Each row carries only a thin color bar (the one
+   thing kept from the brand palette) that widens on hover, the "fun" touch
+   sitting in how you get into a project rather than in how the index looks.
+   Clicking a row swaps to that project's own text-forward brief (Overview /
+   Storyline / Images / Results), since that content is long-form and needs
+   normal reading measure, not a giant wordmark hero. */
+
+.project-teasers {
+  display: flex;
+  flex-direction: column;
+}
+
+.pt-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.pt-list[hidden] {
+  display: none;
+}
+
+.pt-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  padding: 22px 4px 22px 16px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: none;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.pt-row:first-child {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.pt-row::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--pt-a);
+  transform: scaleY(0.3);
+  transform-origin: center;
+  opacity: 0.5;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.pt-row:hover::before {
+  transform: scaleY(1);
+  opacity: 1;
+}
+
+.pt-row:hover .pt-row-arrow {
+  transform: translateX(4px);
+  opacity: 1;
+}
+
+.pt-row-num {
+  font-family: 'Courier New', ui-monospace, monospace;
+  font-size: 12px;
+  color: #999;
+  flex: 0 0 22px;
+}
+
+.pt-row-main {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.pt-row-tag {
+  font-size: 10px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--c-accent-text);
+  font-weight: 600;
+}
+
+.pt-row-name {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  color: #141414;
+}
+
+.pt-row-desc {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #777;
+}
+
+.pt-row-arrow {
+  flex: 0 0 auto;
+  font-size: 16px;
+  color: #bbb;
+  opacity: 0;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.pt-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 8px 4px 12px;
+}
+
+.pt-detail[hidden] {
+  display: none;
+}
+
+.pt-back {
+  align-self: flex-start;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: 12px;
+  color: #888;
+  cursor: pointer;
+  padding: 0;
+}
+
+.pt-back:hover {
+  color: #141414;
+}
+
+.pt-detail-tag {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 10px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  padding: 5px 11px;
+  border-radius: 20px;
+  background: var(--pt-a);
+  color: #fff;
+}
+
+.pt-detail-title {
+  font-size: clamp(24px, 3.2vw, 34px);
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  color: #141414;
+  margin-top: -6px;
+}
+
+.pt-detail-section h4 {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #999;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  margin-bottom: 10px;
+}
+
+.pt-detail-section p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #444;
+}
+
+.pt-detail-storyline {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 18px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #444;
+}
+
+.pt-detail-images {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.pt-detail-image-slot {
+  aspect-ratio: 4 / 5;
+  border-radius: 4px;
+  border: 1px dashed rgba(0, 0, 0, 0.15);
+  background: #f7f5f0;
+}
+
+.pt-detail-results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+
+.pt-result {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pt-result b {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--c-accent-text);
+}
+
+.pt-result span {
+  font-size: 11px;
+  color: #888;
+}
+
+@media all and (max-width: 480px) {
+  .pt-row { gap: 12px; padding: 16px 4px; }
+  .pt-row-name { font-size: 16px; }
+  .pt-detail-images { grid-template-columns: repeat(2, 1fr); }
+}
+
+.campaign-intro {
+  width: 100%;
+  max-width: none;
+  margin-top: 18px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #555;
+}
+
+html[lang="ko"] .campaign-intro {
+  font-size: 13px;
+}
+
+.campaign-track {
+  --height: 306px;                      /* 340px looked right at 90% browser zoom */
+  --gap: 8px;
+  display: flex;
+  gap: var(--gap);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  height: var(--height);
+}
+
+.campaign-track::-webkit-scrollbar {
+  display: none;
+}
+
+.campaign-slot {
+  flex: 0 0 auto;
+  width: calc(var(--height) * 4 / 5);
+  height: 100%;
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  background: #f7f7f5;
+  overflow: hidden;
+}
+
+.campaign-slot:has(img),
+.campaign-slot:has(video) {
+  width: auto;
+  border: none;
+  background: none;
+  overflow: visible;
+}
+
+.campaign-slot img,
+.campaign-slot video {
+  height: 100%;
+  width: auto;
+  display: block;
+  border-radius: 4px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+}
+
+@media all and (max-width: 480px) {
+  .campaign-track { --height: 220px; }
+}
+
+/* ---------------- You Need My Yogurt : plate menu carousel ----------------
+   Reuses .campaign-track's infinite auto-roll/manual-scroll JS as-is (it
+   only ever measures children's actual rendered width, so it doesn't care
+   how that width is produced) but swaps the sizing model: the Adidas tracks
+   above are height-driven with auto width (mixed aspect-ratio photos/video),
+   while these ten plate cutouts are all a uniform 1:1 square, and the ask
+   was a specific fractional count visible at once rather than a fixed
+   height. Slot width = (100% - 5*gap) / 5.5 makes 5.5*slot + 5*gap resolve
+   to exactly 100%, i.e. 5 full plates plus a half-cut 6th as a "there's
+   more" hint, at any container width. */
+.campaign-track.plate-track {
+  --gap: 16px;
+  width: 100%;
+  height: auto;
+}
+
+/* Height is intrinsic (image height + this padding) rather than a fixed
+   aspect-ratio on the slot itself, so the top/bottom breathing room below
+   is real space around the plate rather than the plate just rendering
+   smaller inside a taller fixed box. */
+.campaign-slot.plate-slot {
+  flex: 0 0 calc((100% - 5 * var(--gap)) / 5.5);
+  width: calc((100% - 5 * var(--gap)) / 5.5);
+  height: auto;
+  padding: 22px 0;
+  border: none;
+  background: none;
+  overflow: visible;
+  border-radius: 0;
+}
+
+.plate-slot img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  display: block;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Hover: the plate photo swaps for its "menu" plate — an empty plate of
+   the same style with the dish's ingredients set as type
+   (plates/hover/NN.webp, cropped to the plate itself). */
+.campaign-slot.plate-slot {
+  position: relative;
+  /* Shadow on the whole slot rather than the <img>: drop-shadow follows
+     the alpha of everything inside, so the photo and the menu plate each
+     cast a shadow in their own silhouette. Matches the poster mockup
+     (yogurt/05): a crisp, warm olive shadow offset to the bottom-right
+     with only a little softening, not a diffuse blur. */
+  filter: drop-shadow(7px 7px 2px rgba(70, 62, 20, 0.38));
+}
+
+.plate-slot img:not(.plate-hover) {
+  transition: opacity 0.3s ease;
+}
+
+.campaign-slot.plate-slot:hover img:not(.plate-hover) {
+  opacity: 0;
+}
+
+.campaign-slot.plate-slot:hover .plate-hover {
+  opacity: 1;
+}
+
+.plate-slot img.plate-hover {
+  position: absolute;
+  top: 22px;                            /* the slot's padding */
+  left: 0;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  /* each menu plate image is pre-placed on a square canvas at exactly the
+     size and position of its photo's plate, so no inset is needed here */
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+@media all and (max-width: 812px) {
+  .campaign-slot.plate-slot {
+    flex-basis: calc((100% - 2 * var(--gap)) / 2.5);
+    width: calc((100% - 2 * var(--gap)) / 2.5);
+  }
+}
+
+@media all and (max-width: 480px) {
+  .campaign-slot.plate-slot {
+    flex-basis: calc((100% - 1 * var(--gap)) / 1.5);
+    width: calc((100% - 1 * var(--gap)) / 1.5);
+  }
+}
+
+/* ---------------- You Need My Yogurt : Instagram Stories viewer ----------------
+   The ten story frames already have the IG chrome (avatar, handle,
+   hamburger, close) baked into the image itself; this only adds what a
+   screenshot can't show — the per-story progress bars across the top and
+   the auto-advance/tap-to-navigate behavior driving them (see main.js) —
+   plus a toggle to see every frame at once as a grid instead of stepping
+   through them one at a time. */
+/* position:relative anchors .ig-story-grid below, which is absolutely
+   positioned against this element (not .ig-story-stage) specifically so
+   its width isn't capped to the stage's 340px phone-frame width — it
+   needs the section's full column width to match its original size. */
+.ig-story {
+  position: relative;
+  /* the phone and the "View all" grid share one cell, so the button row
+     below always clears the taller of the two and sits in the same spot
+     in both modes (View all / Back to story) */
+  display: grid;
+  grid-template-areas: "view" "toggle";
+  justify-items: center;
+  row-gap: 32px;
+}
+
+.ig-story-stage,
+.ig-story-grid {
+  grid-area: view;
+  align-self: start;
+}
+
+.ig-story-toggle {
+  grid-area: toggle;
+}
+
+/* Owns the device mockup's aspect ratio itself, rather than sizing off
+   whichever of .ig-story-frame / .ig-story-grid happens to be in normal
+   flow — both are absolutely positioned into this box below, so if the
+   stage didn't carry the ratio independently it would collapse to 0
+   height the instant either child got `hidden` (display:none has no box
+   to size against). That collapse was exactly the bug: the stage's height
+   depended on the frame being visible, so hiding it to show the grid
+   dropped the toggle button (and everything below it on the page) up,
+   then back down on switching back. */
+.ig-story-stage {
+  position: relative;
+  width: 100%;
+  max-width: 290px;
+  aspect-ratio: 1071 / 2000;
+}
+
+/* Absolutely positioned to fill .ig-story-stage now that the stage owns
+   the aspect ratio (see above) — this no longer needs its own. */
+.ig-story-frame {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.ig-story-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ig-story-slide.is-active {
+  opacity: 1;
+}
+
+/* The device mockup is baked directly into each of the ten slide images
+   (1071x2000, same as the mockup's own pixel size), so the bars just need
+   positioning against that fixed pixel grid. Measured off a reference
+   image with the target position marked directly on it: the marked line
+   sits at y≈224 (11.2%), spanning x≈158–912 (14.8% in from each side). */
+.ig-story-bars {
+  position: absolute;
+  top: 11.2%;
+  left: 14.8%;
+  right: 14.8%;
+  display: flex;
+  gap: 4px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.ig-story-bar {
+  flex: 1 1 0;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.35);
+  overflow: hidden;
+}
+
+.ig-story-bar-fill {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: #fff;
+  border-radius: 2px;
+}
+
+/* Invisible left/right halves layered over the frame (after the bars in
+   source order, so they sit on top and actually receive the tap/click —
+   the bars themselves have pointer-events:none and are purely visual). */
+.ig-story-tap {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 35%;
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ig-story-tap--prev { left: 0; }
+.ig-story-tap--next { right: 0; }
+
+/* Hearts spawned on hover (see main.js) — each one is a plain <img>
+   dropped in with an inline `left` and `animation-duration` for variety,
+   then removed once its animation ends. Rises from the bottom on its own
+   axis (translateX handles the horizontal jitter, translateY the float)
+   so the two can animate independently without one keyframe fighting the
+   other, and fades out over the last stretch of the rise rather than
+   cutting off abruptly at the top. */
+.ig-story-heart {
+  position: absolute;
+  bottom: 16%;
+  width: 26px;
+  height: 26px;
+  z-index: 3;
+  pointer-events: none;
+  animation-name: ig-heart-float;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+
+.ig-story-heart img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* --rise is a px distance (set per heart in JS, off the frame's actual
+   height — a %% here would resolve against the heart's own tiny 26px box,
+   not the frame, and barely move it). --drift is a small px value for
+   left/right jitter so a burst of hearts doesn't stack in one column. */
+@keyframes ig-heart-float {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.7); }
+  12% { opacity: 0.9; transform: translate(calc(var(--drift, 0px) * 0.15), calc(var(--rise, -200px) * 0.08)) scale(1); }
+  60% { opacity: 0.8; }
+  100% { opacity: 0; transform: translate(var(--drift, 0px), var(--rise, -200px)) scale(1.05); }
+}
+
+.ig-story-toggle {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: none;
+  padding: 7px 16px;
+  border-radius: 999px;
+  font-size: 12px;
+  letter-spacing: 0.2px;
+  color: var(--c-text);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.ig-story-toggle:hover {
+  background: var(--c-text);
+  color: #fff;
+}
+
+/* Absolutely positioned against .ig-story (top/left/right, no bottom —
+   height stays intrinsic to its own content) rather than sitting in
+   normal flow, so showing the grid never changes .ig-story's flex-column
+   height and the toggle button below never moves. Anchored to .ig-story
+   rather than .ig-story-stage specifically so it isn't capped to the
+   stage's 340px phone-frame width — it spans the full section width,
+   matching the size the thumbnails had before they lived inside the
+   stage. */
+.ig-story-grid {
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+/* display:grid above otherwise always wins over the [hidden] attribute's
+   UA-stylesheet display:none, since both are author-origin vs. UA-origin
+   and author wins regardless of order — so the grid stayed visible under
+   the story frame until this was added. */
+.ig-story-grid[hidden] {
+  /* keeps its space (see .ig-story) — only invisible while the story plays */
+  display: grid;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.ig-story-grid img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1071 / 2000;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.ig-story-grid img:hover {
+  opacity: 0.85;
+}
+
+@media all and (max-width: 480px) {
+  .ig-story-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ---------------- Adidas Social > Planning : process timeline ---------------- */
+
+.process-timeline {
+  --pb-1: #06214a;
+  --pb-2: #0d47a3;
+  --pb-3: #2f8fff;
+  --pb-4: #6ab0ff;
+  --pb-5: #bcdcff;
+  padding: 8px 0 0;
+  gap: 0;
+}
+
+.process-intro {
+  max-width: 560px;
+  padding: 0 20px 20px;
+}
+
+.process-kicker {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  color: #999;
+  padding-bottom: 10px;
+}
+
+.process-headline {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--c-text);
+}
+
+.process-intro .process-kicker,
+.process-intro .process-headline {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.process-intro .process-headline { transition-delay: 0.1s; }
+
+.process-intro.in-view .process-kicker,
+.process-intro.in-view .process-headline {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* horizontal, one-screen-at-a-time phone carousel */
+
+.process-track {
+  /* No CSS scroll-snap here on purpose: scroll-snap-stop:always kept
+     yanking scrollLeft back to the nearest slide mid-gesture, which left
+     no in-between positions for the scroll-scrubbed transitions to read.
+     main.js's settleTo() handles snapping precisely once scrolling stops. */
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin: 0 -24px;
+}
+
+.process-track::-webkit-scrollbar {
+  display: none;
+}
+
+.process-slide {
+  position: relative;
+  flex: 0 0 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 36px 20px 44px;
+  background: #0a0a0a;
+  overflow: hidden;
+}
+
+/* only the on-screen slide's motion plays; the rest hold still */
+.process-slide:not(.is-active) * {
+  animation-play-state: paused !important;
+}
+
+/* huge low-opacity numeral sitting behind each scene */
+.process-bignum {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -58%);
+  font-size: min(52vw, 320px);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--pb-2);
+  opacity: 0.28;
+  letter-spacing: -0.04em;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* animated scene (steps without a phone screen) */
+
+.process-scene {
+  position: relative;
+  z-index: 1;
+  width: min(78vw, 380px);
+  height: min(78vw, 380px);
+  max-height: 46vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scene-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+@keyframes scene-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+.process-scene--planning .float-a { animation: scene-float 4.2s ease-in-out infinite; transform-origin: center; }
+.process-scene--planning .float-b { animation: scene-float 3.6s ease-in-out infinite 0.3s; transform-origin: center; }
+.process-scene--planning .float-c { animation: scene-float 4.8s ease-in-out infinite 0.6s; transform-origin: center; }
+.process-scene--planning .float-d { animation: scene-float 5s ease-in-out infinite 0.2s; transform-origin: 150px 200px; }
+.process-scene--planning .float-e { animation: scene-float 4.4s ease-in-out infinite 0.5s; transform-origin: 130px 60px; }
+.process-scene--planning .float-f { animation: scene-float 3.9s ease-in-out infinite 0.8s; transform-origin: 53px 173px; }
+.process-scene--planning .float-g { animation: scene-float 4.6s ease-in-out infinite 0.1s; transform-origin: 180px 270px; }
+
+@keyframes talk-bubble {
+  0%, 60%, 100% { opacity: 0; transform: scale(0.6) translateY(4px); }
+  15%, 45% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.process-scene--meeting .bubble { transform-origin: center bottom; opacity: 0; }
+.process-scene--meeting .bubble-1 { animation: talk-bubble 3.6s ease-in-out infinite 0s; }
+.process-scene--meeting .bubble-2 { animation: talk-bubble 3.6s ease-in-out infinite 1.2s; }
+.process-scene--meeting .bubble-3 { animation: talk-bubble 3.6s ease-in-out infinite 2.4s; }
+
+@keyframes camera-flash {
+  0%, 15% { transform: scale(0.4); opacity: 0; }
+  30% { transform: scale(1); opacity: 0.9; }
+  60%, 100% { transform: scale(1.9); opacity: 0; }
+}
+
+@keyframes subject-pulse {
+  0%, 25% { transform: scale(1); }
+  32% { transform: scale(1.05); }
+  40%, 100% { transform: scale(1); }
+}
+
+.process-scene--shoot .flash-ring { animation: camera-flash 2.4s ease-out infinite; transform-origin: 90px 164px; }
+.process-scene--shoot .shoot-subject { animation: subject-pulse 2.4s ease-out infinite; transform-origin: 163px 185px; }
+
+/* step 4 : publishing extras */
+
+.phone-mock--publish { position: relative; }
+
+/* Scroll-scrubbed transitions (Apple "Mac Does That" style): these have NO
+   CSS animation/keyframes at all. main.js reads the track's live scrollLeft
+   on every 'scroll' event and writes transform/opacity/scaleY inline as a
+   direct function of how far the visitor has scrolled between two slides —
+   so the motion is 1:1 with the scroll gesture itself (drag it halfway,
+   the scene is halfway there), not a timed animation racing the scroll. */
+
+.fly-msg {
+  position: absolute;
+  width: 30px;
+  height: 20px;
+  border-radius: 6px;
+  background: var(--pb-4);
+  top: 46%;
+  left: 50%;
+  margin: -10px 0 0 -15px;
+  z-index: 3;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.fly-msg-1 { background: var(--pb-3); }
+.fly-msg-2 { background: var(--pb-4); }
+.fly-msg-3 { background: var(--pb-5); }
+
+.pm-ig-post--pop { opacity: 0.4; transform: scale(0.88); will-change: transform, opacity; }
+
+.pm-heart { display: inline-block; }
+.pm-heart--report { font-size: 10px; will-change: transform; }
+
+.grow-bar {
+  height: var(--h);
+  transform-origin: bottom;
+  transform: scaleY(0);
+  will-change: transform;
+}
+
+/* step 6 : newsletter rows arriving */
+
+@keyframes mail-in {
+  0% { opacity: 0; transform: translateX(8px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+.pm-mail--in { animation: mail-in 0.5s ease-out both; }
+.pm-mail--in:nth-child(1) { animation-delay: 0.15s; }
+.pm-mail--in:nth-child(2) { animation-delay: 0.4s; }
+.pm-mail--in:nth-child(3) { animation-delay: 0.65s; }
+
+/* phone mock */
+
+.phone-mock {
+  --pw: min(72vw, 260px);
+  width: var(--pw);
+}
+
+.phone-mock-frame {
+  background: #f3f3f0;
+  border-radius: calc(var(--pw) * 0.16);
+  padding: calc(var(--pw) * 0.035);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+  position: relative;
+}
+
+.phone-mock-island {
+  position: absolute;
+  top: calc(var(--pw) * 0.06);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30%;
+  height: 6px;
+  border-radius: 4px;
+  background: #0a0a0a;
+  z-index: 2;
+}
+
+.phone-mock-screen {
+  background: #fff;
+  border-radius: calc(var(--pw) * 0.13);
+  aspect-ratio: 9 / 19.5;
+  overflow: hidden;
+  padding: 14px 14px 10px;
+  display: flex;
+  flex-direction: column;
+  color: #111;
+  font-size: 9px;
+}
+
+.phone-mock-screen--dark {
+  background: #111;
+  color: #fff;
+}
+
+.pm-status {
+  display: flex;
+  justify-content: space-between;
+  font-size: 8px;
+  font-weight: 600;
+  padding-bottom: 10px;
+}
+
+.pm-status--dark { color: #fff; }
+
+.pm-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  padding-bottom: 12px;
+}
+
+.pm-wordmark { font-family: Georgia, serif; }
+.pm-header-icons { font-size: 9px; opacity: 0.7; letter-spacing: 3px; }
+
+/* step 1 : planning */
+.pm-planning { display: flex; flex-direction: column; gap: 7px; }
+.pm-plan-row { display: flex; align-items: center; gap: 6px; }
+.pm-plan-dot { width: 6px; height: 6px; border-radius: 50%; border: 1.2px solid #999; flex: 0 0 auto; }
+.pm-plan-dot--done { background: #2f8fff; border-color: #2f8fff; }
+.pm-plan-bar { height: 6px; border-radius: 3px; background: #eee; }
+.pm-plan-toolkit { display: flex; gap: 5px; margin-top: 10px; }
+.pm-plan-toolkit span { flex: 1; background: #f3f3f0; border-radius: 4px; padding: 8px 2px; font-size: 6.5px; text-align: center; font-weight: 600; color: #777; }
+
+/* step 2 : develop & confirm */
+.pm-edit-photo { position: relative; flex: 1; background: linear-gradient(135deg, #cfd6df, #9aa7b5); border-radius: 6px; margin-bottom: 8px; min-height: 90px; }
+.pm-edit-handle { position: absolute; width: 8px; height: 8px; border: 1.5px solid #fff; }
+.pm-edit-handle--tl { top: 4px; left: 4px; border-right: none; border-bottom: none; }
+.pm-edit-handle--tr { top: 4px; right: 4px; border-left: none; border-bottom: none; }
+.pm-edit-handle--bl { bottom: 4px; left: 4px; border-right: none; border-top: none; }
+.pm-edit-handle--br { bottom: 4px; right: 4px; border-left: none; border-top: none; }
+.pm-edit-bubble { position: absolute; bottom: 8px; right: 8px; background: #fff; color: #111; font-size: 6.5px; font-weight: 600; padding: 4px 7px; border-radius: 10px 10px 2px 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
+.pm-edit-sliders { display: flex; flex-direction: column; gap: 6px; }
+.pm-edit-slider { position: relative; height: 3px; background: #eee; border-radius: 2px; display: block; }
+.pm-edit-slider i { position: absolute; left: 0; top: -2.5px; width: 7px; height: 7px; border-radius: 50%; background: #2f8fff; transform: translateX(-3.5px); }
+
+/* step 3 : publishing */
+.pm-ig-header { display: flex; align-items: center; gap: 6px; padding-bottom: 8px; }
+.pm-ig-avatar { width: 16px; height: 16px; border-radius: 50%; background: linear-gradient(135deg, #2f8fff, #6ab0ff); flex: 0 0 auto; }
+.pm-ig-handle { font-weight: 700; font-size: 9px; }
+.pm-ig-post { flex: 1; min-height: 90px; border-radius: 4px; background: linear-gradient(160deg, #06214a, #0d47a3 55%, #6ab0ff); }
+.pm-ig-actions { padding: 8px 0 4px; font-size: 12px; letter-spacing: 6px; }
+.pm-ig-caption { font-size: 7.5px; line-height: 1.5; color: #444; }
+.pm-ig-caption b { color: #111; }
+
+/* step 4 : IRL shoot */
+.pm-viewfinder { position: relative; flex: 1; min-height: 120px; margin: 6px 0; border: 1px solid rgba(255,255,255,0.25); }
+.pm-vf-corner { position: absolute; width: 12px; height: 12px; border: 1.5px solid #fff; }
+.pm-vf-corner--tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.pm-vf-corner--tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+.pm-vf-corner--bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
+.pm-vf-corner--br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+.pm-vf-grid-h { position: absolute; left: 0; right: 0; top: 33%; height: 1px; background: rgba(255,255,255,0.2); }
+.pm-vf-grid-h::after { content: ''; position: absolute; left: 0; right: 0; top: 33%; height: 1px; background: rgba(255,255,255,0.2); }
+.pm-vf-grid-v { position: absolute; top: 0; bottom: 0; left: 33%; width: 1px; background: rgba(255,255,255,0.2); box-shadow: 33% 0 0 rgba(255,255,255,0.2); }
+.pm-vf-rec { position: absolute; top: 8px; left: 8px; color: #ff4444; font-size: 7px; font-weight: 700; letter-spacing: 1px; }
+.pm-shutter-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 6px 4px; }
+.pm-thumb { width: 18px; height: 18px; border-radius: 4px; background: #333; }
+.pm-shutter { width: 26px; height: 26px; border-radius: 50%; border: 2px solid #fff; }
+.pm-flip { font-size: 14px; color: #fff; }
+
+/* step 5 : data report */
+.pm-kpis { display: flex; gap: 8px; padding-bottom: 10px; }
+.pm-kpi { flex: 1; background: #f3f3f0; border-radius: 6px; padding: 8px; display: flex; flex-direction: column; gap: 2px; }
+.pm-kpi b { font-size: 11px; color: #2f8fff; }
+.pm-kpi span { font-size: 6.5px; color: #888; font-weight: 600; }
+.pm-chart { flex: 1; display: flex; align-items: flex-end; gap: 5px; min-height: 70px; }
+.pm-chart span { flex: 1; background: linear-gradient(180deg, #2f8fff, #7fbaff); border-radius: 3px 3px 0 0; }
+
+/* step 6 : newsletter */
+.pm-inbox { display: flex; flex-direction: column; gap: 9px; }
+.pm-mail { display: flex; gap: 6px; align-items: flex-start; }
+.pm-mail-dot { width: 5px; height: 5px; border-radius: 50%; background: transparent; margin-top: 3px; flex: 0 0 auto; }
+.pm-mail--unread .pm-mail-dot { background: #2f8fff; }
+.pm-mail b { display: block; font-size: 7.5px; }
+.pm-mail i { display: block; font-size: 6.5px; font-style: normal; color: #999; padding-top: 1px; }
+
+/* text + dots */
+
+.process-slide-text {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #fff;
+  max-width: 320px;
+}
+
+.phone-mock {
+  position: relative;
+  z-index: 1;
+}
+
+.process-num {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #6a9dff;
+  padding-bottom: 8px;
+}
+
+.process-title {
+  font-size: 17px;
+  font-weight: 600;
+  padding-bottom: 6px;
+}
+
+.process-desc {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.process-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 14px 0 20px;
+}
+
+.process-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.process-dot--active {
+  background: #2f8fff;
+  width: 14px;
+  border-radius: 3px;
+}
+
+/* work : project detail (about / role / work / tool left rail, image
+   stack center, scroll-position dots right rail) — huyml.co/project/*
+   reference: sticky side columns, a big brand-color title that rises into
+   view at the foot of each project, a light hover-grow on each image. */
+
+.work {
+  display: grid;
+  grid-template-columns: 190px 1fr 28px;
+  column-gap: 40px;
+  margin-bottom: 140px;
+  align-items: start;
+}
+
+.work-side {
+  position: sticky;
+  top: 32px;
+}
+
+.work-side--left {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.work-about-label,
+.work-meta-label {
+  /* same size as the header intro; the only bold words in the column */
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--c-text);
+  margin-bottom: 10px;
+}
+
+.work-about-text {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #333;
+  white-space: pre-line;
+}
+
+.work-meta {
+  display: flex;
+  gap: 32px;
+}
+
+.work-meta-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.work-meta-value {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--c-text);
+}
+
+.work-meta-strong {
+  font-weight: 600;                     /* same weight as the column labels */
+}
+
+.work-main {
+  /* a grid item's min-width defaults to its content, so a wide carousel
+     track inside would stretch the column past the screen */
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.work-figure {
+  width: 100%;
+  line-height: 0;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+/* A film with sound (A Warm Exposure): full column width, native controls. */
+.work-figure--film video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1920 / 1068;
+  background: #000;
+}
+
+.work-figure--film + .work-figure {
+  margin-top: 28px;                     /* same rhythm as .work-main's gap */
+}
+
+/* Transparent looping animation (e.g. the PEACE of cake slice), shown a
+   bit smaller than the full-width stills and centered in the column. */
+.work-figure--video {
+  width: 62%;
+  margin: 0 auto;                       /* centered */
+  overflow: visible;
+}
+
+.work-figure--video + .work-figure {
+  margin-top: 28px;                     /* same rhythm as .work-main's gap */
+}
+
+.work-figure--video video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 800 / 538;
+  background: transparent;
+}
+
+/* Transparent artwork with wide empty margins (e.g. the yogurt jar labels)
+   reads much narrower than its neighbors. --crop trims the canvas to the
+   artwork's own box (--cx/--cy/--cw/--ch, in source pixels of a --iw-wide
+   image), so the artwork itself spans the full column width and its
+   height grows in proportion. Percent margins resolve against the
+   figure's width, which here equals the artwork width. */
+.work-figure--crop {
+  aspect-ratio: var(--cw) / var(--ch);
+}
+
+.work-figure.work-figure--crop img {
+  width: calc(var(--iw) / var(--cw) * 100%);
+  max-width: none;
+  margin-left: calc(var(--cx) / var(--cw) * -100%);
+  margin-top: calc(var(--cy) / var(--cw) * -100%);
+}
+
+/* The last four Ranchu images are transparent PNGs with ~5% of empty margin
+   above and below their content, so the normal flex gap reads as a much
+   wider space. Percent margins resolve against the figure's own width, so
+   the pull-up tracks the padding at any column width; the extra 14px
+   tightens the visible gap to about half the usual 28px. */
+.work-figure--stack {
+  margin-top: calc(-9.9% - 14px);
+}
+
+.work-figure--stack-first {
+  margin-top: calc(-4.9% - 14px);
+}
+
+.work-figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.45s cubic-bezier(.2, .8, .2, 1);
+}
+
+.work-figure:hover img {
+  transform: scale(1.045);
+}
+
+/* The four stacked Ranchu bookmark shots (images 10-13) sit pulled up
+   tight against each other (see .work-figure--stack above) specifically
+   so they read as one continuous strip rather than four separate cards —
+   the hover zoom fights that read, since scaling one up makes it visibly
+   overlap its neighbors' now-static edges. Disabled for this group only;
+   every other project keeps the zoom. */
+.work-figure--stack:hover img,
+.work-figure--stack-first:hover img {
+  transform: none;
+}
+
+.work-hero {
+  position: relative;
+}
+
+/* extra scroll runway before the very first project's hero, so the page
+   doesn't dump straight into the image with no room to scroll through
+   the entrance first. */
+.sub-information + .work {
+  margin-top: 168px;
+}
+
+/* Pinned to the viewport corner — position:fixed, so it does not move even
+   one pixel as the page scrolls underneath it. Only opacity/transform
+   change (driven by main.js), for the entrance/exit fades; the element's
+   screen position itself is constant the entire time it's visible. */
+.work-bigtitle {
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
+  left: auto;
+  display: flex;
+  justify-content: flex-end;
+  pointer-events: none;
+  z-index: 40;
+  max-width: min(70vw, 780px);
+}
+
+/* fixed position means it would otherwise stay pinned to the viewport
+   corner even while a different tab is open, since it sits outside
+   .page2's own (non-clipping) left-offset slide — hide it outright
+   whenever Design isn't the active tab. */
+body:not(.page2active) .work-bigtitle {
+  display: none;
+}
+
+.work-bigtitle span {
+  display: block;
+  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  font-size: clamp(38px, 7vw, 96px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  color: var(--c-accent-text);
+  text-align: right;
+  opacity: 0;
+  transform: translateY(40px);
+  filter: blur(14px);
+}
+
+/* Carries the transition only while the one-off timed entrance plays. It's
+   removed right after (see main.js) so the scroll-driven exit that takes
+   over next can set opacity/transform on every scroll tick without that
+   transition smearing/lagging behind a fast scroll — the same class of bug
+   fixed earlier for the campaign-track carousels and the process-timeline. */
+.work-bigtitle span.entering {
+  transition: opacity 0.9s ease, transform 0.9s ease, filter 0.9s ease;
+}
+
+/* keeps the casing as written (e.g. "a PEACE of cake") instead of the
+   all-caps every other title uses */
+.work-bigtitle--mixed-case span {
+  text-transform: none;
+}
+
+.work-bigtitle.in-view span {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Overrides .work-side's shared `top: 32px` (which keeps the left info
+   sidebar pinned near the top of the viewport) — the progress track reads
+   better roughly centered in the viewport instead, so it sticks at the
+   50% line and shifts itself up by half its own height to sit exactly on
+   it, rather than just starting there. */
+.work-side--right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.work-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Fixed length regardless of how many images/how tall the project
+   actually is (main.js used to put one dot per .work-figure here, which
+   made longer projects' indicators visibly longer) — every project gets
+   the same track, and the thumb's position along it is that project's own
+   scroll progress (0 at its top, 1 at its bottom), not a discrete step. */
+.work-progress-track {
+  position: relative;
+  cursor: pointer;
+  touch-action: none;
+  width: 1px;
+  height: 160px;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+/* invisible 24px-wide hit area so the 1px line is easy to grab */
+.work-progress-track::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  bottom: -10px;
+  left: -12px;
+  right: -12px;
+}
+
+/* The visible dot is the small ::after; the element itself is a bigger
+   invisible hit target (20px) centered on the same point, since a bare
+   5-7px circle is too small to reliably grab and drag. */
+.work-progress-thumb {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  cursor: grab;
+  touch-action: none;
+}
+
+.work-progress-thumb::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--c-accent-text);
+  transition: transform 0.15s ease;
+}
+
+.work-progress-thumb:hover::after {
+  transform: scale(1.2);
+}
+
+.work-progress-thumb.is-dragging {
+  cursor: grabbing;
+}
+
+.work-progress-thumb.is-dragging::after {
+  transform: scale(1.3);
+}
+
+/* ---------------- work detail : one project at a time ----------------
+   The detail view holds every Design / Social / Project entry; main.js
+   shows only the one opened from the home index. */
+
+.page2 .work[hidden] {
+  display: none;
+}
+
+
+.work-about-list {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #333;
+}
+
+.work-about-list li {
+  position: relative;
+  padding-left: 10px;
+}
+
+.work-about-list li + li {
+  margin-top: 6px;
+}
+
+.work-about-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.85em;
+  width: 4px;
+  height: 1px;
+  background: currentColor;
+}
+
+html[lang="ko"] .work-about-list {
+  font-size: 13px;
+}
+
+.work-meta-value a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Social brands without photography yet: the logo on a white card. */
+.work-figure--logo {
+  aspect-ratio: 16 / 9;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.work-figure--logo img {
+  width: 34%;
+}
+
+/* Projects without photography yet: an accent-color card, same as the
+   home object, until real images replace it. */
+.work-figure--tile {
+  aspect-ratio: 16 / 9;
+  background: var(--pt-a);
+  color: #fff;
+  display: flex;
+  align-items: flex-end;
+  padding: 24px;
+  line-height: 1;
+  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  font-size: clamp(28px, 4vw, 56px);
+}
+
+/* Project title in the header row: fades in (main.js) as the big title
+   fades out on scroll. Centered on the page, on the same line as the
+   header's "Designer & project manager." */
+.work-toptitle {
+  position: fixed;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 7;                           /* above the header layer (.page0 is 6 here) */
+  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 0.8;                     /* cap height sits on the 14px intro's first line */
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+  color: var(--c-text);
+  opacity: 0;
+  pointer-events: none;
+}
+
+body:not(.page2active) .work-toptitle {
+  display: none;
+}
+
+@media all and (max-width: 812px) {
+  .work-toptitle { display: none; }
+}
+
+/* ---------------- Social : Instagram-style feed + post carousel ----------------
+   A 3-column feed of post covers (LECT house). Five posts fill the first
+   row and two thirds of the second; the last cell is a profile tile so the
+   grid still closes as a clean rectangle. Each post opens in a carousel
+   viewer (main.js builds it). */
+.ig-feed {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.ig-feed-post,
+.ig-feed-profile {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 4;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  background: #fff;
+  cursor: pointer;
+}
+
+.ig-feed-post img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s cubic-bezier(.2, .8, .2, 1), filter 0.3s ease;
+}
+
+.ig-feed-post:hover img {
+  transform: scale(1.04);
+  filter: brightness(0.92);
+}
+
+/* Instagram's "multiple photos" mark, top right */
+.ig-feed-multi {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+}
+
+.ig-feed-multi::before,
+.ig-feed-multi::after {
+  content: '';
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+}
+
+.ig-feed-multi::before {
+  top: 0;
+  right: 0;
+  border: 1.5px solid #fff;
+  box-sizing: border-box;
+}
+
+.ig-feed-multi::after {
+  bottom: 0;
+  left: 0;
+  background: #fff;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.35);
+}
+
+.ig-feed-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--c-text);
+  font-size: 12px;
+}
+
+.ig-feed-profile img {
+  width: 46%;
+  height: auto;
+}
+
+.ig-feed-profile:hover {
+  opacity: 1;
+}
+
+.ig-feed-profile:hover span {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ---- the carousel viewer ---- */
+.ig-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(20, 20, 20, 0.72);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.ig-viewer[hidden] {
+  display: none;
+}
+
+.ig-viewer.is-open {
+  opacity: 1;
+}
+
+.ig-viewer-dialog {
+  display: flex;
+  /* the post is 3:4 at up to 88% of the viewport height; the caption
+     panel sits to its right */
+  height: min(88vh, calc((92vw - 340px) * 4 / 3));
+  max-width: 92vw;
+  background: #000;                     /* nothing light can show along the image edges */
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.ig-viewer-media {
+  position: relative;
+  height: 100%;
+  aspect-ratio: 3 / 4;
+  background: #000;
+  flex: none;
+}
+
+.ig-viewer-caption {
+  width: 340px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #efefef;
+  font-family: 'Pretendard', -apple-system, sans-serif;
+  color: #111;
+}
+
+.ig-viewer-caption[hidden] {
+  display: none;
+}
+
+.ig-viewer-account {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #efefef;
+  font-size: 13px;
+}
+
+.ig-viewer-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #e3e3e3;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex: none;
+}
+
+.ig-viewer-avatar img {
+  width: 76%;
+  height: auto;
+}
+
+.ig-viewer-text {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  font-size: 13px;
+  line-height: 1.65;
+  white-space: pre-line;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.ig-viewer-text a,
+.ig-viewer-tag {
+  color: #00376b;
+}
+
+.ig-viewer-text a:hover {
+  opacity: 0.6;
+}
+
+@media all and (max-width: 812px) {
+  .ig-viewer-dialog {
+    flex-direction: column;
+    width: 92vw;
+    height: auto;
+    max-height: 92vh;
+  }
+  .ig-viewer-media {
+    width: 100%;
+    height: auto;
+  }
+  .ig-viewer-caption {
+    width: auto;
+    min-height: 0;
+    flex: 1 1 auto;
+    border-left: 0;
+    border-top: 1px solid #efefef;
+  }
+}
+
+.ig-viewer-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior: contain;
+}
+
+.ig-viewer-track::-webkit-scrollbar {
+  display: none;
+}
+
+.ig-viewer-slide {
+  flex: 0 0 100%;
+  overflow: hidden;
+  height: 100%;
+  scroll-snap-align: center;
+}
+
+.ig-viewer-slide img,
+.ig-viewer-slide video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ig-viewer-nav,
+.ig-viewer-close {
+  position: absolute;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1;
+}
+
+.ig-viewer-nav {
+  top: 50%;
+  width: 30px;
+  height: 30px;
+  margin-top: -15px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  color: #111;
+  font-size: 16px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  transition: opacity 0.2s ease;
+}
+
+.ig-viewer-nav--prev { left: 10px; }
+.ig-viewer-nav--next { right: 10px; }
+
+.ig-viewer-nav[disabled] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ig-viewer-count {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(20, 20, 20, 0.6);
+  color: #fff;
+  font-size: 12px;
+  pointer-events: none;
+}
+
+.ig-viewer-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  pointer-events: none;
+}
+
+.ig-viewer-dots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  transition: background-color 0.2s ease;
+}
+
+.ig-viewer-dots span.is-active {
+  background: #fff;
+}
+
+.ig-viewer-close {
+  position: fixed;
+  top: 18px;
+  right: 22px;
+  background: none;
+  color: #fff;
+  font-size: 30px;
+}
+
+/* ---------------- a PEACE of cake : card draw ---------------- */
+
+.card-draw {
+  padding: 64px 0 8px;
+}
+
+.card-draw-stage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.card-deck { justify-self: end; }
+.card-slot { justify-self: start; }
+
+/* 600x1050 cards; 6.4% / 3.6% makes the four corners a true ~14px circle at
+   the rendered size, whatever the column width. */
+.card-deck,
+.card-slot {
+  width: min(100%, 220px);
+  aspect-ratio: 600 / 1050;
+  border-radius: 6.4% / 3.6%;
+}
+
+.card-deck {
+  position: relative;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  isolation: isolate;
+  transition: transform 0.25s cubic-bezier(.2, .8, .2, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.card-deck::before,
+.card-deck::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: #f3efe6;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.14);
+}
+
+.card-deck::before { transform: translate(5px, 5px); }
+.card-deck::after  { transform: translate(10px, 10px); }
+
+.card-deck:hover  { transform: translateY(-4px); }
+.card-deck:active { transform: scale(0.98); }
+
+.card-deck:focus-visible {
+  outline: 2px solid var(--c-accent-text);
+  outline-offset: 6px;
+}
+
+.card-face {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 6.4% / 3.6%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14), 0 1px 3px rgba(0, 0, 0, 0.12);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.card-slot {
+  position: relative;
+  perspective: 900px;
+  border: 1.5px dashed rgba(0, 0, 0, 0.16);
+  transition: border-color 0.2s ease;
+}
+
+.card-slot.has-card {
+  border-color: transparent;
+}
+
+.card-flip {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: translate3d(var(--ox, 0), var(--oy, 0), 0) rotate(var(--tilt, 0deg));
+  will-change: transform;
+  animation: card-deal 0.85s cubic-bezier(.22, .7, .2, 1) backwards;
+}
+
+.card-flip .card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.card-flip-back {
+  transform: rotateY(180deg);
+}
+
+.card-flip.is-leaving {
+  animation: card-leave 0.2s ease forwards;
+}
+
+@keyframes card-deal {
+  0%   { transform: translate3d(var(--dx, 0), var(--dy, 0), 0) rotateY(180deg) rotate(-6deg); }
+  55%  { transform: translate3d(calc(var(--dx, 0) * 0.3), -16px, 40px) rotateY(80deg) rotate(2deg); }
+  100% { transform: translate3d(var(--ox, 0), var(--oy, 0), 0) rotateY(0deg) rotate(var(--tilt, 0deg)); }
+}
+
+@keyframes card-leave {
+  to { opacity: 0; transform: translate3d(var(--ox, 0), calc(var(--oy, 0px) + 14px), 0) rotate(var(--tilt, 0deg)) scale(0.96); }
+}
+
+@keyframes card-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-flip { animation: card-fade 0.3s ease backwards; }
+  .card-flip .card-flip-back { display: none; }
+  .card-flip.is-leaving { animation-duration: 0.01s; }
+  .card-deck { transition: none; }
+}
+
+.card-draw-hint {
+  display: block;
+  margin-top: 36px;
+  text-align: center;
+  font-size: 12px;
+  color: #888;
+}
+
+/* Korean text runs visually larger than Latin at the same font-size, so
+   trim it down where the copy is genuinely Korean prose. */
+html[lang="ko"] .sub-information p {
+  font-size: 13px;
+}
+
+html[lang="ko"] .page2 .sub-information p {
+  font-size: 16px;
+}
+
+html[lang="ko"] .work-about-text {
+  font-size: 13px;
+}
+
+/* Wraps just the Korean-script portion of a mixed-language line (career
+   entries, Project History rows). Kept at the same 15px as the rest of the
+   Profile-tab body copy (see .page1 .career p etc. above) so the language
+   reads at one consistent size everywhere, titles excepted. */
+.ko-small {
+  font-size: 15px;
+}
+
+/* ---------------- selection ---------------- */
+
+::selection { background: rgba(0,0,0,0.25); }
+::-moz-selection { background: rgba(0,0,0,0.25); }
+
+/* ---------------- responsive ---------------- */
+
+@media all and (max-width: 812px) {
+  .contents { padding: 16px; }
+
+  .work {
+    grid-template-columns: 1fr;
+    row-gap: 24px;
+    margin-bottom: 80px;
+  }
+  .work-side--left { gap: 22px; }
+  .work-side { position: static; }
+  .work-side--right { display: none; }
+  .work-bigtitle {
+    right: 16px;
+    bottom: 18px;
+    max-width: 68vw;
+  }
+  .work-bigtitle span { transform: translateY(28px); }
+}
+
+/* ---------------- Ranchu mascot : wandering swimmer ---------------- */
+/* The whole-fish position/orientation is driven by main.js writing a
+   translate/rotate transform onto this element every frame — this just
+   sets up the fixed box it moves within. Hidden outside the Ranchu project view
+   via the body-class guard, same pattern as .work-bigtitle above. Also
+   the containing block for the five parts positioned below (any
+   position != static works — fixed already qualifies, no extra wrapper
+   needed), so JS's whole-fish transform and each part's own local
+   transform (its flutter/swing animation) compose independently. */
+.ranchu-swimmer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 64px;
+  aspect-ratio: 550 / 1027;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+/* ---- fish food : jar pinned to the bottom-left corner while Ranchu is open + pellets it tosses ---- */
+.fish-food-jar {
+  position: fixed;
+  left: var(--gutter);
+  bottom: 24px;
+  z-index: 7;
+  width: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transform-origin: 50% 90%;
+  transition: transform 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.fish-food-jar img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.fish-food-jar:hover {
+  transform: rotate(-6deg);
+}
+
+/* a quick tip-and-shake each time a pellet comes out */
+.fish-food-jar.is-shaking {
+  animation: jar-shake 0.4s ease;
+}
+
+/* already 4 pellets out: a small "no" wobble instead */
+.fish-food-jar.is-empty {
+  animation: jar-no 0.3s ease;
+}
+
+@keyframes jar-shake {
+  0%   { transform: rotate(0deg); }
+  30%  { transform: rotate(-28deg) translateY(-3px); }
+  55%  { transform: rotate(-18deg); }
+  75%  { transform: rotate(-26deg) translateY(-2px); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes jar-no {
+  0%, 100% { transform: translateX(0); }
+  25%      { transform: translateX(-3px); }
+  75%      { transform: translateX(3px); }
+}
+
+/* Pellets live in the viewport like the fish (position: fixed), just under
+   it, so scrolling the images never moves them either. main.js sets
+   left/top; the toss from the jar is this transition. */
+.fish-pellet {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 9px;
+  height: auto;
+  z-index: 59;
+  pointer-events: none;
+  transition: transform 0.75s cubic-bezier(.2, .7, .3, 1), opacity 0.2s ease;
+}
+
+.fish-pellet.is-eaten {
+  opacity: 0;
+}
+
+/* out only while the Ranchu project is the open work */
+body.page2active[data-work="ranchu"] .ranchu-swimmer {
+  opacity: 1;
+}
+
+.ranchu-part {
+  position: absolute;
+  display: block;
+  height: auto;
+}
+
+/* Spans the same box .ranchu-swimmer itself does (not sized to the body
+   art specifically), so the four parts inside keep the exact same
+   left/top/width percentages they'd use directly under the swimmer — this
+   wrapper only exists to give them a shared rotation pivot, not to
+   reposition them. Its own rotation is the "body flex"; the tail's and
+   fins' own swings (below) compose on top of that, inherited through the
+   DOM tree — the point of nesting everything here instead of leaving it
+   siblings of the head — so the whole rig visibly moves as one connected
+   body, not just the tail on its own. Pivoting near the top (close to
+   where the head sits, effectively the stationary end of the stroke)
+   means the flex reads as originating at the neck and rolling downward
+   through the body, not as the whole body swinging as one rigid block.
+   Animation only actually runs while main.js has added .is-swimming to
+   the swimmer (below) — at rest every part here just holds its default,
+   unrotated transform, transitioning to it smoothly rather than freezing
+   wherever the last cycle happened to stop. */
+.ranchu-body-group {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 20%;
+  transition: transform 0.4s ease-out;
+}
+
+.ranchu-swimmer.is-swimming .ranchu-body-group {
+  animation: ranchu-body-flex 0.9s ease-in-out infinite;
+}
+
+/* Percentages of the rig's own box (550x1027 in the source art), measured
+   by cross-correlating each cropped layer's alpha mask against the full
+   reference illustration to find where it was originally cut from —
+   these are five separately-exported layers with no shared position
+   metadata, not slices of one canvas with known offsets. */
+.ranchu-head { left: 21.64%; top: 1.95%; width: 56.73%; }
+.ranchu-body { left: 22.36%; top: 19.28%; width: 58.36%; }
+
+.ranchu-fin-a,
+.ranchu-fin-b,
+.ranchu-tail {
+  transition: transform 0.4s ease-out;
+}
+
+.ranchu-fin-a {
+  left: 74.18%;
+  top: 27.65%;
+  width: 16.91%;
+  transform-origin: 0% 40%;
+}
+
+.ranchu-fin-b {
+  left: 12.55%;
+  top: 27.75%;
+  width: 20%;
+  transform-origin: 100% 40%;
+}
+
+.ranchu-tail {
+  left: 7.45%;
+  top: 65.34%;
+  width: 84.91%;
+  /* Negative Y puts the pivot above the tail layer's own top edge —
+     inside the ~51px band the body already overlaps and covers at rest —
+     rather than right at that edge, where a wide tail rotating around a
+     hinge that close to its own boundary swings enough to pull out from
+     under the body and tear a gap open at the seam. */
+  transform-origin: 50% -10%;
+  /* Fades toward the tip (this layer's own bottom edge, farthest from
+     where it attaches to the body) down to 70% opacity — a mask-image
+     gradient rather than the `opacity` property, since opacity would fade
+     the *whole* layer uniformly instead of just one end of it. */
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.7) 100%);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.7) 100%);
+}
+
+.ranchu-swimmer.is-swimming .ranchu-tail { animation: ranchu-tail-swing 0.9s ease-in-out infinite; }
+.ranchu-swimmer.is-swimming .ranchu-fin-a { animation: ranchu-fin-a-flutter 0.9s ease-in-out infinite; }
+.ranchu-swimmer.is-swimming .ranchu-fin-b { animation: ranchu-fin-b-flutter 0.9s ease-in-out infinite; }
+
+/* Continuous rotation rather than stepping through frames — smoother than
+   any discrete pose sequence, since there's no frame-to-frame jump to
+   smooth out in the first place. The stops at 0/35/100% (instead of a
+   plain 0/50/100 sine-like sway) make each stroke asymmetric — a quick
+   flick out in the first 35% of the cycle, a slower recovery back over
+   the remaining 65% — which reads as an actual propulsive stroke rather
+   than a flag fluttering symmetrically in a breeze. All four parts share
+   the same duration and stops so the whole rig stays locked in one
+   step — tail and fins opposite the body's own lean, and a noticeably
+   smaller angle on the body than the tail: the tail whips off a body
+   that's only leaning gently the other way, the counter-motion ("recoil")
+   a real fish's stroke comes from, not a hinge that only moves right at
+   the tail joint. */
+@keyframes ranchu-tail-swing {
+  0% { transform: rotate(-11deg); }
+  35% { transform: rotate(11deg); }
+  100% { transform: rotate(-11deg); }
+}
+
+@keyframes ranchu-body-flex {
+  0% { transform: rotate(3deg); }
+  35% { transform: rotate(-3deg); }
+  100% { transform: rotate(3deg); }
+}
+
+@keyframes ranchu-fin-a-flutter {
+  0% { transform: rotate(-5deg); }
+  35% { transform: rotate(5deg); }
+  100% { transform: rotate(-5deg); }
+}
+
+@keyframes ranchu-fin-b-flutter {
+  0% { transform: rotate(5deg); }
+  35% { transform: rotate(-5deg); }
+  100% { transform: rotate(5deg); }
+}
+
+/* LECT house: the four strategy boards and the feed read as one tight sequence */
+.work[data-work="lect"] .work-main {
+  gap: 8px;
+}
+
+/* ---------------- LECT house : strategy boards ----------------
+   Latin glyphs in Pretendard, Hangul in Noto Sans KR, like the slides. */
+@font-face {
+  font-family: 'LectLatin';
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff2/Pretendard-Light.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+2010-205F, U+20AC;
+}
+@font-face {
+  font-family: 'LectLatin';
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff2/Pretendard-Regular.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+2010-205F, U+20AC;
+}
+@font-face {
+  font-family: 'LectLatin';
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff2/Pretendard-Medium.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+2010-205F, U+20AC;
+}
+@font-face {
+  font-family: 'LectLatin';
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff2/Pretendard-Bold.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+2010-205F, U+20AC;
+}
+
+/*
+   The four brand-strategy slides rebuilt on a 1920x1080 canvas: every
+   element keeps the slide's own pixel coordinates (--x/--y/--fs/... in
+   slide px) and --u turns one slide px into the board's current width,
+   so the board is the slide, just with live text instead of baked-in text. */
+.lect-slide {
+  container-type: inline-size;
+  position: relative;
+  aspect-ratio: 1920 / 1080;
+  overflow: hidden;
+  font-family: 'LectLatin', 'Noto Sans KR', 'Pretendard', -apple-system, sans-serif;
+}
+
+/* the four boards run on as one long black sheet */
+.lect-deck {
+  overflow: hidden;
+}
+
+.lect-slide > * {
+  --u: calc(100cqw / 1920);
+  position: absolute;
+  left: calc(var(--x, 0) * var(--u));
+  top: calc(var(--y, 0) * var(--u));
+  margin: 0;
+  white-space: nowrap;
+}
+
+.lect-slide .t {
+  display: block;
+  font-size: calc(var(--fs) * var(--u));
+  line-height: calc(var(--lh) * var(--u));
+  font-weight: var(--fw, 400);
+  letter-spacing: var(--ls, 0);
+  color: var(--c, #a8a8a8);
+}
+
+.lect-slide .center {
+  right: 0;
+  text-align: center;
+}
+
+.lect-slide .r-align {
+  left: auto;
+  right: calc(var(--rx) * var(--u));
+  text-align: right;
+}
+
+.lect-slide .g {
+  display: block;
+  width: calc(var(--w) * var(--u));
+  height: calc(var(--h) * var(--u));
+  max-width: none;
+}
+
+.lect-slide .rule {
+  width: calc(var(--w) * var(--u));
+  height: 1px;
+  background: #c9c9c9;
+}
+
+/* 02 Core Values icons: drawn as SVG, each with its own hover motion */
+.lect-icon {
+  overflow: visible;
+  cursor: default;
+}
+
+.lect-icon * {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* Frame: the outline redraws itself, the + turns and settles in white */
+.lect-icon--frame .li-box {
+  stroke-dasharray: 800;
+  stroke-dashoffset: 0;
+}
+.lect-icon--frame:hover .li-box {
+  animation: li-draw 1s cubic-bezier(.65, 0, .35, 1);
+}
+.lect-icon--frame .li-plus {
+  transition: transform .6s cubic-bezier(.34, 1.4, .64, 1), stroke .4s;
+}
+.lect-icon--frame:hover .li-plus {
+  transform: rotate(90deg) scale(1.8);
+  stroke: #111;
+}
+@keyframes li-draw {
+  0% { stroke-dashoffset: 800; }
+  100% { stroke-dashoffset: 0; }
+}
+
+/* Selective: the crowd drifts away while the chosen one pulses */
+.lect-icon--selective .li-dot {
+  transition: transform .9s cubic-bezier(.22, 1, .36, 1) var(--dl), opacity .9s;
+}
+.lect-icon--selective:hover .li-dot {
+  transform: translate(var(--dx), var(--dy));
+  opacity: .45;
+}
+.lect-icon--selective:hover .li-ring {
+  animation: li-pulse 1.4s ease-in-out infinite;
+}
+.lect-icon--selective .li-core {
+  transition: transform .5s cubic-bezier(.34, 1.56, .64, 1);
+}
+.lect-icon--selective:hover .li-core {
+  transform: scale(1.35);
+}
+@keyframes li-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: .5; }
+}
+
+/* Collective: the dots scatter, then gather back into the + */
+.lect-icon--collective:hover .li-dot {
+  animation: li-gather 1.3s cubic-bezier(.65, 0, .35, 1) var(--dl) both;
+}
+@keyframes li-gather {
+  0% { transform: none; }
+  40% { transform: translate(var(--dx), var(--dy)) scale(.6); opacity: .5; }
+  100% { transform: none; opacity: 1; }
+}
+
+/* Layered: the sheets fan out, then stack back when the cursor leaves */
+.lect-icon--layered .li-sq {
+  transition: transform .7s cubic-bezier(.22, 1, .36, 1);
+}
+.lect-icon--layered:hover .li-sq--1 { transform: translate(-14px, -14px); }
+.lect-icon--layered:hover .li-sq--3 { transform: translate(14px, 14px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .lect-icon *,
+  .lect-icon:hover * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* 01 Brand Story graphic: legere -> select -> collect */
+.lect-legere {
+  overflow: visible;
+}
+.lect-legere * {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.lg-crowd circle { fill: #5a5a5a; }
+.lg-ends circle { fill: #5a5a5a; }
+.lg-cross circle { fill: #111; }
+.lg-ring { fill: none; stroke: #111; stroke-width: 1.5; }
+.lg-pick { fill: #111; }
+.lg-plus { stroke: #111; stroke-width: 2; }
+.lg-dash { stroke: rgba(17, 17, 17, .75); stroke-width: 1; stroke-dasharray: 4 6; }
+.lg-lines path { fill: none; stroke: #b4b4b4; stroke-width: 1; stroke-dasharray: 1; stroke-dashoffset: 0; }
+
+/* we select: the crowd loosens and dims, the chosen one pulses */
+.lg-crowd circle {
+  transition: transform 1.1s cubic-bezier(.22, 1, .36, 1) var(--dl), opacity 1.1s;
+}
+.lect-legere:hover .lg-crowd circle {
+  transform: translate(var(--dx), var(--dy));
+  opacity: .4;
+}
+.lect-legere:hover .lg-ring { animation: li-pulse 1.4s ease-in-out infinite; }
+.lg-pick { transition: transform .5s cubic-bezier(.34, 1.56, .64, 1); }
+.lect-legere:hover .lg-pick { transform: scale(1.4); }
+
+/* the dotted paths run toward the + while hovered */
+.lect-legere:hover .lg-dash { animation: lg-flow .6s linear infinite; }
+@keyframes lg-flow { to { stroke-dashoffset: -10; } }
+
+.lg-plus { transition: transform .8s cubic-bezier(.34, 1.4, .64, 1); }
+.lect-legere:hover .lg-plus { transform: rotate(180deg); }
+
+/* you collect: each thread is drawn in from its dot, then the + lights up from the centre */
+.lect-legere:hover .lg-lines path {
+  animation: lg-draw .9s cubic-bezier(.65, 0, .35, 1) var(--dl) both;
+}
+@keyframes lg-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+.lect-legere:hover .lg-ends circle {
+  animation: lg-pop .5s cubic-bezier(.34, 1.56, .64, 1) var(--dl) both;
+}
+.lect-legere:hover .lg-cross circle {
+  animation: lg-pop .55s cubic-bezier(.34, 1.56, .64, 1) var(--dl) both;
+}
+@keyframes lg-pop {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.7); }
+  100% { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lect-legere *,
+  .lect-legere:hover * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* 03 Space building, drawn as SVG */
+.lect-building {
+  overflow: visible;
+}
+.lect-building * {
+  transform-box: fill-box;
+}
+.lb-lines path {
+  fill: none;
+  stroke: #111;
+  stroke-width: 1;
+}
+.lb-sign {
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  fill: #111;
+}
+.lb-num {
+  font-size: 27px;
+  font-weight: 500;
+  fill: #111;
+}
+.lb-sub {
+  font-size: 24px;
+  fill: #777;
+}
+.lb-lead {
+  stroke: #777;
+  stroke-width: 1.5;
+  stroke-dasharray: 3 4;
+}
+
+
+/* 04 Social Strategy: the live feed takes the place of the slide's feed preview */
+.lect-slide .lect-slide-feed {
+  width: calc(var(--w) * var(--u));
+  gap: calc(8 * var(--u));
+  white-space: normal;
+}
+
+/* 03 Space map, drawn as SVG and sitting on the building's ground line */
+.lect-map {
+  overflow: visible;
+}
+.lm-block {
+  fill: none;
+  stroke: #111;
+  stroke-opacity: .85;
+  stroke-width: 1.5;
+  stroke-linejoin: miter;
+}
+.lm-lead {
+  stroke-width: 1.5;
+}
+.lm-lead--lect { stroke: #111; }
+.lm-lead--dior { stroke: #888; }
+.lm-lect,
+.lm-station { fill: #111; }
+.lm-dior { fill: #9a9a9a; }
+.lm-label {
+  font-size: 21px;
+  fill: #777;
+}
+.lm-label--lect {
+  font-size: 24px;
+  font-weight: 700;
+  fill: #111;
+}
+
+/* cover: just the name, set like the +LECT logo */
+.lect-cover h2 {
+  font-weight: 300;
+  letter-spacing: 0.01em;
+}
+.lect-cover-mark {
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
+
+/* 04: the hint under the live feed */
+.lect-feed-hint span {
+  display: inline-block;
+  margin-left: 0.2em;
+}
+
+/* Social works: what was the About list now sits under the Role line */
+.work-role-list {
+  margin-top: 10px;
+}
+
+/* small footnote under an About text (e.g. image credits) */
+.work-about-note {
+  display: block;
+  margin-top: 14px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #777;
+}
+
+/* Korean About copy breaks between words, not inside them */
+html[lang="ko"] .work-about-text {
+  word-break: keep-all;
+}
+
+/* LECT house: IRL shoot collage, placed exactly as on the layout board
+   (coordinates in board px; the board is 892 x 2000) */
+.lect-irl {
+  container-type: inline-size;
+  position: relative;
+  aspect-ratio: var(--bw, 892) / var(--bh, 2000);
+}
+
+.lect-irl > * {
+  --u: calc(100cqw / var(--bw, 892));
+  position: absolute;
+  left: calc(var(--x) * var(--u));
+  top: calc(var(--y) * var(--u));
+  width: calc(var(--w) * var(--u));
+  height: auto;
+  display: block;
+  object-fit: cover;
+  background: #ddd;
+}
+
+/* Role block with a sub line and a short description under it */
+.work-role-sub {
+  display: block;
+  margin-top: 2px;
+  color: #555;
+}
+
+.work-role-text {
+  display: block;
+  margin-top: 14px;
+}
+
+/* ---------------- adidas Korea : project board ----------------
+   One long board drawn at 1920 wide: every size is in board px (--u is
+   one board px at the board's current width), so it scales as a whole
+   like the slides above it, but flows top to bottom like a page. */
+.ad-board {
+  container-type: inline-size;
+  --u: calc(100cqw / 1920);
+  font-family: 'LectLatin', 'Noto Sans KR', 'Pretendard', -apple-system, sans-serif;
+  color: #111;
+  word-break: keep-all;
+}
+
+.ad-board > * {
+  margin-left: calc(80 * var(--u));
+  margin-right: calc(80 * var(--u));
+}
+
+.ad-board p,
+.ad-board h3,
+.ad-board h4,
+.ad-board h5,
+.ad-board ul {
+  display: block;
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.ad-board ul { list-style: none; }
+
+.ad-head {
+  padding-top: calc(40 * var(--u));
+  padding-bottom: calc(14 * var(--u));
+  border-bottom: 1px solid #d6d6d6;
+  text-align: right;
+  font-size: calc(16 * var(--u));
+  color: #999;
+}
+
+.ad-sec { padding-top: calc(110 * var(--u)); }
+.ad-sec + .ad-sec { padding-top: calc(185 * var(--u)); }
+.ad-sec + .ad-sec + .ad-sec { padding-top: calc(245 * var(--u)); }
+.ad-sec--last { padding-bottom: calc(200 * var(--u)); }
+
+.ad-label {
+  font-size: calc(25 * var(--u)) !important;
+  letter-spacing: 0.04em;
+  color: #333;
+}
+
+.ad-title {
+  margin-top: calc(10 * var(--u)) !important;
+  font-size: calc(54 * var(--u)) !important;
+  line-height: 1.25 !important;
+  font-weight: 300;
+}
+
+.ad-lead {
+  margin-top: calc(30 * var(--u)) !important;
+  font-size: calc(25 * var(--u)) !important;
+  line-height: 1.75 !important;
+  color: #555;
+}
+
+.ad-num {
+  font-size: calc(16 * var(--u)) !important;
+  color: #999;
+}
+
+/* 01 scope: four columns of duties */
+.ad-scope {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: calc(40 * var(--u));
+  margin-top: calc(110 * var(--u));
+}
+
+.ad-col {
+  padding-top: calc(28 * var(--u));
+  border-top: calc(3 * var(--u)) solid #111;
+}
+
+.ad-col h4 {
+  margin-top: calc(6 * var(--u));
+  font-size: calc(31 * var(--u));
+  font-weight: 600;
+}
+
+.ad-col .ad-sub {
+  margin-top: calc(4 * var(--u));
+  font-size: calc(23 * var(--u));
+  color: #666;
+}
+
+.ad-col ul {
+  margin-top: calc(30 * var(--u));
+  border-top: 1px solid #ddd;
+}
+
+.ad-col li {
+  padding: calc(14 * var(--u)) 0;
+  border-bottom: 1px solid #ddd;
+  font-size: calc(20 * var(--u));
+  line-height: 1.4;
+  color: #222;
+}
+
+.ad-col li small { font-size: 0.85em; color: #555; }
+
+/* 02 workflow table */
+.ad-flow {
+  display: grid;
+  grid-template-columns: calc(200 * var(--u)) calc(220 * var(--u)) repeat(4, minmax(0, 1fr)) calc(220 * var(--u));
+  grid-template-rows: auto calc(190 * var(--u)) calc(190 * var(--u));
+  margin-top: calc(130 * var(--u));
+  font-size: calc(19 * var(--u));
+  line-height: 1.7;
+}
+
+.ad-flow > div { padding: calc(28 * var(--u)) calc(20 * var(--u)); color: #333; }
+.ad-c0 { grid-column: 1; } .ad-c1 { grid-column: 2; } .ad-c2 { grid-column: 3; } .ad-c3 { grid-column: 4; }
+.ad-c4 { grid-column: 5; } .ad-c5 { grid-column: 6; } .ad-c6 { grid-column: 7; }
+
+.ad-flow .ad-fh {
+  grid-row: 1;
+  padding-top: 0;
+  padding-bottom: calc(18 * var(--u));
+  font-size: calc(21 * var(--u));
+  font-weight: 600;
+  color: #111;
+}
+
+.ad-fh span { display: block; font-size: calc(15 * var(--u)); font-weight: 400; color: #999; }
+
+.ad-r1 { grid-row: 2; border-top: calc(3 * var(--u)) solid #111; border-bottom: 1px solid #ccc; }
+.ad-r2 { grid-row: 3; border-bottom: calc(3 * var(--u)) solid #111; }
+
+.ad-flow .ad-span {
+  grid-row: 2 / 4;
+  display: flex;
+  align-items: center;
+  border-top: calc(3 * var(--u)) solid #111;
+  border-bottom: calc(3 * var(--u)) solid #111;
+}
+
+.ad-flow .ad-c1.ad-span { border-left: 1px solid #ccc; border-right: 1px solid #ccc; }
+.ad-flow .ad-c6.ad-span { border-left: 1px solid #ccc; }
+
+.ad-row strong { display: block; font-size: calc(26 * var(--u)); font-weight: 700; color: #111; line-height: 1.3; }
+.ad-row small { display: block; font-size: calc(15 * var(--u)); color: #999; }
+
+/* 03 content T&M */
+.ad-tm {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: calc(80 * var(--u));
+  margin-top: calc(80 * var(--u));
+}
+
+.ad-cap {
+  margin-bottom: calc(26 * var(--u)) !important;
+  font-size: calc(19 * var(--u)) !important;
+  letter-spacing: 0.08em;
+  color: #888;
+}
+
+.ad-cap b { font-weight: 500; letter-spacing: 0.12em; }
+.ad-cap--split { display: flex !important; justify-content: space-between; }
+
+.ad-tones { display: grid; grid-template-columns: 1fr 1fr; gap: calc(20 * var(--u)); }
+
+.ad-tone {
+  position: relative;
+  height: calc(200 * var(--u));
+  padding: calc(28 * var(--u));
+  background: center / 100% 100% no-repeat;
+  color: #fff;
+}
+.ad-tone--sports { background-image: url(../../images/pm/adidas-board/tone-sports.webp?v=1); }
+.ad-tone--originals { background-image: url(../../images/pm/adidas-board/tone-originals.webp?v=1); }
+
+.ad-tone h5, .ad-rule h5 { font-size: calc(25 * var(--u)) !important; font-weight: 600; }
+.ad-tone p { margin-top: calc(18 * var(--u)) !important; font-size: calc(18 * var(--u)) !important; line-height: 1.6 !important; color: #bdbdbd; }
+
+.ad-note { margin-top: calc(22 * var(--u)) !important; font-size: calc(18 * var(--u)) !important; line-height: 1.6 !important; color: #666; }
+
+.ad-rules { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: calc(12 * var(--u)); }
+
+.ad-rule {
+  display: flex;
+  flex-direction: column;
+  padding: calc(24 * var(--u)) calc(22 * var(--u));
+  border: 1px solid #dcdcdc;
+  border-radius: calc(6 * var(--u));
+  background: #fff;
+}
+
+.ad-rule h5 { margin-top: calc(10 * var(--u)) !important; }
+.ad-rule p:not(.ad-num):not(.ad-arrow) { margin-top: calc(14 * var(--u)) !important; white-space: nowrap; font-size: calc(16 * var(--u)) !important; line-height: 1.6 !important; color: #666; }
+.ad-rule .ad-arrow {
+  margin-top: auto !important;
+  padding-top: calc(18 * var(--u));
+  border-top: 1px solid #e6e6e6;
+  font-size: calc(17 * var(--u)) !important;
+  font-weight: 600;
+}
+.ad-rule .ad-arrow { margin-top: calc(30 * var(--u)) !important; }
+
+/* 04 IRL */
+.ad-quote { margin-top: calc(70 * var(--u)) !important; font-size: calc(30 * var(--u)) !important; font-weight: 600; }
+.ad-quote + .ad-lead { margin-top: calc(24 * var(--u)) !important; }
+
+/* same breathing room as between the campaigns below */
+.ad-deck {
+  margin-bottom: 28px;
+}
+
+/* workflow: hovering any cell of a stage washes that column with a
+   clear-to-mint gradient, multiplied over the table */
+.ad-flow { position: relative; }
+.ad-flow .ad-hl {
+  grid-row: 2 / 4;
+  z-index: 1;
+  padding: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(195, 240, 239, 0) 0%, rgba(195, 240, 239, .12) 30%, rgba(195, 240, 239, .4) 62%, #c3f0ef 100%);
+  mix-blend-mode: multiply;
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+.ad-flow:has(.ad-c1:not(.ad-hl):hover) .ad-hl.ad-c1,
+.ad-flow:has(.ad-c2:not(.ad-hl):hover) .ad-hl.ad-c2,
+.ad-flow:has(.ad-c3:not(.ad-hl):hover) .ad-hl.ad-c3,
+.ad-flow:has(.ad-c4:not(.ad-hl):hover) .ad-hl.ad-c4,
+.ad-flow:has(.ad-c5:not(.ad-hl):hover) .ad-hl.ad-c5,
+.ad-flow:has(.ad-c6:not(.ad-hl):hover) .ad-hl.ad-c6 {
+  opacity: 1;
+}
+
+/* cover: the phones start dark and fade on, blue first, gold after */
+.ad-phone img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.ad-phone .ad-phone-on {
+  opacity: 0;
+  transition: opacity 1.4s cubic-bezier(.4, 0, .2, 1);
+}
+.ad-cover.is-on .ad-phone-on {
+  opacity: 1;
+}
+.ad-cover.is-on .ad-phone--gold .ad-phone-on {
+  transition-delay: .5s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ad-phone .ad-phone-on { transition: none; }
+}
+
+/* desktop: name and intro sit a little closer together */
+@media all and (min-width: 813px) {
+  .home-head {
+    gap: 20px;
+  }
+}
+
+/* A Warm Exposure: the teaser film placed in the board's frame
+   (board 1920 x 950, frame at 502,125 sized 1213 x 682) */
+.warm-teaser {
+  position: relative;
+  aspect-ratio: 1920 / 950;
+}
+
+.warm-teaser video {
+  position: absolute;
+  left: calc(502 / 1920 * 100%);
+  top: calc(125 / 950 * 100%);
+  width: calc(1213 / 1920 * 100%);
+  height: calc(682 / 950 * 100%);
+  object-fit: cover;
+  background: #372a28;
+}
+
+/* A Warm Exposure: hover a campaign photo to see the product in it (both crop to fill the box) */
+.lect-irl > .warm-swap {
+  overflow: hidden;
+  background: var(--bg, #eee);
+}
+
+.warm-swap img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity .4s ease;
+}
+
+.warm-swap .warm-swap-product {
+  opacity: 0;
+}
+
+.warm-swap:hover .warm-swap-product {
+  opacity: 1;
+}
+
+.warm-swap:hover img:not(.warm-swap-product) {
+  opacity: 0;
+}
+
+/* cut-out products (gloves, cardigans) sit whole on the page, no backdrop */
+.lect-irl > .warm-swap--cutout {
+  background: transparent;
+}
+
+.warm-swap--cutout .warm-swap-product {
+  object-fit: contain;
+  padding: 6%;
+  box-sizing: border-box;
+}
+
+/* A Warm Exposure: image numbers for the source credits, set at each
+   image's top-left like the home page's numbering: (1) at rest, {1} in the
+   italic serif while its image is hovered */
+.img-num {
+  display: block;
+  font-family: 'Pretendard', -apple-system, sans-serif;
+  font-size: 11px;
+  line-height: 1;
+  color: #555;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.img-num-hover {
+  display: none;
+  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  font-style: italic;
+  font-size: 1.15em;
+}
+
+.warm-teaser:hover .img-num-rest,
+.warm-swap:hover + .img-num .img-num-rest { display: none; }
+.warm-teaser:hover .img-num-hover,
+.warm-swap:hover + .img-num .img-num-hover { display: inline; }
+
+/* teaser: just above the film's top-left corner, inside the board */
+.warm-teaser { overflow: visible; }
+.warm-teaser .img-num {
+  position: absolute;
+  left: calc(502 / 1920 * 100%);
+  top: calc(125 / 950 * 100%);
+  transform: translateY(calc(-100% - 6px));
+}
+
+/* collage / shadow boxes: placed on the board's coordinates, just above the box */
+.lect-irl > .img-num {
+  width: auto;
+  background: none;
+  transform: translateY(calc(-100% - 6px));
+}
+
+/* image credits under a project, centred in the project column */
+.work-credits {
+  display: block;
+  margin-top: 40px;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.8;
+  color: #777;
+}
+
+.work-credits a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.work-credits a + a {
+  margin-left: 6px;
+}
+
+.work-credits a:hover {
+  color: #111;
+}
+
+/* ---------------- About overlay ----------------
+   Covers the whole home view while "About" is hovered (or pinned by a
+   click). Header nav, KR/EN and Contact sit above it, so the cursor can
+   stay on About and Contact keeps working. Laid out from the 1920 x 1080
+   board: intro top-left, cat under About, career + history bottom-left,
+   portrait strip bottom-right above Contact. */
+.about-pop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  /* see-through: the home view stays visible behind it, blurred */
+  background: rgba(237, 237, 237, 0.55);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  font-family: 'Pretendard', -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--c-text);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .25s ease, visibility 0s linear .25s;
+}
+
+body.about-open .about-pop {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .25s ease;
+}
+
+body.about-open .home-nav,
+body.about-open .home-contact {
+  position: relative;
+  z-index: 21;
+}
+
+.about-pop p,
+.about-pop h4,
+.about-pop ul {
+  display: block;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  list-style: none;
+}
+
+.ap-intro {
+  position: absolute;
+  top: 22px;
+  left: var(--gutter);
+  max-width: 500px;
+  word-break: keep-all;
+  text-wrap: pretty;                    /* no single word left alone on a paragraph's last line */
+}
+
+.ap-cat {
+  position: absolute;
+  top: 58px;
+  right: calc(var(--gutter) - 33px);    /* cat flush with the right margin (the gif has 33px of empty space on its right) */
+  width: 110px;
+  height: auto;
+}
+
+.ap-lists {
+  position: absolute;
+  left: var(--gutter);
+  bottom: 22px;                         /* last line level with the Contact line */
+}
+
+.ap-lists h4 { margin-bottom: 14px; }
+.ap-lists ul + h4 { margin-top: 36px; }
+
+.ap-lists li {
+  display: grid;
+  gap: 24px;
+}
+
+.ap-career li { grid-template-columns: 112px 1fr; }
+.ap-history li { grid-template-columns: 56px 1fr; }
+
+.ap-portrait {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 84px;
+  width: var(--index-w);
+  height: auto;
+}
+
+/* one size and colour for every line in the overlay (KR runs and roles included) */
+.about-pop .ko-small { font-size: inherit; }
+.about-pop .role { color: inherit; }
+
+/* ---- About overlay on phones: tap About to open, tap anywhere to close.
+   Intro, career and history run top to bottom; cat bottom-left and the
+   portrait strip bottom-right close the page. */
+@media all and (max-width: 812px) {
+  .about-pop {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+      "intro intro"
+      "lists lists"
+      "cat   portrait";
+    padding: 64px 16px 20px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  body.about-open .about-pop { pointer-events: auto; }
+  body.about-open .home-nav { position: absolute; }   /* stays in the top row above the overlay */
+  body.about-open .home-contact { visibility: hidden; }
+
+  .ap-intro,
+  .ap-cat,
+  .ap-lists,
+  .ap-portrait {
+    position: static;
+    max-width: none;
+  }
+  .ap-intro { grid-area: intro; }
+  .ap-lists { grid-area: lists; margin-top: 56px; }
+  .ap-cat {
+    grid-area: cat;
+    align-self: end;
+    width: 96px;
+    margin: 40px 0 0 -30px;               /* the gif's transparent left margin */
+  }
+  .ap-portrait {
+    grid-area: portrait;
+    align-self: end;
+    justify-self: end;
+    width: min(62%, 260px);
+    margin-top: 40px;
+  }
+  .ap-career li { grid-template-columns: 96px 1fr; gap: 16px; }
+  .ap-history li { grid-template-columns: 44px 1fr; gap: 16px; }
+}
+
+/* Work share: the percentage in grey */
+.work-share-pct { color: #999; }
+
+/* home: adidas object = the CAFE 3 STRIPES film in an iPhone mockup
+   with a Reels bar at the bottom (frame 772 x 1556, screen opening at
+   44,37 sized 684 x 1368, ending where the bar starts) */
+.obj-phone {
+  position: relative;
+}
+
+.obj-phone-screen,
+.obj-phone-frame {
+  position: absolute;
+  display: block;
+}
+
+.obj-phone-screen {
+  left: calc(44 / 772 * 100%);
+  top: calc(37 / 1556 * 100%);
+  width: calc(684 / 772 * 100%);
+  height: calc(1368 / 1556 * 100%);
+  object-fit: cover;
+  /* the screen's own shape, so the film follows the rounded corners and notch */
+  -webkit-mask: url(../../images/home/adidas-phone-mask.png?v=3) center / 100% 100% no-repeat;
+  mask: url(../../images/home/adidas-phone-mask.png?v=3) center / 100% 100% no-repeat;
+}
+
+.obj-phone-frame {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Reels icons (camera, right-hand column) laid over the film as given */
+.obj-phone-icon {
+  position: absolute;
+  display: block;
+  height: auto;
+}
+
+/* Métiers Seoul board: transparent board image, looping film in the photo spot */
+.metiers-seoul > img { background: none; }
+.metiers-seoul > video { background: #000; }
+
+/* the About label is hidden on every project but keeps its space, so the text below stays put */
+.work-about-label { visibility: hidden; }

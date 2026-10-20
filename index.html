@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="format-detection" content="telephone=no">
+<title>Na Hyeon Park</title>
+<meta name="author" content="Na Hyeon Park">
+<meta name="description" content="Na Hyeon Park — Designer / Project Manager portfolio.">
+<meta property="og:title" content="Na Hyeon Park">
+<meta property="og:description" content="Na Hyeon Park — Designer / Project Manager portfolio.">
+<meta property="og:url" content="https://2hinthetub.com">
+<meta property="og:site_name" content="Na Hyeon Park">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://2hinthetub.com">
+<link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="./assets/css/style.css?v=270" rel="stylesheet">
+</head>
+<body class="page0active" oncontextmenu="return false">
+
+<!-- Ranchu mascot — wanders the Ranchu project's detail view only (see
+     main.js / style.css). Fixed-positioned so it roams the whole viewport
+     regardless of page scroll, above the project images; hidden via CSS
+     everywhere else. Rigged from 5
+     separate illustrator layers rather than sprite frames, animated with
+     continuous CSS rotation (see style.css) rather than cycling static
+     poses. Tail AND both fins are nested inside .ranchu-body-group, not
+     siblings of it — the whole point of the recoil rig is that they move
+     WITH the body's own flex (composing on top of it through the DOM
+     tree), not just on a similar timer next to it; two independently-
+     rotating siblings would tear a visible gap open at the seam the
+     instant the body rotated on its own. Only the head stays outside the
+     group, as the stable end the rest of the body flexes away from. DOM
+     order back-to-front inside the group: tail under body under both
+     fins; head sits on top of all of it. main.js also toggles
+     .is-swimming on .ranchu-swimmer so the whole rig only animates while
+     actually moving, not forever. -->
+<div class="ranchu-swimmer" aria-hidden="true">
+  <div class="ranchu-body-group">
+    <img class="ranchu-part ranchu-tail" src="./images/fish/parts/tail.webp" alt="">
+    <img class="ranchu-part ranchu-body" src="./images/fish/parts/body.webp" alt="">
+    <img class="ranchu-part ranchu-fin-a" src="./images/fish/parts/fin-a.webp" alt="">
+    <img class="ranchu-part ranchu-fin-b" src="./images/fish/parts/fin-b.webp" alt="">
+  </div>
+  <img class="ranchu-part ranchu-head" src="./images/fish/parts/head.webp" alt="">
+</div>
+
+<!-------------------- page 0 (Home : project objects + index) -------------------->
+<main class="page0 home" data-cat="design">
+  <header class="home-head">
+    <p class="home-name">Na Hyeon Park</p>
+    <p class="home-intro">Designer &amp; project manager.<br>Based in Seoul, Korea.<br>This is her portfolio.</p>
+  </header>
+
+  <h1 class="home-mark" aria-hidden="true">Na Hyeon Park</h1>
+
+  <div class="home-field">
+    <button class="obj" type="button" data-cat="design" data-work="yogurt" style="--x:8.8%;--y:16.4%;--w:20%;--d:0.0s;">
+      <img class="obj-media" src="./images/home/yogurt.webp" alt="" draggable="false" style="aspect-ratio:636/882;">
+      <span class="obj-label"><span class="obj-num">{01}</span><span class="obj-name">You Need My Yogurt</span></span>
+    </button>
+    <button class="obj" type="button" data-cat="design" data-work="ranchu" style="--x:31.3%;--y:12.3%;--w:28%;--d:0.9s;">
+      <img class="obj-media" src="./images/home/ranchu.webp" alt="" draggable="false" style="aspect-ratio:4/3;">
+      <span class="obj-label"><span class="obj-num">{02}</span><span class="obj-name" data-i18n="title-ranchu">Ranchu</span></span>
+    </button>
+    <button class="obj" type="button" data-cat="design" data-work="peace" style="--x:63%;--y:20%;--w:19%;--d:1.8s;">
+      <img class="obj-media" src="./images/home/peace.webp" alt="" draggable="false" style="aspect-ratio:8/9;">
+      <span class="obj-label"><span class="obj-num">{03}</span><span class="obj-name">a PEACE of cake</span></span>
+    </button>
+    <button class="obj" type="button" data-cat="design" data-work="summer" style="--x:22%;--y:60.5%;--w:18%;--d:2.7s;">
+      <img class="obj-media" src="./images/home/summer.webp" alt="" draggable="false" style="aspect-ratio:687/777;">
+      <span class="obj-label"><span class="obj-num">{04}</span><span class="obj-name" data-i18n="title-summer">Summer Nostalgia</span></span>
+    </button>
+    <button class="obj" type="button" data-cat="design" data-work="warm" style="--x:53.2%;--y:54.8%;--w:28%;--d:3.6s;">
+      <img class="obj-media" src="./images/home/warm.webp" alt="" draggable="false" style="aspect-ratio:1162/831;">
+      <span class="obj-label"><span class="obj-num">{05}</span><span class="obj-name">A Warm Exposure</span></span>
+    </button>
+    <button class="obj" type="button" data-cat="social" data-work="adidas" style="--x:12%;--y:22%;--w:14%;--d:0.0s;">
+      <!-- the CAFE 3 STRIPES film playing inside an iPhone mockup; the film is
+           masked to the screen opening so it never shows past the rounded corners -->
+      <span class="obj-media obj-phone" style="aspect-ratio:772/1556;">
+        <video class="obj-phone-screen" src="./images/pm/cafe-3stripes/09.mp4" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <img class="obj-phone-frame" src="./images/home/adidas-phone.webp?v=7" alt="" draggable="false">
+      </span>
+      <span class="obj-label"><span class="obj-num">{01}</span><span class="obj-name">adidas Korea</span></span>
+    </button>
+    <button class="obj" type="button" data-cat="social" data-work="lect" style="--x:37%;--y:36%;--w:20%;--d:0.9s;">
+      <img class="obj-media" src="./images/home/lect.webp?v=3" alt="" draggable="false" style="aspect-ratio:900/1228;">
+      <span class="obj-label"><span class="obj-num">{02}</span><span class="obj-name">LECT house</span></span>
+    </button>
+    <button class="obj" type="button" data-cat="social" data-work="chanel" style="--x:58%;--y:30%;--w:27%;--d:1.8s;">
+      <img class="obj-media" src="./images/home/chanel-ticket.webp?v=1" alt="" draggable="false" style="aspect-ratio:907/577;">
+      <span class="obj-label"><span class="obj-num">{03}</span><span class="obj-name">A Day from New York to Seoul</span></span>
+    </button>
+  </div>
+
+  <p class="home-bio">From graphic design to planning and project management &mdash;<br>shaping ideas into thoughtful experiences.</p>
+
+  <!-- About: shown while the cursor is on "About" (click pins it). It covers the home view;
+       the header nav, KR/EN and Contact stay on top of it. -->
+  <aside class="about-pop" aria-label="About" aria-hidden="true">
+    <p class="ap-intro" data-i18n="about-intro">Hello, I&rsquo;m Na Hyeon Park.<br>I started in design and have grown into planning and project management. I love seeing an idea become a finished piece, and making it together with people along the way. Rather than staying within one field, I keep looking for ways to create better experiences.<br><br>To me, good design leaves a scene that stays with you: a memory held in an object, the warmth of a quiet moment, a small discovery. So before deciding what to show, I think about how it will be received.<br><br>All work is work with people. I draw energy and inspiration from those I work with, and carry it back into the work. Building relationships where good influence flows between brands, people, and those who make things together: that&rsquo;s why I keep doing design&nbsp;and&nbsp;planning.</p>
+    <img class="ap-cat" src="./images/about/cat.gif" width="500" height="334" alt="">
+    <div class="ap-lists">
+      <h4 data-i18n="h-career">Career</h4>
+      <ul class="ap-career">
+        <li><span class="ap-year">2024 - 2026</span><span class="ap-text" data-i18n="career-1">Project Manager, Brand Communication Team, ideaPLAB</span></li>
+        <li><span class="ap-year">2023 - 2024</span><span class="ap-text" data-i18n="career-2">Brand Manager, You Need My Yogurt</span></li>
+      </ul>
+      <h4 data-i18n="h-history">Project History</h4>
+      <ul class="ap-history">
+        <li><span class="ap-year">2026</span><span class="ap-text" data-i18n="ph-1">PLAB Social (Smore Market / LECT House), <span class="role">PM</span></span></li>
+        <li><span class="ap-year">&nbsp;</span><span class="ap-text" data-i18n="ph-2">House of Toy Story, <span class="role">PM</span></span></li>
+        <li><span class="ap-year">&nbsp;</span><span class="ap-text" data-i18n="ph-3">CHANEL M&eacute;tiers d&rsquo;Art Replica Show Engagement Journey, <span class="role">APM</span></span></li>
+        <li><span class="ap-year">2025</span><span class="ap-text" data-i18n="ph-4">Disney+ Jogak-dosi Breakers Pop-up, <span class="role">PM</span></span></li>
+        <li><span class="ap-year">&nbsp;</span><span class="ap-text" data-i18n="ph-5">Disney Run After Party, <span class="role">APM</span></span></li>
+        <li><span class="ap-year">&nbsp;</span><span class="ap-text" data-i18n="ph-6">Disney Mickey In Real Life Pop-up, <span class="role">PM</span></span></li>
+        <li><span class="ap-year">&nbsp;</span><span class="ap-text" data-i18n="ph-7">Disney ESR Project &times; Samsung Medical Center, <span class="role">PM</span></span></li>
+        <li><span class="ap-year">&nbsp;</span><span class="ap-text" data-i18n="ph-8">SSF(Samsung Fire) Dream Theater Pop-up, <span class="role">APM</span></span></li>
+        <li><span class="ap-year">2024</span><span class="ap-text" data-i18n="ph-9">Adidas Social, <span class="role">PM</span></span></li>
+      </ul>
+    </div>
+    <img class="ap-portrait" src="./images/about/portrait.webp?v=1" width="1000" height="478" alt="Na Hyeon Park, front, three-quarter, profile and back">
+  </aside>
+
+  <aside class="home-index">
+    <nav class="home-nav">
+      <button class="nav-link" type="button" data-view="page1">About</button>
+    </nav>
+    <div class="idx-groups">
+      <section class="idx-group" data-cat="design">
+        <h2><button class="idx-cat" type="button" data-cat="design"><span>Design</span><span class="idx-count">(05)</span></button></h2>
+        <div class="idx-list"><ul>
+          <li><button class="idx-item" type="button" data-work="yogurt"><span class="idx-name">You Need My Yogurt</span><span class="idx-sub">Branding Design</span></button></li>
+          <li><button class="idx-item" type="button" data-work="ranchu"><span class="idx-name" data-i18n="title-ranchu-idx">Ranchu</span><span class="idx-sub">Branding Design</span></button></li>
+          <li><button class="idx-item" type="button" data-work="peace"><span class="idx-name">a PEACE of cake</span><span class="idx-sub">Graphic Design</span></button></li>
+          <li><button class="idx-item" type="button" data-work="summer"><span class="idx-name" data-i18n="title-summer-idx">Summer Nostalgia</span><span class="idx-sub">Editorial Design</span></button></li>
+          <li><button class="idx-item" type="button" data-work="warm"><span class="idx-name">A Warm Exposure</span><span class="idx-sub">Brand Campaign</span></button></li>
+        </ul></div>
+      </section>
+      <section class="idx-group" data-cat="social">
+        <h2><button class="idx-cat" type="button" data-cat="social"><span>Social &amp; Project</span><span class="idx-count">(03)</span></button></h2>
+        <div class="idx-list"><ul>
+          <li><button class="idx-item" type="button" data-work="adidas"><span class="idx-name">adidas Korea</span><span class="idx-sub">Social Media Management</span></button></li>
+          <li><button class="idx-item" type="button" data-work="lect"><span class="idx-name">LECT house</span><span class="idx-sub">Social &middot; Branding</span></button></li>
+          <li><button class="idx-item" type="button" data-work="chanel"><span class="idx-name">A Day from New York to Seoul</span><span class="idx-sub">Engagement Journey Design</span></button></li>
+        </ul></div>
+      </section>
+    </div>
+    <div class="home-contact">
+      <span class="home-contact-label">Talk to her..</span>
+      <span class="card-trigger" role="button" tabindex="0">Contact</span>
+    </div>
+  </aside>
+</main>
+
+<!-------------------- page 1 (About) -------------------->
+<main class="page1">
+  <div class="contents">
+
+    <div class="information">
+      <p data-i18n="bio">Na Hyeon Park is a designer and project manager. Her work began in graphic design and has gradually expanded into planning and project management. She is interested in the process of shaping ideas into thoughtful experiences through collaboration and careful execution. <span class="card-trigger" role="button" tabindex="0">Contact her</span>.</p>
+    </div>
+
+    <div class="career">
+      <h4 data-i18n="h-career">Career</h4>
+      <ul>
+        <li><span><p>2024 - 2026</p></span><span><p data-i18n="career-1">Project Manager, Brand Communication Team, ideaPLAB</p></span></li>
+        <li><span><p>2023 - 2024</p></span><span><p data-i18n="career-2">Brand Manager, You Need My Yogurt</p></span></li>
+      </ul>
+
+      <h4 data-i18n="h-history">Project History</h4>
+      <div class="pm-list">
+        <ul>
+          <li><span><p>2026</p></span><span><p data-i18n="ph-1">PLAB Social (Smore Market / LECT House), <span class="role">PM</span></p></span></li>
+          <li><span>&nbsp;</span><span><p data-i18n="ph-2">House of Toy Story, <span class="role">PM</span></p></span></li>
+          <li><span>&nbsp;</span><span><p data-i18n="ph-3">CHANEL M&eacute;tiers d&rsquo;Art Replica Show Engagement Journey, <span class="role">APM</span></p></span></li>
+          <li><span><p>2025</p></span><span><p data-i18n="ph-4">Disney+ Jogak-dosi Breakers Pop-up, <span class="role">PM</span></p></span></li>
+          <li><span>&nbsp;</span><span><p data-i18n="ph-5">Disney Run After Party, <span class="role">APM</span></p></span></li>
+          <li><span>&nbsp;</span><span><p data-i18n="ph-6">Disney Mickey In Real Life Pop-up, <span class="role">PM</span></p></span></li>
+          <li><span>&nbsp;</span><span><p data-i18n="ph-7">Disney ESR Project &times; Samsung Medical Center, <span class="role">PM</span></p></span></li>
+          <li><span>&nbsp;</span><span><p data-i18n="ph-8">SSF(Samsung Fire) Dream Theater Pop-up, <span class="role">APM</span></p></span></li>
+          <li><span><p>2024</p></span><span><p data-i18n="ph-9">Adidas Social, <span class="role">PM</span></p></span></li>
+        </ul>
+      </div>
+
+      <div class="skills-row">
+        <div class="skills-side">
+          <div class="skills-software">
+            <h4 data-i18n="h-software">Softwares</h4>
+            <div class="software-icons">
+              <span class="software-icon" title="Illustrator" aria-label="Illustrator">
+                <img class="sw-base" src="./images/icons/software/ai-black.png" alt="">
+                <img class="sw-hover" src="./images/icons/software/ai-blue.png" alt="">
+              </span>
+              <span class="software-icon" title="Photoshop" aria-label="Photoshop">
+                <img class="sw-base" src="./images/icons/software/ps-black.png" alt="">
+                <img class="sw-hover" src="./images/icons/software/ps-blue.png" alt="">
+              </span>
+              <span class="software-icon" title="After Effects" aria-label="After Effects">
+                <img class="sw-base" src="./images/icons/software/ae-black.png" alt="">
+                <img class="sw-hover" src="./images/icons/software/ae-blue.png" alt="">
+              </span>
+              <span class="software-icon" title="InDesign" aria-label="InDesign">
+                <img class="sw-base" src="./images/icons/software/id-black.png" alt="">
+                <img class="sw-hover" src="./images/icons/software/id-blue.png" alt="">
+              </span>
+              <span class="software-icon" title="Claude" aria-label="Claude">
+                <img class="sw-base" src="./images/icons/software/claude-black.png" alt="">
+                <img class="sw-hover" src="./images/icons/software/claude-blue.png" alt="">
+              </span>
+              <span class="software-icon" title="Figma" aria-label="Figma">
+                <img class="sw-base" src="./images/icons/software/figma-black.png" alt="">
+                <img class="sw-hover" src="./images/icons/software/figma-blue.png" alt="">
+              </span>
+              <span class="software-icon" title="Rhino" aria-label="Rhino">
+                <img class="sw-base" src="./images/icons/software/rhino-black.png" alt="">
+                <img class="sw-hover" src="./images/icons/software/rhino-blue.png" alt="">
+              </span>
+            </div>
+          </div>
+
+          <div class="skills-certificate">
+            <h4 data-i18n="h-certificate">Certificate</h4>
+            <p data-i18n="cert-1">GTQ (Graphic Technology Qualification) Level 1</p>
+            <p data-i18n="cert-2">GTQi (Graphic Technology Qualification Illustrator) Level 1</p>
+          </div>
+        </div>
+
+        <div class="skills-main">
+          <h4 data-i18n="h-skills">Core Responsibilities</h4>
+          <ul class="skills">
+            <li>
+              <button type="button" class="skill-category">Graphic Design</button>
+              <div class="skill-reveal">
+                <div class="skill-tags" data-i18n="skill-cat-1">
+                  <span class="skill-tag">Brand Identity</span>
+                  <span class="skill-tag">Visual Direction</span>
+                  <span class="skill-tag">Graphic Design</span>
+                  <span class="skill-tag">Content Design</span>
+                </div>
+              </div>
+            </li>
+            <li>
+              <button type="button" class="skill-category">Marketing</button>
+              <div class="skill-reveal">
+                <div class="skill-tags" data-i18n="skill-cat-2">
+                  <span class="skill-tag">Social Media Management</span>
+                  <span class="skill-tag">Content Planning</span>
+                  <span class="skill-tag">Content Shooting &amp; Editing</span>
+                </div>
+              </div>
+            </li>
+            <li>
+              <button type="button" class="skill-category">Project Management</button>
+              <div class="skill-reveal">
+                <div class="skill-tags" data-i18n="skill-cat-3">
+                  <span class="skill-tag">Project Planning</span>
+                  <span class="skill-tag">Schedule &amp; Resource Management</span>
+                  <span class="skill-tag">Client Communication</span>
+                  <span class="skill-tag">Team Coordination</span>
+                  <span class="skill-tag">On-site Management</span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<!-------------------- page 2 (Work detail : Design / Social / Project) -------------------->
+<main class="page2">
+  <div class="contents">
+
+
+    <div class="work" data-work="yogurt">
+      <div class="work-side work-side--left">
+        <div class="work-about">
+          <span class="work-about-label">About</span>
+          <p class="work-about-text" data-i18n="work-about-1">The brand&rsquo;s signature yogurt plate and various elements of the space were expanded into graphics, building a brand identity distinct from existing yogurt brands.
+
+Centered on Greek yogurt and the brand&rsquo;s signature white &amp; blue, the work covers graphic design and content planning that visualize You Need My Yogurt&rsquo;s own antique, warm mood.</p>
+        </div>
+        <div class="work-meta">
+          <div class="work-meta-item">
+            <span class="work-meta-label">Role</span>
+            <span class="work-meta-value" data-i18n="work-role-1"><strong class="work-meta-strong">Brand Manager</strong><br>Graphic Design<br>Content Design</span>
+          </div>
+          <div class="work-meta-item">
+            <span class="work-meta-label">Work</span>
+            <span class="work-meta-value">100%</span>
+          </div>
+        </div>
+        <div class="work-meta-item">
+          <span class="work-meta-label">Tool</span>
+          <span class="work-meta-value">Illustrator / Photoshop</span>
+        </div>
+      </div>
+
+      <div class="work-main">
+        <div class="work-hero">
+          <figure class="work-figure"><img src="./images/design/yogurt/01.webp?v=2" width="1918" height="1080" alt="You Need My Yogurt window poster"></figure>
+          <div class="work-bigtitle"><span>You Need My Yogurt</span></div>
+        </div>
+        <figure class="work-figure"><img src="./images/design/yogurt/02.webp?v=2" width="1918" height="1080" loading="lazy" alt="You Need My Yogurt tote bags and logo"></figure>
+        <figure class="work-figure"><img src="./images/design/yogurt/03.webp?v=2" width="1918" height="1080" loading="lazy" alt="You Need My Yogurt poster on linen"></figure>
+        <figure class="work-figure"><img src="./images/design/yogurt/04.webp?v=21" width="1920" height="1416" loading="lazy" alt="You Need My Yogurt plate menu poster, white and navy colorways"></figure>
+        <figure class="work-figure"><img src="./images/design/yogurt/05.webp?v=6" width="1827" height="2000" loading="lazy" alt="You Need My Yogurt poster series mockup with jar and blueberries"></figure>
+        <div class="campaign-track plate-track" data-roll="continuous">
+          <div class="campaign-slot plate-slot"><img src="./images/design/yogurt/plates/01.webp" width="1024" height="1024" loading="lazy" alt="Yogurt plate menu: egg &amp; bacon crumble"><img class="plate-hover" src="./images/design/yogurt/plates/hover/01.webp?v=3" alt="" aria-hidden="true" loading="lazy"></div>
+          <div class="campaign-slot plate-slot"><img src="./images/design/yogurt/plates/02.webp" width="1024" height="1024" loading="lazy" alt="Yogurt plate menu: grapefruit br&ucirc;l&eacute;e"><img class="plate-hover" src="./images/design/yogurt/plates/hover/02.webp?v=3" alt="" aria-hidden="true" loading="lazy"></div>
+          <div class="campaign-slot plate-slot"><img src="./images/design/yogurt/plates/03.webp" width="1024" height="1024" loading="lazy" alt="Yogurt plate menu: cherry &amp; grana padano cheese"><img class="plate-hover" src="./images/design/yogurt/plates/hover/03.webp?v=3" alt="" aria-hidden="true" loading="lazy"></div>
+          <div class="campaign-slot plate-slot"><img src="./images/design/yogurt/plates/04.webp" width="1024" height="1024" loading="lazy" alt="Yogurt plate menu: banana br&ucirc;l&eacute;e"><img class="plate-hover" src="./images/design/yogurt/plates/hover/04.webp?v=3" alt="" aria-hidden="true" loading="lazy"></div>
+          <div class="campaign-slot plate-slot"><img src="./images/design/yogurt/plates/05.webp" width="1024" height="1024" loading="lazy" alt="Yogurt plate menu: cucumber &amp; tortilla chips"><img class="plate-hover" src="./images/design/yogurt/plates/hover/05.webp?v=3" alt="" aria-hidden="true" loading="lazy"></div>
+          <div class="campaign-slot plate-slot"><img src="./images/design/yogurt/plates/06.webp" width="1024" height="1024" loading="lazy" alt="Yogurt plate menu: mix grapes &amp; peanut butter"><img class="plate-hover" src="./images/design/yogurt/plates/hover/06.webp?v=3" alt="" aria-hidden="true" loading="lazy"></div>
+          <div class="campaign-slot plate-slot"><img src="./images/design/yogurt/plates/07.webp" width="1024" height="1024" loading="lazy" alt="Yogurt plate menu: gorgonzola cheese &amp; peach"><img class="plate-hover" src="./images/design/yogurt/plates/hover/07.webp?v=3" alt="" aria-hidden="true" loading="lazy"></div>
+          <div class="campaign-slot plate-slot"><img src="./images/design/yogurt/plates/08.webp" width="1024" height="1024" loading="lazy" alt="Yogurt plate menu: caprese &amp; celery"><img class="plate-hover" src="./images/design/yogurt/plates/hover/08.webp?v=3" alt="" aria-hidden="true" loading="lazy"></div>
+          <div class="campaign-slot plate-slot"><img src="./images/design/yogurt/plates/09.webp" width="1024" height="1024" loading="lazy" alt="Yogurt plate menu: granola honeycomb"><img class="plate-hover" src="./images/design/yogurt/plates/hover/09.webp?v=3" alt="" aria-hidden="true" loading="lazy"></div>
+          <div class="campaign-slot plate-slot"><img src="./images/design/yogurt/plates/10.webp" width="1024" height="1024" loading="lazy" alt="Yogurt plate menu: truffle avocado"><img class="plate-hover" src="./images/design/yogurt/plates/hover/10.webp?v=3" alt="" aria-hidden="true" loading="lazy"></div>
+        </div>
+        <figure class="work-figure"><img src="./images/design/yogurt/09.webp?v=24" width="1872" height="2000" loading="lazy" alt="You Need My Yogurt jar labels"></figure>
+        <figure class="work-figure"><img src="./images/design/yogurt/10.webp?v=24" width="1920" height="874" loading="lazy" alt="You Need My Yogurt postcards"></figure>
+        <figure class="work-figure"><img src="./images/design/yogurt/07.webp?v=24" width="1920" height="904" loading="lazy" alt="You Need My Yogurt menu board"></figure>
+        <figure class="work-figure"><img src="./images/design/yogurt/08.webp?v=21" width="1920" height="1080" loading="lazy" alt="You Need My Yogurt mobile menu screens"></figure>
+        <div class="ig-story" data-duration="4000">
+          <div class="ig-story-stage">
+          <div class="ig-story-frame">
+            <img class="ig-story-slide is-active" src="./images/design/yogurt/story/01.webp" width="1071" height="2000" alt="Instagram story: Yogurt plate poster mockup on linen">
+            <img class="ig-story-slide" src="./images/design/yogurt/story/02.webp" width="1071" height="2000" alt="Instagram story: Yogurt plate Apple poster on glass door">
+            <img class="ig-story-slide" src="./images/design/yogurt/story/03.webp" width="1071" height="2000" alt="Instagram story: frozen yogurt machine">
+            <img class="ig-story-slide" src="./images/design/yogurt/story/04.webp" width="1071" height="2000" alt="Instagram story: summer pop-up with match">
+            <img class="ig-story-slide" src="./images/design/yogurt/story/05.webp" width="1071" height="2000" alt="Instagram story: new plate lineup">
+            <img class="ig-story-slide" src="./images/design/yogurt/story/06.webp" width="1071" height="2000" alt="Instagram story: yogurt bagel">
+            <img class="ig-story-slide" src="./images/design/yogurt/story/07.webp" width="1071" height="2000" alt="Instagram story: you need my yogurt close-up">
+            <img class="ig-story-slide" src="./images/design/yogurt/story/08.webp" width="1071" height="2000" alt="Instagram story: we are open">
+            <img class="ig-story-slide" src="./images/design/yogurt/story/09.webp" width="1071" height="2000" alt="Instagram story: granola bowl with book">
+            <img class="ig-story-slide" src="./images/design/yogurt/story/10.webp" width="1071" height="2000" alt="Instagram story: cucumber yogurt plate">
+            <div class="ig-story-bars">
+              <span class="ig-story-bar"><span class="ig-story-bar-fill"></span></span>
+              <span class="ig-story-bar"><span class="ig-story-bar-fill"></span></span>
+              <span class="ig-story-bar"><span class="ig-story-bar-fill"></span></span>
+              <span class="ig-story-bar"><span class="ig-story-bar-fill"></span></span>
+              <span class="ig-story-bar"><span class="ig-story-bar-fill"></span></span>
+              <span class="ig-story-bar"><span class="ig-story-bar-fill"></span></span>
+              <span class="ig-story-bar"><span class="ig-story-bar-fill"></span></span>
+              <span class="ig-story-bar"><span class="ig-story-bar-fill"></span></span>
+              <span class="ig-story-bar"><span class="ig-story-bar-fill"></span></span>
+              <span class="ig-story-bar"><span class="ig-story-bar-fill"></span></span>
+            </div>
+            <button type="button" class="ig-story-tap ig-story-tap--prev" aria-label="Previous story"></button>
+            <button type="button" class="ig-story-tap ig-story-tap--next" aria-label="Next story"></button>
+          </div>
+          </div>
+          <div class="ig-story-grid" hidden>
+            <img src="./images/design/yogurt/story/01.webp" data-index="0" alt="">
+            <img src="./images/design/yogurt/story/02.webp" data-index="1" alt="">
+            <img src="./images/design/yogurt/story/03.webp" data-index="2" alt="">
+            <img src="./images/design/yogurt/story/04.webp" data-index="3" alt="">
+            <img src="./images/design/yogurt/story/05.webp" data-index="4" alt="">
+            <img src="./images/design/yogurt/story/06.webp" data-index="5" alt="">
+            <img src="./images/design/yogurt/story/07.webp" data-index="6" alt="">
+            <img src="./images/design/yogurt/story/08.webp" data-index="7" alt="">
+            <img src="./images/design/yogurt/story/09.webp" data-index="8" alt="">
+            <img src="./images/design/yogurt/story/10.webp" data-index="9" alt="">
+          </div>
+          <button type="button" class="ig-story-toggle" data-i18n="ig-story-viewall">View all</button>
+        </div>
+      </div>
+
+      <div class="work-side work-side--right">
+        <div class="work-progress"></div>
+      </div>
+    </div>
+
+    <div class="work" data-work="ranchu">
+      <!-- fish food, pinned to the bottom-left corner of the screen while Ranchu is open: each click tosses one pellet out for the wandering ranchu (main.js) -->
+      <button class="fish-food-jar" type="button" aria-label="Feed the ranchu" title="Feed the ranchu">
+        <img src="./images/design/ranchu/feed/jar.webp" width="170" height="240" alt="" draggable="false">
+      </button>
+      <div class="work-side work-side--left">
+        <div class="work-about">
+          <span class="work-about-label">About</span>
+          <p class="work-about-text" data-i18n="work-desc-2">Unlike the phrase &lsquo;losing your galpi,&rsquo; meaning to lose your bearings, I found in the swimming ranchu an image of finding your galpi.
+Carrying the process of finding your galpi and the meaning of good luck in the ranchu&rsquo;s movement, I created a brand that discovers small luck between the pages of a book.
+
+I designed the brand identity, including the logo, color and typography system, and a physical bookmark product.</p>
+        </div>
+        <div class="work-meta">
+          <div class="work-meta-item">
+            <span class="work-meta-label">Role</span>
+            <span class="work-meta-value" data-i18n="work-cat-2">BI Design<br>Product Design</span>
+          </div>
+          <div class="work-meta-item">
+            <span class="work-meta-label">Work</span>
+            <span class="work-meta-value" data-i18n="share-personal">Personal Work <span class="work-share-pct">100%</span></span>
+          </div>
+        </div>
+        <div class="work-meta-item">
+          <span class="work-meta-label">Tool</span>
+          <span class="work-meta-value">Illustrator / Photoshop</span>
+        </div>
+      </div>
+
+      <div class="work-main">
+        <div class="work-hero">
+          <figure class="work-figure"><img src="./images/design/ranchu/01.webp?v=6" width="1921" height="1081" alt="Ranchu bookmarks and clover on a book"></figure>
+          <div class="work-bigtitle"><span>Ranchu</span></div>
+        </div>
+        <figure class="work-figure"><img src="./images/design/ranchu/02.webp?v=4" width="1918" height="1078" loading="lazy" alt="Ranchu logotype construction"></figure>
+        <figure class="work-figure"><img src="./images/design/ranchu/03.webp?v=4" width="1918" height="874" loading="lazy" alt="Ranchu color palette"></figure>
+        <figure class="work-figure"><img src="./images/design/ranchu/04.webp?v=4" width="1920" height="874" loading="lazy" alt="Ranchu visual motif"></figure>
+        <figure class="work-figure"><img src="./images/design/ranchu/05.webp?v=4" width="1920" height="874" loading="lazy" alt="Ranchu typography"></figure>
+        <figure class="work-figure"><img src="./images/design/ranchu/06.webp?v=9" width="1920" height="874" loading="lazy" alt="Ranchu symbol"></figure>
+        <figure class="work-figure"><img src="./images/design/ranchu/07.webp?v=16" width="1922" height="876" loading="lazy" alt="Ranchu business cards"></figure>
+        <figure class="work-figure"><img src="./images/design/ranchu/08.webp?v=16" width="1922" height="1080" loading="lazy" alt="Ranchu bookmark packaging"></figure>
+        <figure class="work-figure"><img src="./images/design/ranchu/09.jpg?v=13" width="1922" height="1080" loading="lazy" alt="Ranchu bookmark product"></figure>
+        <figure class="work-figure work-figure--stack work-figure--stack-first"><img src="./images/design/ranchu/10.png?v=11" width="1752" height="2000" loading="lazy" alt="Ranchu bookmark product shots"></figure>
+        <figure class="work-figure work-figure--stack"><img src="./images/design/ranchu/11.png?v=11" width="1752" height="2000" loading="lazy" alt="Ranchu bookmark on a book"></figure>
+        <figure class="work-figure work-figure--stack"><img src="./images/design/ranchu/12.png?v=11" width="1752" height="2000" loading="lazy" alt="Ranchu bookmark being used"></figure>
+        <figure class="work-figure work-figure--stack"><img src="./images/design/ranchu/13.png?v=11" width="1920" height="1520" loading="lazy" alt="Ranchu bookmark in a book"></figure>
+      </div>
+
+      <div class="work-side work-side--right">
+        <div class="work-progress"></div>
+      </div>
+    </div>
+
+    <div class="work" data-work="peace">
+      <div class="work-side work-side--left">
+        <div class="work-about">
+          <span class="work-about-label">About</span>
+          <p class="work-about-text" data-i18n="work-desc-3">The name a PEACE of cake comes from the phrase &ldquo;a piece of cake,&rdquo; which means something very easy.
+
+To make bringing peace to the mind as effortless as a piece of cake, it offers a variety of ways to find inner peace, and captures the small everyday moments of letting your mind rest in illustrated cards.</p>
+        </div>
+        <div class="work-meta">
+          <div class="work-meta-item">
+            <span class="work-meta-label">Role</span>
+            <span class="work-meta-value" data-i18n="work-cat-3">Graphic Design</span>
+          </div>
+          <div class="work-meta-item">
+            <span class="work-meta-label">Work</span>
+            <span class="work-meta-value" data-i18n="share-personal">Personal Work <span class="work-share-pct">100%</span></span>
+          </div>
+        </div>
+        <div class="work-meta-item">
+          <span class="work-meta-label">Tool</span>
+          <span class="work-meta-value">Midjourney / Illustrator / Photoshop</span>
+        </div>
+      </div>
+
+      <div class="work-main">
+        <div class="work-hero">
+          <figure class="work-figure work-figure--video">
+            <!-- transparent animation: HEVC-with-alpha for Safari, VP9-with-alpha for everything else -->
+            <video autoplay muted loop playsinline preload="auto" aria-label="a PEACE of cake animated cake slice">
+              <source src="./images/design/peace/cake.mov" type='video/mp4; codecs="hvc1"'>
+              <source src="./images/design/peace/cake.webm" type="video/webm">
+            </video>
+          </figure>
+          <div class="work-bigtitle work-bigtitle--mixed-case"><span>a PEACE of cake</span></div>
+        </div>
+        <figure class="work-figure"><img src="./images/design/peace/02.webp?v=2" width="1486" height="2000" loading="lazy" alt="a PEACE of cake cards and logotype"></figure>
+        <figure class="work-figure"><img src="./images/design/peace/03.webp?v=3" width="1498" height="2000" loading="lazy" alt="a PEACE of cake how-to and tip"></figure>
+        <figure class="work-figure"><img src="./images/design/peace/04.webp?v=3" width="1455" height="2000" loading="lazy" alt="a PEACE of cake kit card set"></figure>
+        <div class="card-draw" data-card-draw>
+          <div class="card-draw-stage">
+            <button class="card-deck" type="button" aria-label="Draw a card">
+              <img class="card-face" src="./images/design/peace/cards/back.webp?v=3" width="600" height="1050" alt="a PEACE of cake card back" draggable="false">
+            </button>
+            <div class="card-slot" aria-live="polite"></div>
+          </div>
+          <p class="card-draw-hint" data-i18n="card-draw-hint">Click the card to draw one</p>
+        </div>
+        <figure class="work-figure"><img src="./images/design/peace/05.webp?v=1" width="1920" height="1080" loading="lazy" alt="a PEACE of cake tin cases"></figure>
+      </div>
+
+      <div class="work-side work-side--right">
+        <div class="work-progress"></div>
+      </div>
+    </div>
+
+    <div class="work" data-work="summer">
+      <div class="work-side work-side--left">
+        <div class="work-about">
+          <span class="work-about-label">About</span>
+          <p class="work-about-text" data-i18n="work-desc-4">Carrying a sense of Summer Nostalgia, this project brings together an editorial book that weaves someone&rsquo;s past summers into short writing and illustration, a disposable film camera for capturing the summer of now, and a sticker sheet that gathers the fragments of summer.
+
+The photographs in the book were generated with Midjourney as summer scenes that look shot on an old digital camera, so that, within memories that could belong to anyone, each reader is led to recall a summer of their own.</p>
+          <p class="work-about-note">*All photorealistic images were generated with Midjourney.</p>
+        </div>
+        <div class="work-meta">
+          <div class="work-meta-item">
+            <span class="work-meta-label">Role</span>
+            <span class="work-meta-value" data-i18n="work-cat-4">Graphic Design<br>Editorial Design</span>
+          </div>
+          <div class="work-meta-item">
+            <span class="work-meta-label">Work</span>
+            <span class="work-meta-value" data-i18n="share-personal">Personal Work <span class="work-share-pct">100%</span></span>
+          </div>
+        </div>
+        <div class="work-meta-item">
+          <span class="work-meta-label">Tool</span>
+          <span class="work-meta-value">Midjourney / Illustrator / Photoshop</span>
+        </div>
+      </div>
+
+      <div class="work-main">
+        <div class="work-hero">
+          <figure class="work-figure"><img src="./images/design/summer/01.webp?v=5" width="1722" height="2000" alt="Summer Nostalgia book among others on a shelf"></figure>
+          <div class="work-bigtitle"><span>Summer Nostalgia</span></div>
+        </div>
+        <figure class="work-figure"><img src="./images/design/summer/02.webp?v=3" width="1920" height="1080" loading="lazy" alt="Summer Nostalgia book in everyday scenes"></figure>
+        <figure class="work-figure"><img src="./images/design/summer/03.webp?v=4" width="1191" height="2000" loading="lazy" alt="Summer Nostalgia editorial book spreads"></figure>
+        <figure class="work-figure"><img src="./images/design/summer/04.webp?v=3" width="1920" height="1080" loading="lazy" alt="Summer Nostalgia Instagram carousel graphics"></figure>
+        <figure class="work-figure"><img src="./images/design/summer/05.webp?v=6" width="1920" height="1427" loading="lazy" alt="Summer Nostalgia disposable camera and sticker sheet"></figure>
+      </div>
+
+      <div class="work-side work-side--right">
+        <div class="work-progress"></div>
+      </div>
+    </div>
+
+    <div class="work" data-work="warm">
+      <div class="work-side work-side--left">
+        <div class="work-about">
+          <span class="work-about-label">About</span>
+          <p class="work-about-text" data-i18n="work-desc-5">A personal project imagining Project No.51, the winter season campaign for AMOMENTO&rsquo;s 26FW &amp; Cashmere Collection.
+
+From the campaign concept to editorial key visuals, a teaser film and social content, I planned and produced brand content carried through in a single tone.</p>
+          <p class="work-about-note">Unofficial Proposal / Product images &copy;AMOMENTO<br><br>*All photorealistic images were generated with Midjourney.</p>
+        </div>
+        <div class="work-meta">
+          <div class="work-meta-item">
+            <span class="work-meta-label">Role</span>
+            <span class="work-meta-value" data-i18n="work-cat-5">Brand Campaign Planning<br>Visual Direction<br>Content Planning &amp; Design</span>
+          </div>
+          <div class="work-meta-item">
+            <span class="work-meta-label">Work</span>
+            <span class="work-meta-value" data-i18n="share-personal">Personal Work <span class="work-share-pct">100%</span></span>
+          </div>
+        </div>
+        <div class="work-meta-item">
+          <span class="work-meta-label">Tool</span>
+          <span class="work-meta-value">Midjourney / Illustrator / Photoshop<br>Premiere Pro</span>
+        </div>
+      </div>
+
+      <div class="work-main">
+        <div class="work-hero">
+          <figure class="work-figure"><img src="./images/design/warm/b1.webp?v=2" width="1920" height="1561" alt="A Warm Exposure key visual: a studio window, with the campaign introduction"></figure>
+          <div class="work-bigtitle"><span>A Warm Exposure</span></div>
+        </div>
+        <!-- the teaser film sits in the board's dark frame (1920 x 950 board, frame at 502,125 / 1213 x 682);
+             it plays with sound, so it never autoplays: the visitor starts it from the controls -->
+        <figure class="work-figure warm-teaser">
+          <span class="img-num" aria-hidden="true"><span class="img-num-rest">(1)</span><span class="img-num-hover">{1}</span></span>
+          <video controls playsinline preload="metadata" poster="./images/design/warm/film-poster.jpg?v=2" aria-label="A Warm Exposure teaser film">
+            <source src="./images/design/warm/film.mp4?v=2" type="video/mp4">
+          </video>
+        </figure>
+        <!-- campaign photographs laid out like the 799 x 2000 board; hovering one shows the product it features -->
+        <div class="lect-irl" style="--bw:799;--bh:2000">
+          <span class="warm-swap warm-swap--cutout" style="--x:76;--y:83;--w:242;aspect-ratio:242/302"><img src="./images/design/warm/c1.webp?v=1" loading="lazy" alt="Knit gloves on a wooden desk by the window"><img class="warm-swap-product" src="./images/design/warm/p1.webp?v=2" loading="lazy" alt="Product: Brown knit gloves"></span>
+          <span class="img-num" style="--x:76;--y:83" aria-hidden="true"><span class="img-num-rest">(2)</span><span class="img-num-hover">{2}</span></span>
+          <span class="warm-swap" style="--x:493;--y:381;--w:248;aspect-ratio:248/309;--bg:#e2e2e4"><img src="./images/design/warm/c2.webp?v=1" loading="lazy" alt="Model seated in a brown cardigan before a studio backdrop"><img class="warm-swap-product" src="./images/design/warm/p2.webp?v=1" loading="lazy" alt="Product: Brown cropped cardigan and skirt"></span>
+          <span class="img-num" style="--x:493;--y:381" aria-hidden="true"><span class="img-num-rest">(3)</span><span class="img-num-hover">{3}</span></span>
+          <span class="warm-swap" style="--x:50;--y:723;--w:245;aspect-ratio:245/305;--bg:#dedee0"><img src="./images/design/warm/c3.webp?v=1" loading="lazy" alt="Large-format camera with a model in red behind it"><img class="warm-swap-product" src="./images/design/warm/p3.webp?v=1" loading="lazy" alt="Product: Red cardigan and brown trousers"></span>
+          <span class="img-num" style="--x:50;--y:723" aria-hidden="true"><span class="img-num-rest">(4)</span><span class="img-num-hover">{4}</span></span>
+          <span class="warm-swap" style="--x:304;--y:854;--w:245;aspect-ratio:245/305;--bg:#dedee0"><img src="./images/design/warm/c4.webp?v=1" loading="lazy" alt="Camera facing a model in a cream vest"><img class="warm-swap-product" src="./images/design/warm/p4.webp?v=1" loading="lazy" alt="Product: Striped vest with white shirt and denim"></span>
+          <span class="img-num" style="--x:304;--y:854" aria-hidden="true"><span class="img-num-rest">(5)</span><span class="img-num-hover">{5}</span></span>
+          <span class="warm-swap" style="--x:488;--y:1245;--w:245;aspect-ratio:245/327;--bg:#dfdfe1"><img src="./images/design/warm/c5.webp?v=1" loading="lazy" alt="Model in a black blouse with a white bow and leather bag"><img class="warm-swap-product" src="./images/design/warm/p5.webp?v=1" loading="lazy" alt="Product: Black blouse with white bow"></span>
+          <span class="img-num" style="--x:488;--y:1245" aria-hidden="true"><span class="img-num-rest">(6)</span><span class="img-num-hover">{6}</span></span>
+          <span class="warm-swap" style="--x:90;--y:1586;--w:249;aspect-ratio:249/336;--bg:#dbdbdd"><img src="./images/design/warm/c6.webp?v=1" loading="lazy" alt="Model standing before a frosted studio window"><img class="warm-swap-product" src="./images/design/warm/p6.webp?v=1" loading="lazy" alt="Product: Navy V-neck sweater and olive trousers"></span>
+          <span class="img-num" style="--x:90;--y:1586" aria-hidden="true"><span class="img-num-rest">(7)</span><span class="img-num-hover">{7}</span></span>
+        </div>
+        <figure class="work-figure"><img src="./images/design/warm/b3.webp?v=2" width="1920" height="1080" loading="lazy" alt="Five campaign prints in one frame: Arrival, Waiting, Hold Still, Stay warm, Kept"></figure>
+        <!-- knitwear shadow boxes laid out like the 1920 x 1796 board; hovering one shows the cardigan itself -->
+        <div class="lect-irl" style="--bw:1920;--bh:1796">
+          <span class="warm-swap warm-swap--cutout" style="--x:277;--y:154;--w:637;aspect-ratio:637/796"><img src="./images/design/warm/d1.webp?v=1" loading="lazy" alt="Brown mohair cardigan in a black shadow-box frame"><img class="warm-swap-product" src="./images/design/warm/q1.webp?v=1" loading="lazy" alt="Product: Brown mohair cardigan"></span>
+          <span class="img-num" style="--x:277;--y:154" aria-hidden="true"><span class="img-num-rest">(8)</span><span class="img-num-hover">{8}</span></span>
+          <span class="warm-swap warm-swap--cutout" style="--x:1147;--y:878;--w:637;aspect-ratio:637/797"><img src="./images/design/warm/d2.webp?v=1" loading="lazy" alt="Charcoal cashmere cardigan in a wooden shadow-box frame"><img class="warm-swap-product" src="./images/design/warm/q2.webp?v=1" loading="lazy" alt="Product: Charcoal cashmere cardigan"></span>
+          <span class="img-num" style="--x:1147;--y:878" aria-hidden="true"><span class="img-num-rest">(9)</span><span class="img-num-hover">{9}</span></span>
+        </div>
+        <figure class="work-figure"><img src="./images/design/warm/b4.webp?v=2" width="1920" height="1080" loading="lazy" alt="A Warm Exposure Instagram carousel graphics"></figure>
+        <figure class="work-figure"><img src="./images/design/warm/b5.webp?v=3" width="1770" height="2000" loading="lazy" alt="26 FW collection group portrait in a wooden frame"></figure>
+        <!-- image credits: numbers match the (n) marks on the images above -->
+        <p class="work-credits"><span data-i18n="credits-label">Image sources:</span> <a href="https://amomento.co/index.html" target="_blank" rel="noopener">https://amomento.co/index.html</a><br><a href="https://amomento.co/product/detail.html?product_no=4129&cate_no=136&amp;display_group=1" target="_blank" rel="noopener">(1)</a> <a href="https://amomento.co/product/detail.html?product_no=4222&cate_no=286&amp;display_group=1" target="_blank" rel="noopener">(2)</a> <a href="https://amomento.co/product/detail.html?product_no=4208&cate_no=286&amp;display_group=1" target="_blank" rel="noopener">(3)</a> <a href="https://amomento.co/product/detail.html?product_no=4210&cate_no=286&amp;display_group=1" target="_blank" rel="noopener">(4)</a> <a href="https://amomento.co/product/detail.html?product_no=4049&cate_no=136&amp;display_group=1" target="_blank" rel="noopener">(5)</a> <a href="https://amomento.co/product/detail.html?product_no=4172&cate_no=136&amp;display_group=1" target="_blank" rel="noopener">(6)</a> <a href="https://amomento.co/product/detail.html?product_no=4150&cate_no=137&amp;display_group=1" target="_blank" rel="noopener">(7)</a> <a href="https://amomento.co/product/detail.html?product_no=4256&cate_no=136&amp;display_group=1" target="_blank" rel="noopener">(8)</a> <a href="https://amomento.co/product/detail.html?product_no=4209&cate_no=286&amp;display_group=1" target="_blank" rel="noopener">(9)</a></p>
+      </div>
+
+      <div class="work-side work-side--right">
+        <div class="work-progress"></div>
+      </div>
+    </div>
+
+    <div class="work" data-work="adidas">
+      <div class="work-side work-side--left">
+        <div class="work-meta">
+          <div class="work-meta-item">
+            <span class="work-meta-label">Role</span>
+            <span class="work-meta-value"><strong class="work-meta-strong">PM &ndash; Social Media Management</strong></span>
+            <span class="work-meta-value work-role-sub" data-i18n="adidas-role-sub">Running the adidaskr / originals_kr brand channels</span>
+            <p class="work-about-text work-role-text" data-i18n="adidas-role-desc">From November 2024 to February 2026, I led social management for adidas Korea. I carried global brand campaigns over into the tone and manner of the Korean accounts, and turned offline events and pop-up sites into content on the day.
+
+Taking part in the whole campaign process, from content planning to production, publishing and data reporting, I thought about how a brand can reach people beyond the feed.</p>
+          </div>
+        </div>
+        <div class="work-meta-item">
+          <span class="work-meta-label">Work</span>
+          <span class="work-meta-value" data-i18n="share-adidas">BC Team <span class="work-share-pct">75%</span></span>
+        </div>
+      </div>
+
+      <div class="work-main">
+        <div class="work-hero">
+          <!-- Project boards: cover on the 1920x1080 slide canvas, then one long board laid out in board units (--u = 1/1920 of its width) -->
+          <div class="lect-deck ad-deck">
+            <section class="lect-slide ad-cover" aria-label="adidas Korea">
+              <!-- two phones: the dark screen lights up when the cover comes into view (main.js adds .is-on) -->
+              <div class="g ad-phone ad-phone--blue" style="--x:1014;--y:156;--w:462;--h:863"><img src="./images/pm/adidas-board/phone-blue-off.webp?v=1" alt=""><img class="ad-phone-on" src="./images/pm/adidas-board/phone-blue-on.webp?v=1" alt="Phone showing the adidas Originals logo"></div>
+              <div class="g ad-phone ad-phone--gold" style="--x:1430;--y:81;--w:462;--h:863"><img src="./images/pm/adidas-board/phone-gold-off.webp?v=1" alt=""><img class="ad-phone-on" src="./images/pm/adidas-board/phone-gold-on.webp?v=1" alt="Phone showing the adidas Sports logo"></div>
+              <h2 class="t" style="--x:80;--y:873;--fs:40;--lh:50;--c:#111;--fw:300">Adidas Korea<br>Social Media Management</h2>
+            </section>
+
+            <section class="ad-board" aria-label="Social Media Management">
+              <header class="ad-head"><span>Social Media Management</span></header>
+
+              <div class="ad-sec">
+                <p class="ad-label">01 Scope</p>
+                <h3 class="ad-title">From Plan to Feed</h3>
+                <p class="ad-lead">캠페인이 소비자에 닿기까지의 모든 단계를 함께 했습니다.<br>콘텐츠를 설계하고, 다듬고, 발행하고, 그 반응을 다시 다음 기획으로 이어 붙이는 일까지.</p>
+                <div class="ad-scope">
+                  <div class="ad-col">
+                    <p class="ad-num">01</p><h4>Communication</h4><p class="ad-sub">사람과 맞추는 일</p>
+                    <ul><li>adidas 피드백 &middot; 컨펌 소통</li><li>디테일 &middot; 이슈 1:1 커뮤니케이션</li><li>촬영 감독 &middot; 촬영팀 컨택</li><li>현장 컨펌 및 발행 보고</li></ul>
+                  </div>
+                  <div class="ad-col">
+                    <p class="ad-num">02</p><h4>Content</h4><p class="ad-sub">콘텐츠를 만드는 일</p>
+                    <ul><li>캠페인 발행 스케줄 관리</li><li>콘텐츠 플래닝 <small>(Global Campaign Toolkit &middot; GTM 검토)</small></li><li>슈팅 플래닝 <small>(피드 &middot; 스토리 &middot; 공지)</small></li><li>촬영 &middot; 편집 가이드 작성</li><li>이미지 편집</li><li>카피라이팅 &middot; KR T&amp;M 로컬라이징</li></ul>
+                  </div>
+                  <div class="ad-col">
+                    <p class="ad-num">03</p><h4>Operation</h4><p class="ad-sub">발행을 지키는 일</p>
+                    <ul><li>테스트 계정 발행 &middot; 최종 점검</li><li>제품 시트 &middot; 태깅 &middot; 해시태그</li><li>발행 후 이슈 대응</li></ul>
+                  </div>
+                  <div class="ad-col">
+                    <p class="ad-num">04</p><h4>Analysis</h4><p class="ad-sub">다음을 읽어내는 일</p>
+                    <ul><li>데이터 리포트 분석 &middot; 업데이트</li><li>MoM &middot; YoY 비교, Deep Dive</li><li>Findings &middot; Implication</li><li>Competitor&rsquo;s Social Buzz</li><li>Social Trend 분석</li><li>Action Plan 제안</li></ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="ad-sec">
+                <p class="ad-label">02 Workflow</p>
+                <h3 class="ad-title">How a Campaign Runs</h3>
+                <p class="ad-lead">캠페인 브리프를 받으면 콘텐츠는 두 갈래로 나뉩니다. 글로벌 에셋을 한국 계정에 맞게 옮기는 글로벌 캠페인,<br>그리고 오프라인 현장을 그날의 콘텐츠로 담는 IRL 캠페인. 캠페인은 다음과 같은 단계를 거쳐 제작했습니다.</p>
+                <div class="ad-flow">
+                  <div class="ad-fh ad-c0"></div>
+                  <div class="ad-fh ad-c1"><span>00</span>캠페인 브리프</div>
+                  <div class="ad-fh ad-c2"><span>01</span>플래닝 &middot; 피드백</div>
+                  <div class="ad-fh ad-c3"><span>02</span>디벨롭 &middot; 피드백</div>
+                  <div class="ad-fh ad-c4"><span>03</span>최종 컨펌</div>
+                  <div class="ad-fh ad-c5"><span>04</span>발행</div>
+                  <div class="ad-fh ad-c6"><span>05</span>리포트</div>
+
+                  <div class="ad-row ad-r1 ad-c0"><strong>GLOBAL</strong><small>글로벌 캠페인</small></div>
+                  <div class="ad-span ad-c1">글로벌 GTM<br>캠페인 일정 확인</div>
+                  <div class="ad-cell ad-r1 ad-c2">GTM &middot; Social Toolkit 분석<br>피드 / 스토리 에셋 분배</div>
+                  <div class="ad-cell ad-r1 ad-c3">이미지 편집<br>KR T&amp;M 카피 워싱</div>
+                  <div class="ad-cell ad-r1 ad-c4">채널 &middot; 썸네일 &middot; 카피 &middot; 태깅<br>테스트 계정 발행</div>
+                  <div class="ad-cell ad-r1 ad-c5">일정에 맞춰 발행</div>
+                  <div class="ad-span ad-c6">데이터 취합 &middot; 리포트<br>뉴스레터 발행</div>
+
+                  <div class="ad-row ad-r2 ad-c0"><strong>IRL</strong><small>현장 캠페인</small></div>
+                  <div class="ad-cell ad-r2 ad-c2">필요 컷 &middot; 발행 순서 설계<br>촬영팀 사전 요청</div>
+                  <div class="ad-cell ad-r2 ad-c3">촬영 &middot; 편집 가이드<br>현장 실시간 촬영</div>
+                  <div class="ad-cell ad-r2 ad-c4">현장 결과물 컨펌</div>
+                  <div class="ad-cell ad-r2 ad-c5">현장 당일 발행</div>
+
+                  <span class="ad-hl ad-c1" aria-hidden="true"></span>
+                  <span class="ad-hl ad-c2" aria-hidden="true"></span>
+                  <span class="ad-hl ad-c3" aria-hidden="true"></span>
+                  <span class="ad-hl ad-c4" aria-hidden="true"></span>
+                  <span class="ad-hl ad-c5" aria-hidden="true"></span>
+                  <span class="ad-hl ad-c6" aria-hidden="true"></span>
+                </div>
+              </div>
+
+              <div class="ad-sec">
+                <p class="ad-label">03 Content T&amp;M</p>
+                <h3 class="ad-title">Translating the Brand,<br>Not the Words</h3>
+                <p class="ad-lead">글로벌 캠페인의 메시지를 그대로 번역하는 대신, 한국 계정의 톤앤매너로 다시 썼습니다.<br>채널과 타깃에 따라 문장을 바꾸는 기준을 세우기 위해, 팀과 함께 소셜 Base Guideline을 제안했습니다.</p>
+                <div class="ad-tm">
+                  <div>
+                    <p class="ad-cap"><b>CHANNEL TONE</b> &mdash; 하나의 브랜드, 두 개의 목소리</p>
+                    <div class="ad-tones">
+                      <div class="ad-tone ad-tone--sports"><h5>adidas Sports</h5><p>열정적이고 강렬한 어조<br>도전과 성취에 대한 긍정<br>자신감을 고취하는 톤</p></div>
+                      <div class="ad-tone ad-tone--originals"><h5>adidas Originals</h5><p>독창성과 창의성을 강조<br>세련되고 심플한 무드<br>클래식하면서 감각적인</p></div>
+                    </div>
+                    <p class="ad-note">Sports는 도전과 성취를 강하게, Originals는 감각과 무드를 담백하게.<br>같은 글로벌 에셋도 채널과 타깃에 따라 다른 문장으로 옮겼습니다.</p>
+                  </div>
+                  <div>
+                    <p class="ad-cap ad-cap--split"><span><b>BASE GUIDELINE</b> &mdash; 계정이 지켜야 할 세 가지 원칙</span><span>팀 공동 제안 &middot; 참여</span></p>
+                    <div class="ad-rules">
+                      <div class="ad-rule"><p class="ad-num">01</p><h5>Social First</h5><p>글로벌 소셜 가이드와 채널 특성을<br>고려한 KR 계정 기본 가이드</p><p class="ad-arrow">&rarr; 안정적인 채널 운영</p></div>
+                      <div class="ad-rule"><p class="ad-num">02</p><h5>Clear Comm.</h5><p>한 계정 한 메시지,<br>톤앤무드 통일을 위한 구조화</p><p class="ad-arrow">&rarr; 일관된 브랜드 T&amp;M</p></div>
+                      <div class="ad-rule"><p class="ad-num">03</p><h5>Information Hub</h5><p>핵심 타깃에 제품&middot;캠페인 정보를<br>직관적으로 전달</p><p class="ad-arrow">&rarr; 콘텐츠 활성화</p></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="ad-sec ad-sec--last">
+                <p class="ad-label">04 IRL On-site Content</p>
+                <h3 class="ad-title">Today, On Site</h3>
+                <p class="ad-quote">&ldquo;아디다스가 이런 것도 하는구나.&rdquo;</p>
+                <p class="ad-lead">현장의 사람들이 즐기는 모습은 어떤 광고보다 브랜드를 친근하게 느끼게 합니다.<br>오늘 어디서, 무엇을, 얼마나 즐겁게. 그 순간을 그날 바로 전하는 콘텐츠가 쌓일수록<br>브랜드와 소비자의 거리도 가까워진다고 생각하며 현장을 담았습니다.</p>
+              </div>
+            </section>
+          </div>
+          <div class="campaign">
+            <h5 class="campaign-title">WEEKEND MUSIC LIVE</h5>
+            <div class="campaign-track">
+              <div class="campaign-slot"><video class="hover-video" src="./images/pm/weekend-music-live/01.mp4" poster="./images/pm/weekend-music-live/01-poster.jpg" muted loop playsinline preload="metadata"></video></div>
+              <div class="campaign-slot"><video class="hover-video" src="./images/pm/weekend-music-live/02.mp4" poster="./images/pm/weekend-music-live/02-poster.jpg" muted loop playsinline preload="metadata"></video></div>
+              <div class="campaign-slot"><video class="hover-video" src="./images/pm/weekend-music-live/03.mp4" poster="./images/pm/weekend-music-live/03-poster.jpg" muted loop playsinline preload="metadata"></video></div>
+              <div class="campaign-slot"><video class="hover-video" src="./images/pm/weekend-music-live/04.mp4" poster="./images/pm/weekend-music-live/04-poster.jpg" muted loop playsinline preload="metadata"></video></div>
+              <div class="campaign-slot"><video class="hover-video" src="./images/pm/weekend-music-live/05.mp4" poster="./images/pm/weekend-music-live/05-poster.jpg" muted loop playsinline preload="metadata"></video></div>
+            </div>
+            <p class="campaign-intro" data-i18n="campaign-intro-weekend">We covered adidas&rsquo; YEAR END WEEKEND MUSIC LIVE for social, a year-closing stage with WAVE TO EARTH, ZION.T, and DJ APRO.</p>
+          </div>
+          <div class="work-bigtitle"><span>adidas Korea</span></div>
+        </div>
+        <div class="campaign">
+          <h5 class="campaign-title">CAFE 3 STRIPES SEOUL</h5>
+          <div class="campaign-track">
+            <div class="campaign-slot"><img src="./images/pm/cafe-3stripes/01.jpg" alt="Café 3 Stripes Seoul illustration"></div>
+            <div class="campaign-slot"><img src="./images/pm/cafe-3stripes/02.jpg" alt="Café 3 Stripes Seoul poster"></div>
+            <div class="campaign-slot"><img src="./images/pm/cafe-3stripes/03.jpg" alt="Café 3 Stripes Seoul stripes illustration"></div>
+            <div class="campaign-slot"><img src="./images/pm/cafe-3stripes/04.jpg" alt="Café 3 Stripes Seoul storefront signage"></div>
+            <div class="campaign-slot"><img src="./images/pm/cafe-3stripes/05.jpg" alt="Café 3 Stripes Seoul door signage"></div>
+            <div class="campaign-slot"><img src="./images/pm/cafe-3stripes/06.jpg" alt="Café 3 Stripes Seoul storefront exterior"></div>
+            <div class="campaign-slot"><img src="./images/pm/cafe-3stripes/07.jpg" alt="Café 3 Stripes Seoul barista at work"></div>
+            <div class="campaign-slot"><img src="./images/pm/cafe-3stripes/08.jpg" alt="Café 3 Stripes Seoul guest photographing drinks"></div>
+            <div class="campaign-slot"><video src="./images/pm/cafe-3stripes/09.mp4" autoplay muted loop playsinline></video></div>
+          </div>
+          <p class="campaign-intro" data-i18n="campaign-intro-cafe">adidas&rsquo; first F&amp;B-driven IRL project &mdash; we covered the culture programs and the moments people shared as sport, culture, and everyday life connected in one space.</p>
+        </div>
+        <div class="campaign">
+          <h5 class="campaign-title">JELLYFISH ARCADE</h5>
+          <div class="campaign-track">
+            <div class="campaign-slot"><img src="./images/pm/jellyfish-arcade/01.jpg" alt="Jellyfish Arcade storefront"></div>
+            <div class="campaign-slot"><video src="./images/pm/jellyfish-arcade/02.mp4" autoplay muted loop playsinline></video></div>
+            <div class="campaign-slot"><img src="./images/pm/jellyfish-arcade/03.jpg" alt="Jellyfish Arcade rooftop billboard"></div>
+            <div class="campaign-slot"><img src="./images/pm/jellyfish-arcade/04.jpg" alt="Jellyfish Arcade x Virginia blue backdrop"></div>
+            <div class="campaign-slot"><img src="./images/pm/jellyfish-arcade/05.jpg" alt="Jellyfish Arcade whack-a-mole game"></div>
+            <div class="campaign-slot"><img src="./images/pm/jellyfish-arcade/06.jpg" alt="Jellyfish Arcade basketball game machines"></div>
+            <div class="campaign-slot"><img src="./images/pm/jellyfish-arcade/07.jpg" alt="Jellyfish Arcade sneaker display"></div>
+            <div class="campaign-slot"><img src="./images/pm/jellyfish-arcade/08.jpg" alt="Jellyfish Arcade dart machines"></div>
+            <div class="campaign-slot"><img src="./images/pm/jellyfish-arcade/09.jpg" alt="Jellyfish Arcade stairway"></div>
+          </div>
+          <p class="campaign-intro" data-i18n="campaign-intro-jellyfish">A new play space celebrating the launch of ADISTAR JELLYFISH &mdash; we covered the special play unfolding inside an arcade filled with light and motion.</p>
+        </div>
+        <div class="campaign">
+          <h5 class="campaign-title">CONFIRMED UNIVERSE</h5>
+          <div class="campaign-track">
+            <div class="campaign-slot"><video src="./images/pm/confirmed-universe/01.mp4" autoplay muted loop playsinline></video></div>
+            <div class="campaign-slot"><img src="./images/pm/confirmed-universe/02.jpg" alt="Confirmed Universe collage artwork"></div>
+            <div class="campaign-slot"><img src="./images/pm/confirmed-universe/03.jpg" alt="Confirmed Universe character display"></div>
+            <div class="campaign-slot"><img src="./images/pm/confirmed-universe/04.jpg" alt="Confirmed Universe apparel display"></div>
+            <div class="campaign-slot"><img src="./images/pm/confirmed-universe/05.jpg" alt="Confirmed Universe mirrored product display"></div>
+            <div class="campaign-slot"><img src="./images/pm/confirmed-universe/06.jpg" alt="Confirmed Universe photo zone rooms"></div>
+            <div class="campaign-slot"><img src="./images/pm/confirmed-universe/07.jpg" alt="Confirmed Universe product boxes"></div>
+            <div class="campaign-slot"><img src="./images/pm/confirmed-universe/08.jpg" alt="Confirmed Universe goods shop wall"></div>
+          </div>
+          <p class="campaign-intro" data-i18n="campaign-intro-confirmed">A journey of inspiration and discovery &mdash; the many cultures connected to adidas came alive through art, music, and talks, a space to share each person&rsquo;s own taste and perspective.</p>
+        </div>
+        <div class="campaign">
+          <h5 class="campaign-title">THE ORIGINAL WEEKEND</h5>
+          <div class="campaign-track">
+            <div class="campaign-slot"><img src="./images/pm/original-weekend/01.jpg" alt="The Original Weekend campaign poster"></div>
+            <div class="campaign-slot"><img src="./images/pm/original-weekend/02.jpg" alt="The Original Weekend: Superstar Lounge portrait"></div>
+            <div class="campaign-slot"><video src="./images/pm/original-weekend/04.mp4" autoplay muted loop playsinline></video></div>
+            <div class="campaign-slot"><img src="./images/pm/original-weekend/06.jpg" alt="The Original Weekend: Listening Room curated by Soul to Seoul"></div>
+          </div>
+          <p class="campaign-intro" data-i18n="campaign-intro-original">A weekend to experience Originals&rsquo; style and heritage &mdash; we found style and energy across programs from the LIVE MARKET to the archive exhibition and live music.</p>
+        </div>
+        <!-- IRL on-site shoots: laid out on the 1595-wide layout board -->
+        <div class="lect-irl" style="--bw:1595;--bh:2000">
+          <img src="./images/pm/adidas-irl/02.webp?v=1" style="--x:1013;--y:144;--w:428;aspect-ratio:3/4" loading="lazy" alt="Camera on a tripod recording an indoor event">
+          <video src="./images/pm/adidas-irl/v1.mp4?v=1" poster="./images/pm/adidas-irl/v1-poster.webp?v=1" style="--x:92;--y:760;--w:350;aspect-ratio:9/16" autoplay muted loop playsinline preload="metadata" aria-label="Artist performing on the adidas Originals stage"></video>
+          <img src="./images/pm/adidas-irl/01.webp?v=1" style="--x:457;--y:1101;--w:321;aspect-ratio:3/4" loading="lazy" alt="Editing footage on a laptop on site">
+          <video src="./images/pm/adidas-irl/v2.mp4?v=1" poster="./images/pm/adidas-irl/v2-poster.webp?v=1" style="--x:1168;--y:1266;--w:352;aspect-ratio:9/16" autoplay muted loop playsinline preload="metadata" aria-label="Runners stacking hands before a race"></video>
+        </div>
+      </div>
+
+      <div class="work-side work-side--right">
+        <div class="work-progress"></div>
+      </div>
+    </div>
+
+    <div class="work" data-work="lect">
+      <div class="work-side work-side--left">
+        <div class="work-meta">
+          <div class="work-meta-item">
+            <span class="work-meta-label">Role</span>
+            <span class="work-meta-value"><strong class="work-meta-strong">PM &ndash; Social Media &amp; Branding</strong></span>
+            <span class="work-meta-value work-role-sub" data-i18n="lect-role-sub">LECT house Instagram operations &middot; Branding</span>
+            <p class="work-about-text work-role-text" data-i18n="lect-role-desc">I led branding and social operations for LECT house. I shaped the brand&rsquo;s direction as a space of taste, where things chosen and collected are met offline, and carried it into the tone and manner of its Instagram carousels.
+
+I made a guide so that editorial content could be planned and produced around each season&rsquo;s changing project, and built a social content calendar the team shares, settling it in as the way we work. So that fans could get to know the brands they love more deeply, I thought about stories that carry on beyond the space.</p>
+          </div>
+        </div>
+        <div class="work-meta-item">
+          <span class="work-meta-label">Work</span>
+          <span class="work-meta-value" data-i18n="share-lect">BC Team <span class="work-share-pct">90%</span></span>
+        </div>
+      </div>
+
+      <div class="work-main">
+        <div class="work-hero">
+          <!-- Strategy boards: a 1920x1080 canvas laid out exactly like the original slides, scaled to the column; graphics are images, copy is live text -->
+          <div class="lect-deck">
+            <section class="lect-slide lect-cover" aria-label="+LECT house">
+              <h2 class="t center" style="--y:470;--fs:128;--lh:140;--c:#111"><span class="lect-cover-mark">+LECT</span> house</h2>
+            </section>
+            <section class="lect-slide" aria-label="01 Brand Story">
+              <p class="t" style="--y:61;--fs:22.5;--lh:30;--x:80;--c:#555;--ls:0.04em">01 Brand Story</p>
+              <span class="rule" style="--x:80;--y:103;--w:1760"></span>
+              <h3 class="t center" style="--y:192;--fs:64;--lh:80;--c:#111;--fw:300">legere</h3>
+              <p class="t center" style="--y:278;--fs:23.9;--lh:32.2;--c:#333">읽다 &middot; 고르다 &middot; 모으다</p>
+              <p class="t center" style="--y:320;--fs:23.4;--lh:32.5;--c:#777">라틴어 legere에서 출발한 +LECT는 읽고, 고르고, 모으는 행위를 뜻합니다.</p>
+              <svg class="g lect-legere" style="--x:197;--y:437;--w:1369;--h:296" viewBox="0 0 1369 296" role="img" aria-label="Scattered dots, one selected, gathering into a plus sign"><rect class="li-hit" width="1369" height="296" fill="transparent"/><g class="lg-crowd"><circle cx="550.3" cy="7.5" r="4" style="--dx:-13.2px;--dy:-12.8px;--dl:203ms"/><circle cx="193.5" cy="9" r="4" style="--dx:-7.2px;--dy:-18.4px;--dl:166ms"/><circle cx="382.3" cy="9.5" r="4" style="--dx:7.4px;--dy:-3.9px;--dl:119ms"/><circle cx="310.5" cy="12" r="4" style="--dx:1.9px;--dy:-11.3px;--dl:13ms"/><circle cx="38.5" cy="13.5" r="4" style="--dx:7.8px;--dy:-5.6px;--dl:120ms"/><circle cx="367.6" cy="14.6" r="4" style="--dx:9px;--dy:-9.8px;--dl:26ms"/><circle cx="42.5" cy="20.5" r="4" style="--dx:-7.3px;--dy:-3.7px;--dl:55ms"/><circle cx="84.3" cy="28.5" r="4" style="--dx:-8.8px;--dy:5.8px;--dl:196ms"/><circle cx="97.5" cy="28.5" r="4" style="--dx:-14.3px;--dy:11.9px;--dl:18ms"/><circle cx="552.5" cy="28.5" r="4" style="--dx:10.7px;--dy:12.7px;--dl:32ms"/><circle cx="347.4" cy="37.6" r="4" style="--dx:14.6px;--dy:16px;--dl:1ms"/><circle cx="3.5" cy="38.5" r="4" style="--dx:2.8px;--dy:10.7px;--dl:42ms"/><circle cx="184.5" cy="38.5" r="4" style="--dx:8.4px;--dy:-8.7px;--dl:50ms"/><circle cx="539.5" cy="38.5" r="4" style="--dx:-17px;--dy:-4.3px;--dl:52ms"/><circle cx="120.5" cy="41.7" r="4" style="--dx:9px;--dy:19.6px;--dl:50ms"/><circle cx="36.5" cy="55" r="4" style="--dx:20.1px;--dy:-4.3px;--dl:76ms"/><circle cx="72.6" cy="60.6" r="4" style="--dx:13.7px;--dy:1.9px;--dl:37ms"/><circle cx="74" cy="64" r="4" style="--dx:-1.1px;--dy:12.6px;--dl:209ms"/><circle cx="75.6" cy="67.4" r="4" style="--dx:-6.4px;--dy:-4.9px;--dl:173ms"/><circle cx="102.3" cy="62.5" r="4" style="--dx:-2.3px;--dy:-8.6px;--dl:90ms"/><circle cx="333.5" cy="72" r="4" style="--dx:6.1px;--dy:-13.4px;--dl:80ms"/><circle cx="463.5" cy="78.5" r="4" style="--dx:5.8px;--dy:13.4px;--dl:45ms"/><circle cx="411.7" cy="79.5" r="4" style="--dx:20.3px;--dy:7.6px;--dl:5ms"/><circle cx="484.4" cy="80.4" r="4" style="--dx:12.4px;--dy:-4.1px;--dl:103ms"/><circle cx="257.5" cy="83.3" r="4" style="--dx:18.9px;--dy:2.2px;--dl:93ms"/><circle cx="493.5" cy="87.5" r="4" style="--dx:-14.1px;--dy:13.9px;--dl:115ms"/><circle cx="144.5" cy="97.5" r="4" style="--dx:10.1px;--dy:3px;--dl:50ms"/><circle cx="60.4" cy="102.4" r="4" style="--dx:8.4px;--dy:7.8px;--dl:209ms"/><circle cx="303.5" cy="102.7" r="4" style="--dx:12px;--dy:-4.6px;--dl:90ms"/><circle cx="223.4" cy="112.6" r="4" style="--dx:9px;--dy:-7.2px;--dl:118ms"/><circle cx="325.9" cy="111.9" r="4" style="--dx:14.4px;--dy:11.6px;--dl:204ms"/><circle cx="159.4" cy="117.6" r="4" style="--dx:-8.2px;--dy:9px;--dl:110ms"/><circle cx="5.5" cy="118.7" r="4" style="--dx:8.7px;--dy:-3.1px;--dl:87ms"/><circle cx="384.5" cy="121.5" r="4" style="--dx:-13px;--dy:-1.1px;--dl:37ms"/><circle cx="24.5" cy="123.5" r="4" style="--dx:-11.2px;--dy:17.7px;--dl:139ms"/><circle cx="48.5" cy="128" r="4" style="--dx:14.7px;--dy:9.6px;--dl:78ms"/><circle cx="328.9" cy="130.4" r="4" style="--dx:4px;--dy:8.2px;--dl:38ms"/><circle cx="16" cy="131.5" r="4" style="--dx:-2.2px;--dy:-12.1px;--dl:123ms"/><circle cx="134.3" cy="138.5" r="4" style="--dx:4.6px;--dy:7.4px;--dl:153ms"/><circle cx="88.5" cy="139.7" r="4" style="--dx:-13.4px;--dy:-2.9px;--dl:60ms"/><circle cx="35.7" cy="145.5" r="4" style="--dx:-0.8px;--dy:-12.8px;--dl:64ms"/><circle cx="210.5" cy="163.3" r="4" style="--dx:-13.4px;--dy:3.8px;--dl:14ms"/><circle cx="140.3" cy="165.5" r="4" style="--dx:16.8px;--dy:-2.2px;--dl:205ms"/><circle cx="431.5" cy="165.3" r="4" style="--dx:-19.7px;--dy:0.8px;--dl:33ms"/><circle cx="104.5" cy="167.5" r="4" style="--dx:15.8px;--dy:-1.9px;--dl:33ms"/><circle cx="179.5" cy="168.7" r="4" style="--dx:-13px;--dy:-13.9px;--dl:27ms"/><circle cx="392.6" cy="171.6" r="4" style="--dx:6.5px;--dy:11.5px;--dl:15ms"/><circle cx="292.3" cy="178.5" r="4" style="--dx:6.8px;--dy:-10px;--dl:116ms"/><circle cx="61.5" cy="183.5" r="4" style="--dx:14.7px;--dy:-7.9px;--dl:43ms"/><circle cx="268.7" cy="192.5" r="4" style="--dx:14.2px;--dy:-2.2px;--dl:124ms"/><circle cx="25.5" cy="193.5" r="4" style="--dx:-4.7px;--dy:-11.5px;--dl:70ms"/><circle cx="219.4" cy="193.6" r="4" style="--dx:-3.5px;--dy:13.2px;--dl:37ms"/><circle cx="537.3" cy="200.5" r="4" style="--dx:14.8px;--dy:12.7px;--dl:136ms"/><circle cx="448.5" cy="202.7" r="4" style="--dx:16.2px;--dy:-4.2px;--dl:127ms"/><circle cx="37.5" cy="203.5" r="4" style="--dx:7.1px;--dy:-7.8px;--dl:125ms"/><circle cx="237.5" cy="220.5" r="4" style="--dx:-2.6px;--dy:18.8px;--dl:128ms"/><circle cx="36.5" cy="223.5" r="4" style="--dx:-12.2px;--dy:14.5px;--dl:198ms"/><circle cx="507.3" cy="227.5" r="4" style="--dx:-10px;--dy:12.8px;--dl:8ms"/><circle cx="493.3" cy="232.5" r="4" style="--dx:0.8px;--dy:-13.1px;--dl:180ms"/><circle cx="176.5" cy="238" r="4" style="--dx:-9.7px;--dy:-17.2px;--dl:67ms"/><circle cx="241.3" cy="241.5" r="4" style="--dx:2.2px;--dy:-17.5px;--dl:75ms"/><circle cx="462.4" cy="252.4" r="4" style="--dx:12.3px;--dy:-3.4px;--dl:45ms"/><circle cx="222.5" cy="254.5" r="4" style="--dx:-7.1px;--dy:-4px;--dl:140ms"/><circle cx="17.5" cy="255.5" r="4" style="--dx:1.9px;--dy:-12.4px;--dl:70ms"/><circle cx="297.5" cy="255.5" r="4" style="--dx:-18.9px;--dy:4.5px;--dl:165ms"/><circle cx="204.5" cy="258.5" r="4" style="--dx:-6px;--dy:-11.5px;--dl:70ms"/><circle cx="311.3" cy="258.5" r="4" style="--dx:-11.3px;--dy:-14.4px;--dl:212ms"/><circle cx="473.6" cy="276.6" r="4" style="--dx:-17.5px;--dy:11.4px;--dl:44ms"/><circle cx="354.6" cy="277.6" r="4" style="--dx:12.1px;--dy:-12.9px;--dl:93ms"/><circle cx="365.5" cy="291.3" r="4" style="--dx:14.7px;--dy:-4.1px;--dl:135ms"/></g><path class="lg-dash lg-dash--l" d="M377 128.5H700"/><path class="lg-dash lg-dash--r" d="M822 128.5H1078"/><circle class="lg-ring" cx="350.5" cy="128.3" r="25.5"/><circle class="lg-pick" cx="350.5" cy="128.3" r="7"/><path class="lg-plus" d="M741 128.5h44M763 106.5v44"/><g class="lg-lines"><path d="M951.5 2.5L1283.5 206.3" pathLength="1" style="--dl:0ms"/><path d="M1003.5 12.5L1309.5 128.3" pathLength="1" style="--dl:45ms"/><path d="M1010.6 12.8L1283.5 180.3" pathLength="1" style="--dl:90ms"/><path d="M1005.9 38.3L1283.5 102.3" pathLength="1" style="--dl:135ms"/><path d="M944.8 63.6L1335.5 128.3" pathLength="1" style="--dl:180ms"/><path d="M1063 134.5L1205.5 128.3" pathLength="1" style="--dl:225ms"/><path d="M1037.8 136.4L1361.5 128.3" pathLength="1" style="--dl:270ms"/><path d="M941.8 156.4L1283.5 128.3" pathLength="1" style="--dl:315ms"/><path d="M1024.5 170.5L1283.5 50.3" pathLength="1" style="--dl:360ms"/><path d="M962.8 174.4L1257.5 128.3" pathLength="1" style="--dl:405ms"/><path d="M987.2 215.6L1283.5 76.3" pathLength="1" style="--dl:450ms"/><path d="M905.5 244.5L1231.5 128.3" pathLength="1" style="--dl:495ms"/><path d="M1005.3 253.3L1283.5 154.3" pathLength="1" style="--dl:540ms"/></g><g class="lg-ends"><circle cx="951.5" cy="2.5" r="3" style="--dl:0ms"/><circle cx="1003.5" cy="12.5" r="3" style="--dl:45ms"/><circle cx="1010.6" cy="12.8" r="3" style="--dl:90ms"/><circle cx="1005.9" cy="38.3" r="3" style="--dl:135ms"/><circle cx="944.8" cy="63.6" r="3" style="--dl:180ms"/><circle cx="1063" cy="134.5" r="3" style="--dl:225ms"/><circle cx="1037.8" cy="136.4" r="3" style="--dl:270ms"/><circle cx="941.8" cy="156.4" r="3" style="--dl:315ms"/><circle cx="1024.5" cy="170.5" r="3" style="--dl:360ms"/><circle cx="962.8" cy="174.4" r="3" style="--dl:405ms"/><circle cx="987.2" cy="215.6" r="3" style="--dl:450ms"/><circle cx="905.5" cy="244.5" r="3" style="--dl:495ms"/><circle cx="1005.3" cy="253.3" r="3" style="--dl:540ms"/></g><g class="lg-cross"><circle cx="1283.5" cy="50.3" r="7" style="--dl:812ms"/><circle cx="1283.5" cy="76.3" r="7" style="--dl:708ms"/><circle cx="1283.5" cy="102.3" r="7" style="--dl:604ms"/><circle cx="1283.5" cy="154.3" r="7" style="--dl:604ms"/><circle cx="1283.5" cy="180.3" r="7" style="--dl:708ms"/><circle cx="1283.5" cy="206.3" r="7" style="--dl:812ms"/><circle cx="1205.5" cy="128.3" r="7" style="--dl:812ms"/><circle cx="1231.5" cy="128.3" r="7" style="--dl:708ms"/><circle cx="1257.5" cy="128.3" r="7" style="--dl:604ms"/><circle cx="1283.5" cy="128.3" r="7" style="--dl:500ms"/><circle cx="1309.5" cy="128.3" r="7" style="--dl:604ms"/><circle cx="1335.5" cy="128.3" r="7" style="--dl:708ms"/><circle cx="1361.5" cy="128.3" r="7" style="--dl:812ms"/></g></svg>
+              <p class="t" style="--y:787;--fs:44;--lh:56;--x:200;--c:#111;--fw:700;--ls:-0.01em">WE SELECT</p>
+              <p class="t" style="--y:805;--fs:28.7;--lh:36.8;--x:490;--c:#555">우리는 고른다</p>
+              <p class="t" style="--y:862;--fs:23.9;--lh:36.8;--x:200;--c:#555">se- (apart, 분리하다) + legere<br>무수한 것들 사이에서 의도를 가지고 고르는 일</p>
+              <p class="t" style="--y:787;--fs:44;--lh:56;--x:1160;--c:#111;--fw:700;--ls:-0.01em">YOU COLLECT</p>
+              <p class="t" style="--y:805;--fs:28.7;--lh:36.8;--x:1490;--c:#555">당신은 모은다</p>
+              <p class="t" style="--y:862;--fs:23.9;--lh:36.8;--x:1160;--c:#555">com- (together, 함께) + legere<br>흩어진 것들을 의미 있게 모으는 일</p>
+            </section>
+            <section class="lect-slide" aria-label="02 Vision and Core Values">
+              <p class="t" style="--y:61;--fs:22.5;--lh:30;--x:80;--c:#555;--ls:0.04em">02 Vision &amp; Core Values</p>
+              <span class="rule" style="--x:80;--y:103;--w:1760"></span>
+              <p class="t" style="--y:202;--fs:21.2;--lh:27.5;--x:80;--c:#555;--fw:500;--ls:0.12em">VISION</p>
+              <h3 class="t" style="--y:237;--fs:48;--lh:70;--x:80;--c:#111;--fw:300">소비되는 공간이 아니라,<br>선택하고 수집하는 공간.</h3>
+              <p class="t" style="--y:226;--fs:23.4;--lh:42.5;--x:1060;--c:#555">+LECT는 의도를 가지고 선택하고, 의미를 부여하며 수집하는 태도로<br>사람들의 감정&middot;공감&middot;스토리를 공간 안에서 브랜드 경험으로 바꿉니다.</p>
+              <span class="rule" style="--x:80;--y:450;--w:1760"></span>
+              <p class="t" style="--y:482;--fs:21.2;--lh:27.5;--x:80;--c:#555;--fw:500;--ls:0.12em">CORE VALUES</p>
+              <svg class="g lect-icon lect-icon--frame" style="--x:191;--y:550;--w:220;--h:220" viewBox="0 0 220 220" aria-hidden="true"><rect class="li-hit" width="220" height="220" fill="transparent"/><rect class="li-box" x="10" y="10" width="200" height="200" pathLength="800" fill="none" stroke="#111" stroke-width="2"/><path class="li-plus" d="M100 109.5h20M110 99.5v20" stroke="#5a5a5a" stroke-width="1.5"/></svg>
+              <p class="t" style="--y:814;--fs:20;--lh:25;--x:200;--c:#777">01</p>
+              <p class="t" style="--y:800;--fs:30;--lh:38;--x:236;--c:#111;--fw:500">Frame</p>
+              <p class="t" style="--y:856;--fs:23.4;--lh:37.5;--x:200;--c:#555">브랜드의 가치와 경험을<br>담는 골조</p>
+              <svg class="g lect-icon lect-icon--selective" style="--x:632;--y:550;--w:220;--h:220" viewBox="0 0 220 220" aria-hidden="true"><rect class="li-hit" width="220" height="220" fill="transparent"/><rect x="10" y="10" width="200" height="200" fill="none" stroke="#cfcfcf" stroke-width="2"/><circle class="li-dot" cx="165" cy="30" r="3" fill="#5a5a5a" style="--dx:-4.9px;--dy:-9.8px;--dl:166ms"/><circle class="li-dot" cx="90" cy="32" r="3" fill="#5a5a5a" style="--dx:-12.6px;--dy:9.0px;--dl:24ms"/><circle class="li-dot" cx="141" cy="36" r="3" fill="#5a5a5a" style="--dx:-3.8px;--dy:-12.4px;--dl:129ms"/><circle class="li-dot" cx="110" cy="42" r="3" fill="#5a5a5a" style="--dx:-8.0px;--dy:-11.6px;--dl:107ms"/><circle class="li-dot" cx="136" cy="51" r="3" fill="#5a5a5a" style="--dx:-12.0px;--dy:-11.5px;--dl:108ms"/><circle class="li-dot" cx="129" cy="54" r="3" fill="#5a5a5a" style="--dx:-12.3px;--dy:1.8px;--dl:57ms"/><circle class="li-dot" cx="49" cy="79" r="3" fill="#5a5a5a" style="--dx:3.7px;--dy:2.3px;--dl:15ms"/><circle class="li-dot" cx="82" cy="87" r="3" fill="#5a5a5a" style="--dx:2.2px;--dy:-2.9px;--dl:56ms"/><circle class="li-dot" cx="86" cy="94" r="3" fill="#5a5a5a" style="--dx:-12.7px;--dy:10.0px;--dl:74ms"/><circle class="li-dot" cx="93" cy="96" r="3" fill="#5a5a5a" style="--dx:-2.3px;--dy:1.1px;--dl:146ms"/><circle class="li-dot" cx="29" cy="89" r="3" fill="#5a5a5a" style="--dx:-5.4px;--dy:8.9px;--dl:46ms"/><circle class="li-dot" cx="45" cy="97" r="3" fill="#5a5a5a" style="--dx:-11.1px;--dy:2.0px;--dl:48ms"/><circle class="li-dot" cx="51" cy="100" r="3" fill="#5a5a5a" style="--dx:-3.6px;--dy:1.3px;--dl:16ms"/><circle class="li-dot" cx="140" cy="126" r="3" fill="#5a5a5a" style="--dx:1.8px;--dy:3.3px;--dl:127ms"/><circle class="li-dot" cx="105" cy="135" r="3" fill="#5a5a5a" style="--dx:5.1px;--dy:-2.0px;--dl:80ms"/><circle class="li-dot" cx="118" cy="136" r="3" fill="#5a5a5a" style="--dx:-1.0px;--dy:11.9px;--dl:92ms"/><circle class="li-dot" cx="187" cy="136" r="3" fill="#5a5a5a" style="--dx:-5.6px;--dy:8.2px;--dl:178ms"/><circle class="li-dot" cx="39" cy="140" r="3" fill="#5a5a5a" style="--dx:7.8px;--dy:-11.7px;--dl:76ms"/><circle class="li-dot" cx="72" cy="160" r="3" fill="#5a5a5a" style="--dx:0.7px;--dy:10.5px;--dl:114ms"/><circle class="li-dot" cx="55" cy="161" r="3" fill="#5a5a5a" style="--dx:-5.9px;--dy:13.4px;--dl:30ms"/><circle class="li-dot" cx="37" cy="162" r="3" fill="#5a5a5a" style="--dx:0.3px;--dy:-9.4px;--dl:87ms"/><circle class="li-dot" cx="54" cy="176" r="3" fill="#5a5a5a" style="--dx:-9.7px;--dy:-0.3px;--dl:10ms"/><circle class="li-dot" cx="37" cy="177" r="3" fill="#5a5a5a" style="--dx:12.9px;--dy:-11.8px;--dl:142ms"/><circle class="li-dot" cx="189" cy="183" r="3" fill="#5a5a5a" style="--dx:2.0px;--dy:10.5px;--dl:80ms"/><circle class="li-dot" cx="146" cy="186" r="3" fill="#5a5a5a" style="--dx:-4.5px;--dy:-4.2px;--dl:127ms"/><circle class="li-ring" cx="136.5" cy="91.5" r="20" fill="none" stroke="#111" stroke-width="1.5"/><circle class="li-core" cx="136.5" cy="91.5" r="6" fill="#111"/></svg>
+              <p class="t" style="--y:814;--fs:20;--lh:25;--x:640;--c:#777">02</p>
+              <p class="t" style="--y:800;--fs:30;--lh:38;--x:676;--c:#111;--fw:500">Selective</p>
+              <p class="t" style="--y:856;--fs:23.4;--lh:37.5;--x:640;--c:#555">무수한 것들 사이에서<br>의도를 가지고 선정</p>
+              <svg class="g lect-icon lect-icon--collective" style="--x:1071;--y:550;--w:220;--h:220" viewBox="0 0 220 220" aria-hidden="true"><rect class="li-hit" width="220" height="220" fill="transparent"/><rect x="10" y="10" width="200" height="200" fill="none" stroke="#cfcfcf" stroke-width="2"/><circle class="li-dot" cx="110" cy="50" r="6" fill="#111" style="--dx:11.2px;--dy:-6.1px;--dl:107ms"/><circle class="li-dot" cx="110" cy="70" r="6" fill="#111" style="--dx:-56.9px;--dy:-32.2px;--dl:89ms"/><circle class="li-dot" cx="110" cy="90" r="6" fill="#111" style="--dx:23.0px;--dy:-61.5px;--dl:89ms"/><circle class="li-dot" cx="50" cy="110" r="6" fill="#111" style="--dx:-26.7px;--dy:10.9px;--dl:87ms"/><circle class="li-dot" cx="70" cy="110" r="6" fill="#111" style="--dx:45.1px;--dy:-30.2px;--dl:49ms"/><circle class="li-dot" cx="90" cy="110" r="6" fill="#111" style="--dx:54.2px;--dy:-21.4px;--dl:120ms"/><circle class="li-dot" cx="110" cy="110" r="6" fill="#111" style="--dx:-5.4px;--dy:-46.5px;--dl:14ms"/><circle class="li-dot" cx="130" cy="110" r="6" fill="#111" style="--dx:-0.9px;--dy:-39.5px;--dl:36ms"/><circle class="li-dot" cx="150" cy="110" r="6" fill="#111" style="--dx:-51.9px;--dy:-35.3px;--dl:50ms"/><circle class="li-dot" cx="170" cy="110" r="6" fill="#111" style="--dx:58.4px;--dy:-0.5px;--dl:21ms"/><circle class="li-dot" cx="110" cy="130" r="6" fill="#111" style="--dx:-7.1px;--dy:6.9px;--dl:113ms"/><circle class="li-dot" cx="110" cy="150" r="6" fill="#111" style="--dx:-50.8px;--dy:-9.7px;--dl:70ms"/><circle class="li-dot" cx="110" cy="170" r="6" fill="#111" style="--dx:-31.0px;--dy:-11.9px;--dl:45ms"/></svg>
+              <p class="t" style="--y:814;--fs:20;--lh:25;--x:1080;--c:#777">03</p>
+              <p class="t" style="--y:800;--fs:30;--lh:38;--x:1116;--c:#111;--fw:500">Collective</p>
+              <p class="t" style="--y:856;--fs:23.4;--lh:37.5;--x:1080;--c:#555">감정과 공감, 스토리가 모여<br>팬이 되는 경험</p>
+              <svg class="g lect-icon lect-icon--layered" style="--x:1512;--y:550;--w:220;--h:220" viewBox="0 0 220 220" aria-hidden="true"><rect class="li-hit" width="220" height="220" fill="transparent"/><rect class="li-sq li-sq--1" x="9" y="10" width="156" height="156" fill="rgba(17,17,17,.045)" stroke="rgba(17,17,17,.4)" stroke-width="1.5"/><rect class="li-sq li-sq--2" x="30.5" y="31.5" width="156" height="156" fill="rgba(17,17,17,.09)" stroke="rgba(17,17,17,.55)" stroke-width="1.5"/><rect class="li-sq li-sq--3" x="52.5" y="53.5" width="156" height="156" fill="rgba(17,17,17,.14)" stroke="rgba(17,17,17,.82)" stroke-width="1.5"/></svg>
+              <p class="t" style="--y:814;--fs:20;--lh:25;--x:1520;--c:#777">04</p>
+              <p class="t" style="--y:800;--fs:30;--lh:38;--x:1556;--c:#111;--fw:500">Layered</p>
+              <p class="t" style="--y:856;--fs:23.4;--lh:37.5;--x:1520;--c:#555">가치와 경험이 쌓여<br>감도 높은 취향으로</p>
+            </section>
+            <section class="lect-slide" aria-label="03 Space">
+              <p class="t" style="--y:61;--fs:22.5;--lh:30;--x:80;--c:#555;--ls:0.04em">03 Space</p>
+              <span class="rule" style="--x:80;--y:103;--w:1760"></span>
+              <p class="t" style="--y:182;--fs:21.2;--lh:27.5;--x:80;--c:#555;--fw:500;--ls:0.12em">LOCATION</p>
+              <h3 class="t" style="--y:223;--fs:52;--lh:68;--x:80;--c:#111;--fw:300">+LECT house</h3>
+              <p class="t" style="--y:304;--fs:23.4;--lh:30;--x:80;--c:#666">성수동 2가 302-18</p>
+              <p class="t" style="--y:382;--fs:22.1;--lh:28.8;--x:80;--c:#555">수집한 것들이 사람을 만나는 곳<br>+LECT HOUSE는 고르고 모은 것들을 오프라인에서 직접 경험하는 공간입니다.<br>시즌마다 하나의 브랜드를 골라 집 전체를 그 세계로 채웁니다.</p>
+              <svg class="g lect-map" style="--x:191;--y:764;--w:469;--h:270" viewBox="0 0 469 270" role="img" aria-label="Map near Seongsu station showing +LECT next to Dior"><path class="lm-block" d="M154.5 44.5L275.5 44.5L275.5 79.5L154.5 79.5Z"/><path class="lm-block" d="M293.5 44.5L466.5 44.5L466.5 79.5L293.5 79.5Z"/><path class="lm-block" d="M154.5 98.5L274.5 98.5L274.5 193L154.5 150Z"/><path class="lm-block" d="M293.5 99L466 99L466 164L293.5 164Z"/><path class="lm-block" d="M154.5 165.5L274 209L252 264.5L154.5 264.5Z"/><path class="lm-block" d="M290 208.5L312.5 267.5L265.5 267.5Z"/><path class="lm-block" d="M298.5 180.5L467 180.5L467.5 268.5L325.5 268.5Z"/><path class="lm-lead lm-lead--lect" d="M88 197.5H163"/><path class="lm-lead lm-lead--dior" d="M88 244.5H213"/><rect class="lm-lect" x="163" y="197" width="32.5" height="36"/><path class="lm-dior" d="M230 202L263 216L245 259L212 244Z"/><rect class="lm-station" x="435" y="0" width="32.5" height="29.5"/><text class="lm-label lm-label--station" x="421" y="22" text-anchor="end">SEONGSU station</text><text class="lm-label lm-label--lect" x="80" y="206" text-anchor="end">+LECT</text><text class="lm-label lm-label--dior" x="80" y="252" text-anchor="end">Dior</text></svg>
+              <svg class="g lect-building" style="--x:833;--y:171;--w:972;--h:862" viewBox="0 0 972 862" role="img" aria-label="+LECT house elevation drawing, 1F to 4F rooftop"><g class="lb-lines"><path d="M213 862C245 846 330 843 375 862" stroke-opacity="0.8"/><path d="M116 834.5H347" stroke-opacity="0.8"/><path d="M88.5 805C90 828 115 848 160 862" stroke-opacity="0.8"/><path d="M0.5 772V862" stroke-opacity="0.8"/><path d="M427 791.7H738" stroke-opacity="0.9"/><path d="M430 789.5H539" stroke-opacity="0.8"/><path d="M672 789H706" stroke-opacity="0.9"/><path d="M89.5 773V804" stroke-opacity="0.3"/><path d="M88.5 772V801" stroke-opacity="0.6"/><path d="M0 773.3H90" stroke-opacity="0.8"/><path d="M114.8 684V838" stroke-opacity="0.9"/><path d="M117.5 687V835" stroke-opacity="0.8"/><path d="M230.8 687V835" stroke-opacity="0.9"/><path d="M344 687V835" stroke-opacity="0.9"/><path d="M347 684V838" stroke-opacity="0.9"/><path d="M399.8 654V838" stroke-opacity="0.9"/><path d="M409.5 654V838" stroke-opacity="0.8"/><path d="M428.2 654V838" stroke-opacity="0.9"/><path d="M430.8 657V790" stroke-opacity="0.8"/><path d="M538.5 657V790" stroke-opacity="0.8"/><path d="M540.5 654V793" stroke-opacity="0.8"/><path d="M670.2 654V793" stroke-opacity="0.9"/><path d="M707.5 654V793" stroke-opacity="0.8"/><path d="M484.5 656V790" stroke-opacity="0.8"/><path d="M672.8 656V790" stroke-opacity="0.9"/><path d="M705 656V790" stroke-opacity="0.8"/><path d="M602 716H650" stroke-opacity="0.9"/><path d="M605 713.5H650" stroke-opacity="0.8"/><path d="M51.5 654V754" stroke-opacity="0.8"/><path d="M588 608V793" stroke-opacity="0.9"/><path d="M602.8 608V793" stroke-opacity="0.9"/><path d="M605.3 687V714" stroke-opacity="0.9"/><path d="M646.8 687V714" stroke-opacity="0.9"/><path d="M737.5 608V792" stroke-opacity="0.8"/><path d="M602 688.5H650" stroke-opacity="0.4"/><path d="M117 687.5H345" stroke-opacity="0.8"/><path d="M605 687.5H647" stroke-opacity="0.4"/><path d="M602 685.5H650" stroke-opacity="0.8"/><path d="M649.2 654V717" stroke-opacity="0.9"/><path d="M114 684.5H348" stroke-opacity="0.8"/><path d="M605 683.5H647" stroke-opacity="0.4"/><path d="M602 682.5H650" stroke-opacity="0.4"/><path d="M605.3 656V684" stroke-opacity="0.9"/><path d="M646.8 656V684" stroke-opacity="0.8"/><path d="M431 656.5H538" stroke-opacity="0.8"/><path d="M605 656.5H647" stroke-opacity="0.8"/><path d="M672 656.5H705" stroke-opacity="0.8"/><path d="M20 654.5H541" stroke-opacity="0.8"/><path d="M602 654.5H650" stroke-opacity="0.8"/><path d="M669 654.5H709" stroke-opacity="0.8"/><path d="M20.5 608V655" stroke-opacity="0.8"/><path d="M114.8 608V655" stroke-opacity="0.9"/><path d="M210.8 608V655" stroke-opacity="0.9"/><path d="M459 608V655" stroke-opacity="0.9"/><path d="M170 624.2H212" stroke-opacity="0.9"/><path d="M173 621.8H212" stroke-opacity="0.9"/><path d="M210 609H769" stroke-opacity="0.9"/><path d="M20 608.5H116" stroke-opacity="0.8"/><path d="M768.8 562V610" stroke-opacity="0.8"/><path d="M173.5 504V625" stroke-opacity="0.8"/><path d="M170.5 501V625" stroke-opacity="0.8"/><path d="M427 562.9H769" stroke-opacity="1"/><path d="M430 560.5H539" stroke-opacity="0.8"/><path d="M542 560.5H576" stroke-opacity="0.8"/><path d="M251 504V610" stroke-opacity="0.9"/><path d="M328.2 504V610" stroke-opacity="0.9"/><path d="M330.8 501V610" stroke-opacity="0.9"/><path d="M428.2 471V610" stroke-opacity="0.9"/><path d="M51.5 471V609" stroke-opacity="0.8"/><path d="M615 518H673" stroke-opacity="0.9"/><path d="M430.8 471V561" stroke-opacity="0.9"/><path d="M617 515.5H670" stroke-opacity="0.8"/><path d="M540.5 456V564" stroke-opacity="0.8"/><path d="M576.5 460V560" stroke-opacity="0.2"/><path d="M577.8 456V564" stroke-opacity="0.9"/><path d="M538.5 456V561" stroke-opacity="0.8"/><path d="M543 456V561" stroke-opacity="0.9"/><path d="M575.5 456V561" stroke-opacity="0.6"/><path d="M173 504.8H329" stroke-opacity="0.9"/><path d="M618 489V516" stroke-opacity="0.9"/><path d="M669.7 489V516" stroke-opacity="0.9"/><path d="M170 502.2H332" stroke-opacity="0.8"/><path d="M588 425V564" stroke-opacity="0.9"/><path d="M602.8 425V564" stroke-opacity="0.9"/><path d="M699.2 425V564" stroke-opacity="0.9"/><path d="M706.5 425V564" stroke-opacity="0.8"/><path d="M737.5 425V564" stroke-opacity="0.8"/><path d="M617 490.5H673" stroke-opacity="0.4"/><path d="M618 489.5H670" stroke-opacity="0.4"/><path d="M615 487.5H673" stroke-opacity="0.9"/><path d="M615.5 456V519" stroke-opacity="0.8"/><path d="M672.2 456V519" stroke-opacity="0.9"/><path d="M618 485.5H670" stroke-opacity="0.4"/><path d="M617 484.5H673" stroke-opacity="0.4"/><path d="M670.5 459V485" stroke-opacity="0.2"/><path d="M19 471.8H460" stroke-opacity="0.9"/><path d="M618 456V486" stroke-opacity="0.9"/><path d="M669.5 456V486" stroke-opacity="0.6"/><path d="M617 459.5H673" stroke-opacity="0.4"/><path d="M458 459H539" stroke-opacity="0.9"/><path d="M542 459H576" stroke-opacity="0.9"/><path d="M617 458.5H670" stroke-opacity="0.4"/><path d="M458 456.8H579" stroke-opacity="0.9"/><path d="M615 456.8H673" stroke-opacity="0.9"/><path d="M19.5 427V472" stroke-opacity="0.4"/><path d="M459 396V473" stroke-opacity="0.9"/><path d="M20.5 395V473" stroke-opacity="0.9"/><path d="M20 426.2H772" stroke-opacity="0.9"/><path d="M173 423.8H329" stroke-opacity="0.9"/><path d="M20 417H460" stroke-opacity="0.9"/><path d="M20 405.8H460" stroke-opacity="0.9"/><path d="M430.8 380V427" stroke-opacity="0.9"/><path d="M20 396.5H460" stroke-opacity="0.8"/><path d="M771.2 350V427" stroke-opacity="0.9"/><path d="M427 380.8H772" stroke-opacity="0.9"/><path d="M467 378.5H501" stroke-opacity="0.6"/><path d="M542 378.5H576" stroke-opacity="0.6"/><path d="M430 378.2H464" stroke-opacity="0.9"/><path d="M505 378.2H538" stroke-opacity="0.8"/><path d="M467 377.5H504" stroke-opacity="0.2"/><path d="M542 377.5H579" stroke-opacity="0.2"/><path d="M427 371.5H772" stroke-opacity="0.9"/><path d="M427 360.5H772" stroke-opacity="0.9"/><path d="M427 350.8H772" stroke-opacity="0.9"/><path d="M170.5 273V427" stroke-opacity="0.8"/><path d="M173.5 273V427" stroke-opacity="0.8"/><path d="M251 273V427" stroke-opacity="0.9"/><path d="M328.2 273V427" stroke-opacity="0.9"/><path d="M330.8 273V427" stroke-opacity="0.9"/><path d="M52 243V427" stroke-opacity="0.9"/><path d="M428.2 243V427" stroke-opacity="0.9"/><path d="M431.2 243V379" stroke-opacity="0.9"/><path d="M577.8 228V382" stroke-opacity="0.9"/><path d="M463 230V379" stroke-opacity="0.9"/><path d="M465.5 227V382" stroke-opacity="0.8"/><path d="M468 230V379" stroke-opacity="0.9"/><path d="M500.8 230V379" stroke-opacity="0.9"/><path d="M503.2 227V382" stroke-opacity="0.9"/><path d="M505.8 230V379" stroke-opacity="0.9"/><path d="M540.5 227V382" stroke-opacity="0.8"/><path d="M543 230V379" stroke-opacity="0.9"/><path d="M575.8 230V379" stroke-opacity="0.9"/><path d="M538.5 230V378" stroke-opacity="0.8"/><path d="M615 290H673" stroke-opacity="0.9"/><path d="M698.8 197V382" stroke-opacity="0.9"/><path d="M706.5 197V382" stroke-opacity="0.8"/><path d="M738 197V382" stroke-opacity="0.9"/><path d="M617 287.5H670" stroke-opacity="0.8"/><path d="M173 276.3H329" stroke-opacity="0.9"/><path d="M618 261V288" stroke-opacity="0.9"/><path d="M669.7 261V288" stroke-opacity="0.9"/><path d="M170 274H332" stroke-opacity="0.9"/><path d="M617 261.5H670" stroke-opacity="0.8"/><path d="M615 259.2H673" stroke-opacity="0.9"/><path d="M615.5 227V291" stroke-opacity="0.8"/><path d="M672.2 227V291" stroke-opacity="0.9"/><path d="M617 256.7H670" stroke-opacity="0.8"/><path d="M618.5 230V260" stroke-opacity="0.4"/><path d="M669.5 230V260" stroke-opacity="0.6"/><path d="M20 243.5H460" stroke-opacity="0.8"/><path d="M617.5 230V257" stroke-opacity="0.4"/><path d="M670.5 231V256" stroke-opacity="0.2"/><path d="M467 231.5H504" stroke-opacity="0.2"/><path d="M617 231.5H673" stroke-opacity="0.2"/><path d="M505 230.8H539" stroke-opacity="0.9"/><path d="M542 230.8H576" stroke-opacity="0.9"/><path d="M468 230.5H501" stroke-opacity="0.6"/><path d="M617 230.5H670" stroke-opacity="0.6"/><path d="M615 228.3H673" stroke-opacity="0.9"/><path d="M458 228.2H578" stroke-opacity="0.9"/><path d="M20.5 168V244" stroke-opacity="0.9"/><path d="M459 168V244" stroke-opacity="0.9"/><path d="M20 197.5H770" stroke-opacity="0.8"/><path d="M20 188H460" stroke-opacity="0.9"/><path d="M20 177.5H460" stroke-opacity="0.8"/><path d="M20 168.5H460" stroke-opacity="0.8"/><path d="M428.2 122V198" stroke-opacity="0.9"/><path d="M768.7 122V198" stroke-opacity="0.9"/><path d="M427 152.5H770" stroke-opacity="0.8"/><path d="M427 143H770" stroke-opacity="0.9"/><path d="M427 131.8H770" stroke-opacity="0.9"/><path d="M428 122.5H769" stroke-opacity="0.8"/><path d="M615 98H673" stroke-opacity="0.9"/><path d="M617 95.5H670" stroke-opacity="0.8"/><path d="M618 69V96" stroke-opacity="0.9"/><path d="M669.7 69V96" stroke-opacity="0.9"/><path d="M522 9V153" stroke-opacity="0.9"/><path d="M738 9V153" stroke-opacity="0.9"/><path d="M617 69.5H670" stroke-opacity="0.8"/><path d="M615 67H673" stroke-opacity="0.9"/><path d="M615.5 35V99" stroke-opacity="0.8"/><path d="M672.2 35V99" stroke-opacity="0.9"/><path d="M617 64.7H670" stroke-opacity="0.8"/><path d="M618.5 38V68" stroke-opacity="0.4"/><path d="M669.5 38V68" stroke-opacity="0.6"/><path d="M617.5 39V65" stroke-opacity="0.4"/><path d="M670.5 39V64" stroke-opacity="0.2"/><path d="M617 39.5H673" stroke-opacity="0.6"/><path d="M618 38.5H670" stroke-opacity="0.2"/><path d="M615 36.3H673" stroke-opacity="0.9"/><path d="M513 10.2H746" stroke-opacity="0.9"/><path d="M514 0V11" stroke-opacity="0.9"/><path d="M745.2 0V11" stroke-opacity="1"/><path d="M513 0.5H746" stroke-opacity="0.8"/></g><text class="lb-sign" x="0" y="766">+LECT</text><g class="lb-floors"><g class="lb-floor"><path class="lb-lead" d="M793 21.5H830"/><text class="lb-num" x="850" y="31">4F</text><text class="lb-sub" x="893" y="31">Rooftop</text></g><g class="lb-floor"><path class="lb-lead" d="M793 226.5H830"/><text class="lb-num" x="850" y="236">3F</text></g><g class="lb-floor"><path class="lb-lead" d="M793 431.5H830"/><text class="lb-num" x="850" y="441">2F</text></g><g class="lb-floor"><path class="lb-lead" d="M793 637.5H830"/><text class="lb-num" x="850" y="647">1F</text></g></g></svg>
+            </section>
+            <section class="lect-slide" aria-label="04 Social Strategy">
+              <p class="t" style="--y:61;--fs:22.5;--lh:30;--x:80;--c:#555;--ls:0.04em">04 Social Strategy</p>
+              <span class="rule" style="--x:80;--y:103;--w:1760"></span>
+              <p class="t" style="--y:202;--fs:21.2;--lh:27.5;--x:80;--c:#555;--fw:500;--ls:0.12em">CONCEPT</p>
+              <h3 class="t" style="--y:240;--fs:48;--lh:65;--x:80;--c:#111;--fw:300">선택된 것들을 기록하는<br>아카이브 큐레이션 계정</h3>
+              <span class="rule" style="--x:80;--y:420;--w:680"></span>
+              <p class="t" style="--y:482;--fs:22.1;--lh:28.8;--x:80;--c:#555">공간을 찾은 팬들이 브랜드를 더 깊이 알아가도록,<br>잘 알려지지 않은 비하인드와 브랜드에 담긴 이야기를 에디토리얼 콘텐츠로 발행합니다.</p>
+              <p class="t" style="--y:551;--fs:22.1;--lh:28.8;--x:80;--c:#555">WE SELECT 우리는 브랜드 안에서 이야깃거리를 고르고,<br>YOU COLLECT 팬은 그 이야기를 모아 자신만의 취향을 쌓습니다.</p>
+              <p class="t" style="--y:671;--fs:18.8;--lh:25;--x:80;--c:#777;--fw:500;--ls:0.12em">T&amp;M</p>
+              <p class="t" style="--y:702;--fs:23.4;--lh:30;--x:80;--c:#555">내 방의 장식장 + 작은 전시공간 + 취향 아카이브</p>
+              <!-- the live feed sits where the slide had its feed preview; each tile opens as a carousel (main.js) -->
+              <p class="t lect-feed-hint" style="--y:976;--fs:22.5;--lh:30;--x:991;--c:#777">피드를 눌러 포스트를 확인해보세요 <span aria-hidden="true">&rarr;</span></p>
+              <div class="ig-feed lect-slide-feed" style="--x:991;--y:202;--w:849">
+                <button class="ig-feed-post" type="button" data-base="./images/pm/lect/post1/" data-slides="01.webp?v=2,02.webp?v=2,03.webp?v=2,04.webp?v=2" aria-label="SELECT 01 S&rsquo;more &middot; 4 slides">
+                  <img src="./images/pm/lect/post1/01.webp?v=2" width="1080" height="1440" loading="lazy" alt="SELECT 01 S&rsquo;more">
+                  <span class="ig-feed-multi" aria-hidden="true"></span>
+                  <span class="ig-feed-caption" hidden>𝗦𝗘𝗟𝗘𝗖𝗧 𝟬𝟭 — 𝗦’𝗺𝗼𝗿𝗲
++LECT HOUSE의 첫 번째 셀렉은
+오랫동안 ‘좋아하는 기억’을 공간으로 풀어내 온 @smoremarket 입니다.
+
+2018년부터 다양한 IP와 함께 누군가의 어린 시절 한 장면 같은 공간들을 만들어온 S’more가, 이번에는 성수의 한적한 골목 안 오래된 미국 가정집의 풍경을 펼쳐냅니다. 불이 켜진 거실과, 취향이 쌓인 방, 그리고 아직 장난감들이 남아있는 놀이 공간까지. 마치 오래전부터 누군가 살고 있었던 것처럼.
+곧, +LECT HOUSE에 아주 익숙한 친구들이 찾아옵니다. 🏠
+
+𝑾𝒆’𝒍𝒍 𝒊𝒏𝒗𝒊𝒕𝒆 𝒚𝒐𝒖 𝒉𝒐𝒎𝒆 𝒔𝒐𝒐𝒏!
+
+▪️+LECT house
+Add. 서울 성동구 연무장3길 8-9
+Date. 2026.05.23 - 2026.07.12
+
+SOURCE | jinq.digo
+
+#LECThouse #smore</span>
+                </button>
+                <button class="ig-feed-post" type="button" data-base="./images/pm/lect/post2/" data-slides="01.webp?v=2,02.webp?v=2,03.webp?v=2,04.webp?v=2,05.webp?v=2,06.webp?v=2,07.webp?v=2,08.webp?v=2,09.webp?v=2,10.webp?v=2,11.webp?v=2" aria-label="COLLECT 01 House of Toy Story &middot; 11 slides">
+                  <img src="./images/pm/lect/post2/01.webp?v=2" width="1080" height="1440" loading="lazy" alt="COLLECT 01 House of Toy Story">
+                  <span class="ig-feed-multi" aria-hidden="true"></span>
+                  <span class="ig-feed-caption" hidden>𝗖𝗢𝗟𝗟𝗘𝗖𝗧 𝟬𝟭 — 𝗛𝗼𝘂𝘀𝗲 𝗼𝗳 𝗧𝗼𝘆 𝗦𝘁𝗼𝗿𝘆
+
++LECT house의 첫 공간은 미국 빈티지 가정집 무드 속, 토이 스토리 시리즈의 헤리티지를 담아낸 리테일 &amp; 체험형 팝업스토어, 𝗛𝗼𝘂𝘀𝗲 𝗼𝗳 𝗧𝗼𝘆 𝗦𝘁𝗼𝗿𝘆입니다.
+
+장난감 가득한 거실부터 수집가의 방, 그리고 아케이드 공간까지. 다양한 토이 스토리 시리즈 제품과 함께 포토존, AI 포토 체험, 나만의 버디베어 만들기, 게임 콘텐츠 등 장난감 같은 순간들을 직접 경험해볼 수 있습니다.
+
+▪️House of Toy Story
++LECT house
+
+Add. 서울 성동구 연무장3길 8-9
+Date. 2026.05.23 - 2026.07.12
+Time. 12:00 - 21:00
+
+#HouseofToyStory #LECThouse #smore</span>
+                </button>
+                <button class="ig-feed-post" type="button" data-base="./images/pm/lect/post3/" data-slides="01.webp?v=2,02.webp?v=2,03.webp?v=2,04.webp?v=2,05.webp?v=2,06.webp?v=2,07.webp?v=2,08.webp?v=2,09.webp?v=2" aria-label="COLLECT 02 Mr. Potato Head &middot; 9 slides">
+                  <img src="./images/pm/lect/post3/01.webp?v=2" width="1080" height="1440" loading="lazy" alt="COLLECT 02 Mr. Potato Head">
+                  <span class="ig-feed-multi" aria-hidden="true"></span>
+                  <span class="ig-feed-caption" hidden>𝗖𝗢𝗟𝗟𝗘𝗖𝗧 𝟬𝟮 — 𝗧𝗵𝗲 𝗥𝗲𝗮𝗹 𝗧𝗼𝘆 𝗼𝗳 𝗧𝗼𝘆 𝗦𝘁𝗼𝗿𝘆
+
+영화 &lt;토이 스토리&gt; 시리즈가 많은 사람들에게 인기가 많은 이유가 무엇일까요? 토이 스토리는 실제 미국 장난감 문화와 시대성을 기반으로 만들어진 장난감 캐릭터들로 특별한 판타지 세계의 물건들이 아니라, 실제로 누군가의 방 안에 있었을 법한 장난감들이었습니다. 특히 1950–90년대 미국 키즈컬처 / TV 머천다이즈 문화가 반영되어있기 때문에 그 시대의 어린 시절과 미국 장난감 문화를 담아낸 아카이브라고 할 수 있습니다.
+누군가의 방 안에 실제로 있었을 법한 장난감들이었기에, 오랜 시간이 지나도 많은 사람들의 기억 속에 남아있는지도 모릅니다.
+
+#LECThouse #Toystory #HouseofToyStory</span>
+                </button>
+                <button class="ig-feed-post" type="button" data-base="./images/pm/lect/post4/" data-slides="01.webp?v=2,02.webp?v=2,03.webp?v=2,04.webp?v=2,05.webp?v=2,06.webp?v=2,07.webp?v=2,08.webp?v=2" aria-label="COLLECT 03 What&rsquo;s in my House &middot; 8 slides">
+                  <img src="./images/pm/lect/post4/01.webp?v=2" width="1080" height="1440" loading="lazy" alt="COLLECT 03 What&rsquo;s in my House">
+                  <span class="ig-feed-multi" aria-hidden="true"></span>
+                  <span class="ig-feed-caption" hidden>𝗖𝗢𝗟𝗟𝗘𝗖𝗧 𝟬𝟯 — 𝗪𝗵𝗮𝘁'𝘀 𝗶𝗻 𝗺𝘆 𝗛𝗼𝘂𝘀𝗲
+
+영화 &lt;토이 스토리&gt; 속 장난감들은 사람들이 없는 순간에만 움직입니다.
+누군가 방을 나가면 이야기가 시작되고,
+누군가 돌아오면 다시 제자리에 멈춰 서죠.
+House of Toy Story는 장난감들이 막 제자리에서
+멈춘 순간의 집을 상상하며 만들어졌습니다.
+
+오랫동안 누군가의 가장 친한 친구였던 장난감들이
+이제 House of Toy Story에서 새로운 친구를 기다립니다.
+집 곳곳에 자리한 장난감들은 단순한 오브제를 넘어,
+오랫동안 사랑받아온 캐릭터들의 이야기와 기억을 이어갑니다.
+공간을 천천히 둘러보다 보면 영화가 시작되기 직전의 한 장면을 발견하게 될지도 모릅니다.
+
+House of Toy Story에서 그들의 새로운 친구가 되어보세요.
+
+▪️House of Toy Story
++LECT house
+
+Add. 서울 성동구 연무장3길 8-9
+Date. 2026.05.23 - 2026.07.12
+Time. 12:00 - 21:00
+
+#HouseofToyStory #LECThouse #smore #ToyStory</span>
+                </button>
+                <button class="ig-feed-post" type="button" data-base="./images/pm/lect/post5/" data-slides="01.webp?v=2,02.webp?v=2,03.webp?v=2,04.mp4,05.webp?v=2" aria-label="COLLECT 04 The Toy Story Kids &middot; 5 slides">
+                  <img src="./images/pm/lect/post5/01.webp?v=2" width="1080" height="1440" loading="lazy" alt="COLLECT 04 The Toy Story Kids">
+                  <span class="ig-feed-multi" aria-hidden="true"></span>
+                  <span class="ig-feed-caption" hidden>𝗖𝗢𝗟𝗟𝗘𝗖𝗧 𝟬𝟰 — 𝗧𝗵𝗲 𝗧𝗼𝘆 𝗦𝘁𝗼𝗿𝘆 𝗞𝗶𝗱𝘀
+
+1995년 처음 공개된 &lt;토이 스토리&gt;는 수많은 토이 스토리 키즈를 만들었습니다.
+
+누군가는 우디를 가장 좋아했고,
+누군가는 버즈와 함께 무한한 공간 저 너머를 꿈꿨으며,
+또 누군가는 제시의 이야기에 오래 머물렀습니다.
+
+최근 Taylor Swift가 &lt;토이 스토리 5&gt;의 음악 작업에 참여하게 되며
+더욱 화제가 된 이유도 그 안에 하나의 이야기가 있기 때문일지 모릅니다.
+
+한때 누군가의 가장 소중한 친구였던 제시는 새로운 이야기로 돌아오고,
+어린 시절 토이 스토리를 보며 자란 한 명의 토이 스토리 키즈는 그 이야기를 이어가는 사람이 되었습니다.
+
+어린 시절 토이 스토리를 보며 자란 아이들은 어느새 어른이 되었지만,
+그 이야기는 지금도 새로운 팬들과 만나며 계속 이어지고 있습니다.
+
+House of Toy Story는 그런 시간들을 담은 집입니다.
+
+오랫동안 토이 스토리를 사랑해온 팬들과,
+지금 처음 토이 스토리를 만나고 있는 새로운 토이 스토리 키즈들.
+
+서로 다른 시간 속에서 같은 이야기를 기억하고,
+같은 캐릭터를 좋아하게 된 사람들이 이곳에서 만나고 있습니다.
+
+당신은 어떤 토이 스토리 키즈였나요?
+
+📽️ @taylorswift @pixar
+
+#LECThouse #HouseofToyStory #ToyStory #ToyStoryKids</span>
+                </button>
+                <a class="ig-feed-profile" href="https://www.instagram.com/lect.house/" target="_blank" rel="noopener">
+                  <img src="./images/pm/brand/lect-logo.png" alt="+LECT">
+                  <span>@lect.house</span>
+                </a>
+              </div>
+            </section>
+          </div>
+          <div class="work-bigtitle work-bigtitle--mixed-case"><span>LECT house</span></div>
+        </div>
+        <!-- IRL content shoots: laid out on an 892-wide canvas, the way the layout board was drawn (1920 at 2.15x) -->
+        <div class="lect-irl">
+          <img src="./images/pm/lect/irl/01.webp?v=1" style="--x:27;--y:117;--w:176;aspect-ratio:3/4" loading="lazy" alt="Ball pit of toys with Mr. Potato Head">
+          <img src="./images/pm/lect/irl/02.webp?v=1" style="--x:209;--y:252;--w:238;aspect-ratio:4/3" loading="lazy" alt="Buzz Lightyear and Woody figures on a shelf">
+          <img src="./images/pm/lect/irl/03.webp?v=1" style="--x:452;--y:191;--w:241;aspect-ratio:4/3" loading="lazy" alt="Bullseye, Jessie and Woody watching the screen">
+          <video src="./images/pm/lect/irl/v1.mp4?v=1" poster="./images/pm/lect/irl/v1-poster.webp?v=1" style="--x:72;--y:518;--w:242;aspect-ratio:9/16" autoplay muted loop playsinline preload="metadata" aria-label="Drawing on a cardboard box"></video>
+          <img src="./images/pm/lect/irl/04.webp?v=1" style="--x:503;--y:496;--w:176;aspect-ratio:3/4" loading="lazy" alt="Coloring a Toy Story sheet with crayons">
+          <img src="./images/pm/lect/irl/05.webp?v=1" style="--x:687;--y:558;--w:179;aspect-ratio:3/4" loading="lazy" alt="Kindness Club coloring sheets">
+          <img src="./images/pm/lect/irl/06.webp?v=1" style="--x:132;--y:1113;--w:182;aspect-ratio:3/4" loading="lazy" alt="Buzz and Woody projected on the wall">
+          <img src="./images/pm/lect/irl/07.webp?v=1" style="--x:319;--y:1032;--w:182;aspect-ratio:3/4" loading="lazy" alt="Woody on the stairs of the house set">
+          <img src="./images/pm/lect/irl/09.webp?v=1" style="--x:40;--y:1644;--w:179;aspect-ratio:3/4" loading="lazy" alt="Shooting a Woody figure on the street">
+          <img src="./images/pm/lect/irl/08.webp?v=1" style="--x:165;--y:1459;--w:180;aspect-ratio:3/4" loading="lazy" alt="Photographing the pizza table set">
+          <video src="./images/pm/lect/irl/v2.mp4?v=1" poster="./images/pm/lect/irl/v2-poster.webp?v=1" style="--x:571;--y:1408;--w:269;aspect-ratio:9/16" autoplay muted loop playsinline preload="metadata" aria-label="Camera screen framing Woody"></video>
+        </div>
+      </div>
+
+      <div class="work-side work-side--right">
+        <div class="work-progress"></div>
+      </div>
+    </div>
+
+    <div class="work" data-work="chanel">
+      <div class="work-side work-side--left">
+        <div class="work-meta">
+          <div class="work-meta-item">
+            <span class="work-meta-label">Role</span>
+            <span class="work-meta-value"><strong class="work-meta-strong">APM &ndash; Engagement Journey Design</strong></span>
+            <p class="work-about-text work-role-text" data-i18n="metiers-role-desc">For the Seoul edition of the 26 M&eacute;tiers d&rsquo;art collection, I took part in planning a M&eacute;tiers d&rsquo;art collection training program for internal staff. We shaped the ONE HOUSE Staff Engagement as a journey from a New York morning to a Seoul evening, so staff could focus on learning through an immersive experience.
+
+Within the team, I focused on on-site management, film visual direction, AI photo concept development, spatial detail design and GWP visual direction.</p>
+          </div>
+        </div>
+        <div class="work-meta-item">
+          <span class="work-meta-label">Work</span>
+          <span class="work-meta-value" data-i18n="share-chanel">BC Team <span class="work-share-pct">60%</span></span>
+        </div>
+      </div>
+
+      <div class="work-main">
+        <div class="work-hero">
+          <figure class="work-figure"><img src="./images/pm/metiers/b1.webp?v=1" width="1920" height="1080" alt="2026 M&eacute;tiers d&rsquo;Art Replica Show Staff Engagement: A Day from New York to Seoul"></figure>
+          <div class="work-bigtitle"><span>A Day from New York to Seoul</span></div>
+        </div>
+        <figure class="work-figure"><img src="./images/pm/metiers/b2a.webp?v=2" width="1920" height="1986" loading="lazy" alt="M&eacute;tiers d&rsquo;Art: the collection and its cities"></figure>
+        <figure class="work-figure"><img src="./images/pm/metiers/b2b.webp?v=2" width="1565" height="2000" loading="lazy" alt="2026 New York: the subway show"></figure>
+        <figure class="work-figure"><img src="./images/pm/metiers/b3.webp?v=3" width="1920" height="1856" loading="lazy" alt="ONE HOUSE Staff Engagement Journey floor plan and flow"></figure>
+        <figure class="work-figure"><img src="./images/pm/metiers/b4.webp?v=2" width="1920" height="1856" loading="lazy" alt="New York zone: subway entry gates and platform screening"></figure>
+        <!-- Seoul board (1920 x 1856); the LED-wall film loops in the photo's spot (301,559 / 1318 x 738) -->
+        <div class="lect-irl metiers-seoul" style="--bw:1920;--bh:1856">
+          <img src="./images/pm/metiers/b5.webp?v=2" loading="lazy" alt="Seoul zone" style="--x:0;--y:0;--w:1920">
+          <video src="./images/pm/metiers/seoul.mp4?v=1" poster="./images/pm/metiers/seoul-poster.jpg?v=1" autoplay muted loop playsinline preload="metadata" aria-label="Seoul zone LED wall film" style="--x:301;--y:559;--w:1318;aspect-ratio:1318/738"></video>
+        </div>
+      </div>
+
+      <div class="work-side work-side--right">
+        <div class="work-progress"></div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+
+<button class="view-close" type="button" aria-label="Back to index"><span aria-hidden="true">&lsaquo;</span></button>
+<div class="lang-toggle" id="langToggle" role="button" aria-label="Switch language">KR</div>
+
+<div class="bizcard" id="bizcard" hidden>
+  <p class="bizcard-intro">Na Hyeon Park<br>Graphic design &amp; Project management<br>Based in Seoul, Korea</p>
+  <div class="bizcard-contact">
+    <span class="bizcard-label">Mail</span><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=2hinthetub@gmail.com" target="_blank" rel="noopener">2hinthetub@gmail.com</a>
+    <span class="bizcard-label">Phone</span><a href="tel:+821073372741">+82 10 7337 2741</a>
+  </div>
+</div>
+
+<script src="./assets/js/main.js?v=156"></script>
+</body>
+</html>
