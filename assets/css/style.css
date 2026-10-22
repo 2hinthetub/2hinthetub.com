@@ -4651,12 +4651,13 @@ html[lang="ko"] .work[data-work="adidas"] .campaign-intro {
   .ad-quote + .ad-lead { margin-top: 8px !important; }
 }
 
-/* +LECT slides on phones: the copy runs full width at the adidas reading
-   sizes (13px body); each graphic block (dots + WE SELECT / YOU COLLECT,
-   the four core values, map + building) stays one composed unit, scaled to
-   the column under its copy. The cover and the feed slide's feed keep their
-   own layouts. */
-@media all and (max-width: 812px) {
+/* +LECT slides (not the cover): the copy runs at the column's full width at
+   the site's body sizes (13px), and each graphic block (dots + WE SELECT /
+   YOU COLLECT, the four core values, map + building, the feed) follows under
+   its copy as one composed unit. Used on every screen size, so the body copy
+   can stay at the site size without running into the graphics; desktop
+   sizes are set further down. */
+@media all {
   .lect-slide:not(.lect-cover):not(.ad-cover) {
     display: flex;
     flex-direction: column;
@@ -4680,6 +4681,7 @@ html[lang="ko"] .work[data-work="adidas"] .campaign-intro {
   .lect-slide:not(.lect-cover):not(.ad-cover) > .rule + .t[style*="--ls:0.12em"] { margin-top: 0; }
   /* body copy rewraps to the phone width (each <br> has a space before it) */
   .lect-slide:not(.lect-cover):not(.ad-cover) > p.t br { display: none; }
+  .lect-slide:not(.lect-cover):not(.ad-cover) > p.t br.keep { display: inline; }
   /* sub-titles stay on one line */
   .lect-slide:not(.lect-cover):not(.ad-cover) > h3.t {
     margin-top: 14px;
@@ -4889,4 +4891,36 @@ html[lang="ko"] .work[data-work="adidas"] .campaign-intro {
   /* IRL descriptions follow the board's body copy */
   .work[data-work="adidas"] .campaign-intro,
   html[lang="ko"] .work[data-work="adidas"] .campaign-intro { font-size: 13px; line-height: 1.7; }
+}
+
+/* +LECT slides on desktop: same flow as on phones, with desktop sizes */
+@media all and (min-width: 813px) {
+  .lect-slide:not(.lect-cover):not(.ad-cover) { padding: 0 0 96px; }
+  .lect-slide:not(.lect-cover):not(.ad-cover) > .t[style*="--ls:0.04em"] { font-size: 12px; }
+  .lect-slide:not(.lect-cover):not(.ad-cover) > .t[style*="--ls:0.12em"] { margin-top: 44px; font-size: 11px; }
+  .lect-slide:not(.lect-cover):not(.ad-cover) > .rule + .t[style*="--ls:0.12em"] { margin-top: 0; }
+  .lect-slide:not(.lect-cover):not(.ad-cover) > .rule { margin: 10px 0 32px; }
+  .lect-slide:not(.lect-cover):not(.ad-cover) > h3.t { margin-top: 16px; margin-bottom: 10px; font-size: 22px; }
+  .lect-slide:not(.lect-cover):not(.ad-cover) > .lect-gfx { margin-top: 40px; }
+
+  .lect-slide[aria-label="01 Brand Story"] > h3.t { margin-top: 24px; font-size: 36px; }
+  .lect-slide[aria-label="01 Brand Story"] > h3.t + .t { font-size: 12px; }
+  .lect-slide:not(.lect-cover):not(.ad-cover) > .lect-gfx:is([style*="--gy:420"], [style*="--gy:540"]) { margin-top: 56px; }
+  .lect-gfx[style*="--gy:420"] > .g { width: 72%; margin-bottom: 40px; }
+  .lect-gfx[style*="--gy:420"] > .t { font-size: 12px; }
+  .lect-gfx[style*="--gy:420"] > .t:nth-child(2),
+  .lect-gfx[style*="--gy:420"] > .t:nth-child(5) { font-size: 20px; }
+  .lect-gfx[style*="--gy:420"] > .t:nth-child(3),
+  .lect-gfx[style*="--gy:420"] > .t:nth-child(6) { font-size: 12.5px; }
+
+  .lect-slide[aria-label="02 Vision and Core Values"] > h3.t + p.t + .rule + .t { margin-top: 64px; }
+  .lect-slide:not(.lect-cover):not(.ad-cover) > .lect-gfx[style*="--gy:540"] { margin-top: 36px; column-gap: 24px; }
+  .lect-gfx[style*="--gy:540"] > .g { margin-bottom: 16px; }
+  .lect-gfx[style*="--gy:540"] > .t { margin-top: 8px; font-size: 12.5px; line-height: 1.6; }
+  .lect-gfx[style*="--gy:540"] > .t:nth-child(4n+2) { font-size: 11px; }
+  .lect-gfx[style*="--gy:540"] > .t:nth-child(4n+3) { margin-top: 0; font-size: 15px; }
+
+  .lect-slide[aria-label="03 Space"] > h3.t + .t,
+  .lect-slide:not(.lect-cover):not(.ad-cover) > .t.lect-feed-hint { font-size: 11px; }
+  .lect-slide .lect-slide-feed { gap: 6px; margin-top: 32px; }
 }
