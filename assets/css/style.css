@@ -3685,7 +3685,11 @@ body.page2active[data-work="ranchu"] .ranchu-swimmer {
   overflow: hidden;
 }
 
-.lect-slide > * {
+/* a slide's graphic block: no box of its own on desktop, so its parts sit on the slide as before */
+.lect-gfx { display: contents; }
+
+.lect-slide > *,
+.lect-gfx > * {
   --u: calc(100cqw / 1920);
   position: absolute;
   left: calc(var(--x, 0) * var(--u));
@@ -3944,12 +3948,6 @@ body.page2active[data-work="ranchu"] .ranchu-swimmer {
 .lect-cover-mark {
   font-weight: 500;
   letter-spacing: 0.12em;
-}
-
-/* 04: the hint under the live feed */
-.lect-feed-hint span {
-  display: inline-block;
-  margin-left: 0.2em;
 }
 
 /* Social works: what was the About list now sits under the Role line */
@@ -4606,4 +4604,178 @@ img, video {
 /* smaller Ranchu on phones (main.js uses the same 44px for its swim bounds) */
 @media all and (max-width: 812px) {
   .ranchu-swimmer { width: 44px; }
+}
+
+/* adidas: campaign descriptions follow the board's body text (.ad-lead = 25 board px, board = column width) */
+.work[data-work="adidas"] .work-main { container-type: inline-size; }
+.work[data-work="adidas"] .campaign-intro,
+html[lang="ko"] .work[data-work="adidas"] .campaign-intro {
+  font-size: calc(100cqw * 25 / 1920);
+  line-height: 1.75;
+}
+
+/* adidas board on phones: the board scales down like an image, which left its
+   body copy at ~4px. Text now uses fixed, readable sizes that match the
+   campaign descriptions, and the sections run edge to edge on the same line
+   as WEEKEND MUSIC LIVE. The 01 / 02 tables keep scaling with the board. */
+@media all and (max-width: 812px) {
+  .work[data-work="adidas"] .campaign-intro,
+  html[lang="ko"] .work[data-work="adidas"] .campaign-intro { font-size: 13px; line-height: 1.6; }
+
+  .ad-board > * { margin-left: 0; margin-right: 0; }
+  .ad-head { font-size: 10px; }
+  .ad-sec, .ad-sec + .ad-sec, .ad-sec + .ad-sec + .ad-sec { padding-top: 56px; }
+  .ad-sec--last { padding-bottom: 40px; }
+
+  .ad-label { font-size: 11px !important; }
+  .ad-title { margin-top: 4px !important; font-size: 20px !important; }
+  .ad-lead { margin-top: 12px !important; font-size: 13px !important; line-height: 1.6 !important; }
+
+  /* 03: full column width, still 2 tones / 3 rules side by side (copy sized to fit) */
+  .ad-tm { width: auto; margin: 32px 0 0; gap: 36px; }
+  .ad-cap { margin-bottom: 10px !important; font-size: 10px !important; }
+  .ad-cap--split { flex-direction: column; gap: 2px; }
+  .ad-tones { gap: 8px; }
+  .ad-tone { height: auto; aspect-ratio: 410 / 200; padding: 10px 12px; }
+  .ad-tone h5 { font-size: 12px !important; }
+  .ad-tone p { margin-top: 4px !important; font-size: 9.5px !important; line-height: 1.45 !important; }
+  .ad-note { margin-top: 10px !important; font-size: 11px !important; }
+  .ad-rules { gap: 6px; }
+  .ad-rule { padding: 10px; border-radius: 5px; }
+  .ad-rule .ad-num { font-size: 9px !important; }
+  .ad-rule h5 { margin-top: 2px !important; font-size: 11px !important; }
+  .ad-rule p:not(.ad-num):not(.ad-arrow) { margin-top: 5px !important; white-space: normal; font-size: 9.5px !important; line-height: 1.5 !important; }
+  .ad-rule .ad-arrow { margin-top: 10px !important; padding-top: 7px; font-size: 9.5px !important; }
+
+  .ad-quote { margin-top: 24px !important; font-size: 15px !important; }
+  .ad-quote + .ad-lead { margin-top: 8px !important; }
+}
+
+/* +LECT slides on phones: the copy runs full width at the adidas reading
+   sizes (13px body); each graphic block (dots + WE SELECT / YOU COLLECT,
+   the four core values, map + building) stays one composed unit, scaled to
+   the column under its copy. The cover and the feed slide's feed keep their
+   own layouts. */
+@media all and (max-width: 812px) {
+  .lect-slide:not(.lect-cover) {
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: auto;
+    padding: 0 0 40px;
+    word-break: keep-all;
+  }
+  .lect-slide:not(.lect-cover) > * {
+    position: static;
+    white-space: normal;
+  }
+  /* sizes match the site's body copy (13px, like the Role text and the
+     campaign descriptions); section numbers and small caps labels sit smaller */
+  .lect-slide:not(.lect-cover) > .t {
+    font-size: 13px;
+    line-height: 1.7;
+    margin-top: 10px;
+  }
+  .lect-slide:not(.lect-cover) > .t[style*="--ls:0.04em"] { margin-top: 0; font-size: 11px; line-height: 1.4; }
+  .lect-slide:not(.lect-cover) > .t[style*="--ls:0.12em"] { margin-top: 32px; font-size: 10.5px; line-height: 1.4; }
+  .lect-slide:not(.lect-cover) > .rule + .t[style*="--ls:0.12em"] { margin-top: 0; }
+  /* body copy rewraps to the phone width (each <br> has a space before it) */
+  .lect-slide:not(.lect-cover) > p.t br { display: none; }
+  /* sub-titles stay on one line */
+  .lect-slide:not(.lect-cover) > h3.t {
+    margin-top: 14px;
+    margin-bottom: 8px;
+    font-size: min(15px, 4vw);
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+  .lect-slide:not(.lect-cover) > h3.t br { display: none; }
+  .lect-slide:not(.lect-cover) > .rule { display: block; width: 100%; margin: 8px 0 22px; }
+
+  /* small notes: the address under the building, the feed hint under the feed */
+  .lect-slide[aria-label="03 Space"] > h3.t + .t {
+    order: 1;
+    margin: 8px 0 0 40%;
+    font-size: 10px;
+    line-height: 1.4;
+    color: #777;
+  }
+  .lect-slide:not(.lect-cover) > .t.lect-feed-hint { margin-top: 8px; font-size: 10px; line-height: 1.4; text-align: right; }
+  .lect-slide:not(.lect-cover) > h3.t + .rule { display: none; }
+
+  .lect-slide .lect-gfx {
+    display: block;
+    position: relative;
+    container-type: inline-size;
+    aspect-ratio: var(--gw) / var(--gh);
+    margin-top: 24px;
+  }
+  .lect-gfx > * {
+    --u: calc(100cqw / var(--gw));
+    left: calc((var(--x, 0) - var(--gx)) * var(--u));
+    top: calc((var(--y, 0) - var(--gy)) * var(--u));
+  }
+
+  .lect-slide .lect-slide-feed { width: 100%; gap: 4px; margin-top: 20px; }
+
+  /* 01 Brand Story + 02 Vision & Core Values, laid out like the phone layout
+     board: roomy centred legere block, the dots graphic with WE SELECT /
+     YOU COLLECT centred in two columns under it, and the four core values
+     as icon / number + name / description columns. */
+  .lect-slide[aria-label="01 Brand Story"] > h3.t { margin-top: 12px; margin-bottom: 0; font-size: 26px; white-space: normal; }
+  .lect-slide[aria-label="01 Brand Story"] > h3.t + .t { margin-top: 10px; font-size: 11px; color: #333; }
+  .lect-slide[aria-label="01 Brand Story"] > h3.t + .t + .t { margin-top: 8px; }
+  .lect-slide .lect-gfx:is([style*="--gy:420"], [style*="--gy:540"]) {
+    display: grid;
+    aspect-ratio: auto;
+    container-type: normal;
+    margin-top: 44px;
+  }
+  .lect-slide .lect-gfx:is([style*="--gy:420"], [style*="--gy:540"]) > * {
+    position: static;
+    white-space: nowrap;
+  }
+
+  /* 01: graphic across both columns, then the two halves */
+  .lect-gfx[style*="--gy:420"] { grid-template-columns: 1fr 1fr; text-align: center; }
+  .lect-gfx[style*="--gy:420"] > .g { grid-column: 1 / -1; width: 86%; height: auto; justify-self: center; aspect-ratio: 1369 / 296; margin-bottom: 26px; }
+  .lect-gfx[style*="--gy:420"] > .t { font-size: 9.5px; line-height: 1.5; color: #555; white-space: normal; padding: 0 4px; }
+  .lect-gfx[style*="--gy:420"] > .t:nth-child(2),
+  .lect-gfx[style*="--gy:420"] > .t:nth-child(5) { font-size: 15px; line-height: 1.3; color: #111; }
+  .lect-gfx[style*="--gy:420"] > .t:nth-child(3),
+  .lect-gfx[style*="--gy:420"] > .t:nth-child(6) { margin-top: 8px; font-weight: 600; color: #333; }
+  .lect-gfx[style*="--gy:420"] > .t:nth-child(4),
+  .lect-gfx[style*="--gy:420"] > .t:nth-child(7) { margin-top: 12px; }
+  .lect-gfx[style*="--gy:420"] > :nth-child(2),
+  .lect-gfx[style*="--gy:420"] > :nth-child(3),
+  .lect-gfx[style*="--gy:420"] > :nth-child(4) { grid-column: 1; }
+  .lect-gfx[style*="--gy:420"] > :nth-child(5),
+  .lect-gfx[style*="--gy:420"] > :nth-child(6),
+  .lect-gfx[style*="--gy:420"] > :nth-child(7) { grid-column: 2; }
+  .lect-gfx[style*="--gy:420"] > :nth-child(2),
+  .lect-gfx[style*="--gy:420"] > :nth-child(5) { grid-row: 2; }
+  .lect-gfx[style*="--gy:420"] > :nth-child(3),
+  .lect-gfx[style*="--gy:420"] > :nth-child(6) { grid-row: 3; }
+  .lect-gfx[style*="--gy:420"] > :nth-child(4),
+  .lect-gfx[style*="--gy:420"] > :nth-child(7) { grid-row: 4; }
+
+  /* 02: four columns of icon / 01 Frame / description */
+  .lect-slide[aria-label="02 Vision and Core Values"] > h3.t + p.t + .rule { display: none; }
+  .lect-slide[aria-label="02 Vision and Core Values"] > h3.t + p.t + .rule + .t { margin-top: 44px; }
+  .lect-gfx[style*="--gy:540"] {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 10px;
+    margin-top: 28px;
+    padding-left: 4.7%;
+  }
+  .lect-gfx[style*="--gy:540"] > .g { width: 64%; height: auto; aspect-ratio: 1; grid-row: 1; margin-bottom: 10px; }
+  .lect-gfx[style*="--gy:540"] > .t { grid-row: 3; margin-top: 6px; font-size: 9.5px; line-height: 1.55; color: #555; white-space: normal; }
+  .lect-gfx[style*="--gy:540"] > .t:nth-child(4n+2) { grid-row: 2; font-size: 10px; color: #777; }
+  .lect-gfx[style*="--gy:540"] > .t:nth-child(4n+3) { grid-row: 2; margin: 0 0 0 1.7em; font-size: 12px; line-height: 1.2; color: #111; align-self: end; }
+  .lect-gfx[style*="--gy:540"] > .t:nth-child(4n+2) { align-self: end; line-height: 1.2; }
+  .lect-gfx[style*="--gy:540"] > .t br { display: none; }
+  .lect-gfx[style*="--gy:540"] { column-gap: 8px; padding-left: 0; }
+  .lect-gfx[style*="--gy:540"] > :nth-child(-n+4) { grid-column: 1; }
+  .lect-gfx[style*="--gy:540"] > :nth-child(n+5):nth-child(-n+8) { grid-column: 2; }
+  .lect-gfx[style*="--gy:540"] > :nth-child(n+9):nth-child(-n+12) { grid-column: 3; }
+  .lect-gfx[style*="--gy:540"] > :nth-child(n+13) { grid-column: 4; }
 }
