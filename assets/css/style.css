@@ -4620,7 +4620,7 @@ html[lang="ko"] .work[data-work="adidas"] .campaign-intro {
    as WEEKEND MUSIC LIVE. The 01 / 02 tables keep scaling with the board. */
 @media all and (max-width: 812px) {
   .work[data-work="adidas"] .campaign-intro,
-  html[lang="ko"] .work[data-work="adidas"] .campaign-intro { font-size: 13px; line-height: 1.6; }
+  html[lang="ko"] .work[data-work="adidas"] .campaign-intro { margin-top: 24px; font-size: 11px; line-height: 1.6; }
 
   .ad-board > * { margin-left: 0; margin-right: 0; }
   .ad-head { font-size: 10px; }
@@ -4657,39 +4657,39 @@ html[lang="ko"] .work[data-work="adidas"] .campaign-intro {
    the column under its copy. The cover and the feed slide's feed keep their
    own layouts. */
 @media all and (max-width: 812px) {
-  .lect-slide:not(.lect-cover) {
+  .lect-slide:not(.lect-cover):not(.ad-cover) {
     display: flex;
     flex-direction: column;
     aspect-ratio: auto;
     padding: 0 0 40px;
     word-break: keep-all;
   }
-  .lect-slide:not(.lect-cover) > * {
+  .lect-slide:not(.lect-cover):not(.ad-cover) > * {
     position: static;
     white-space: normal;
   }
   /* sizes match the site's body copy (13px, like the Role text and the
      campaign descriptions); section numbers and small caps labels sit smaller */
-  .lect-slide:not(.lect-cover) > .t {
+  .lect-slide:not(.lect-cover):not(.ad-cover) > .t {
     font-size: 13px;
     line-height: 1.7;
     margin-top: 10px;
   }
-  .lect-slide:not(.lect-cover) > .t[style*="--ls:0.04em"] { margin-top: 0; font-size: 11px; line-height: 1.4; }
-  .lect-slide:not(.lect-cover) > .t[style*="--ls:0.12em"] { margin-top: 32px; font-size: 10.5px; line-height: 1.4; }
-  .lect-slide:not(.lect-cover) > .rule + .t[style*="--ls:0.12em"] { margin-top: 0; }
+  .lect-slide:not(.lect-cover):not(.ad-cover) > .t[style*="--ls:0.04em"] { margin-top: 0; font-size: 11px; line-height: 1.4; }
+  .lect-slide:not(.lect-cover):not(.ad-cover) > .t[style*="--ls:0.12em"] { margin-top: 32px; font-size: 10.5px; line-height: 1.4; }
+  .lect-slide:not(.lect-cover):not(.ad-cover) > .rule + .t[style*="--ls:0.12em"] { margin-top: 0; }
   /* body copy rewraps to the phone width (each <br> has a space before it) */
-  .lect-slide:not(.lect-cover) > p.t br { display: none; }
+  .lect-slide:not(.lect-cover):not(.ad-cover) > p.t br { display: none; }
   /* sub-titles stay on one line */
-  .lect-slide:not(.lect-cover) > h3.t {
+  .lect-slide:not(.lect-cover):not(.ad-cover) > h3.t {
     margin-top: 14px;
     margin-bottom: 8px;
     font-size: min(15px, 4vw);
     line-height: 1.4;
     white-space: nowrap;
   }
-  .lect-slide:not(.lect-cover) > h3.t br { display: none; }
-  .lect-slide:not(.lect-cover) > .rule { display: block; width: 100%; margin: 8px 0 22px; }
+  .lect-slide:not(.lect-cover):not(.ad-cover) > h3.t br { display: none; }
+  .lect-slide:not(.lect-cover):not(.ad-cover) > .rule { display: block; width: 100%; margin: 8px 0 22px; }
 
   /* small notes: the address under the building, the feed hint under the feed */
   .lect-slide[aria-label="03 Space"] > h3.t + .t {
@@ -4699,8 +4699,8 @@ html[lang="ko"] .work[data-work="adidas"] .campaign-intro {
     line-height: 1.4;
     color: #777;
   }
-  .lect-slide:not(.lect-cover) > .t.lect-feed-hint { margin-top: 8px; font-size: 10px; line-height: 1.4; text-align: right; }
-  .lect-slide:not(.lect-cover) > h3.t + .rule { display: none; }
+  .lect-slide:not(.lect-cover):not(.ad-cover) > .t.lect-feed-hint { margin-top: 8px; font-size: 10px; line-height: 1.4; text-align: right; }
+  .lect-slide:not(.lect-cover):not(.ad-cover) > h3.t + .rule { display: none; }
 
   .lect-slide .lect-gfx {
     display: block;
@@ -4778,4 +4778,57 @@ html[lang="ko"] .work[data-work="adidas"] .campaign-intro {
   .lect-gfx[style*="--gy:540"] > :nth-child(n+5):nth-child(-n+8) { grid-column: 2; }
   .lect-gfx[style*="--gy:540"] > :nth-child(n+9):nth-child(-n+12) { grid-column: 3; }
   .lect-gfx[style*="--gy:540"] > :nth-child(n+13) { grid-column: 4; }
+}
+
+/* adidas cover on phones: the two phones on top (as one group, scaled to the
+   column), the title under them at a readable size */
+@media all and (max-width: 812px) {
+  .ad-cover {
+    aspect-ratio: auto;
+    padding-top: calc(100% * 960 / 900);
+  }
+  .ad-cover > * { --u: calc(100cqw / 900); }
+  .ad-cover > .ad-phone {
+    left: calc((var(--x) - 1003) * var(--u));
+    top: calc((var(--y) - 71) * var(--u));
+  }
+  .ad-cover > h2.t {
+    position: static;
+    margin-top: 18px;
+    font-size: 17px;
+    line-height: 1.4;
+    white-space: normal;
+  }
+
+  /* board copy in the site's body font and size, rewrapping naturally */
+  .ad-board .ad-lead,
+  .ad-board .ad-note,
+  .ad-board .ad-quote,
+  .ad-board .ad-tone p,
+  .ad-board .ad-rule p,
+  .ad-board .ad-cap {
+    font-family: 'Gill Sans', 'General Sans', 'Pretendard', -apple-system, sans-serif;
+  }
+  .ad-board .ad-lead { font-size: 13px !important; line-height: 1.7 !important; font-weight: 400; color: #333; }
+  .ad-board .ad-lead br,
+  .ad-board .ad-note br,
+  .ad-board .ad-tone p br,
+  .ad-board .ad-rule p br { display: none; }
+  .ad-board .ad-note { line-height: 1.6 !important; }
+
+  /* base guideline: equal-height cards, so the arrow lines sit on one line */
+  .ad-rules { align-items: stretch; }
+  .ad-rule .ad-arrow { margin-top: auto !important; }
+  .ad-rule p:not(.ad-num):not(.ad-arrow) { margin-bottom: 12px; }
+}
+
+/* "team proposal" credit, small, under the base guideline cards on the right */
+.ad-credit {
+  margin-top: calc(14 * var(--u)) !important;
+  text-align: right;
+  font-size: calc(14 * var(--u)) !important;
+  color: #999;
+}
+@media all and (max-width: 812px) {
+  .ad-credit { margin-top: 8px !important; font-size: 9px !important; }
 }
