@@ -3677,7 +3677,7 @@ body.page2active[data-work="ranchu"] .ranchu-swimmer {
   position: relative;
   aspect-ratio: 1920 / 1080;
   overflow: hidden;
-  font-family: 'LectLatin', 'Noto Sans KR', 'Pretendard', -apple-system, sans-serif;
+  font-family: 'Pretendard', -apple-system, sans-serif;
 }
 
 /* the four boards run on as one long black sheet */
@@ -4702,7 +4702,7 @@ html[lang="ko"] .work[data-work="adidas"] .campaign-intro {
   .lect-slide:not(.lect-cover):not(.ad-cover) > .t.lect-feed-hint { margin-top: 8px; font-size: 10px; line-height: 1.4; text-align: right; }
   .lect-slide:not(.lect-cover):not(.ad-cover) > h3.t + .rule { display: none; }
 
-  .lect-slide .lect-gfx {
+  .lect-slide:not(.lect-cover):not(.ad-cover) > .lect-gfx {
     display: block;
     position: relative;
     container-type: inline-size;
@@ -4724,13 +4724,13 @@ html[lang="ko"] .work[data-work="adidas"] .campaign-intro {
   .lect-slide[aria-label="01 Brand Story"] > h3.t { margin-top: 12px; margin-bottom: 0; font-size: 26px; white-space: normal; }
   .lect-slide[aria-label="01 Brand Story"] > h3.t + .t { margin-top: 10px; font-size: 11px; color: #333; }
   .lect-slide[aria-label="01 Brand Story"] > h3.t + .t + .t { margin-top: 8px; }
-  .lect-slide .lect-gfx:is([style*="--gy:420"], [style*="--gy:540"]) {
+  .lect-slide:not(.lect-cover):not(.ad-cover) > .lect-gfx:is([style*="--gy:420"], [style*="--gy:540"]) {
     display: grid;
     aspect-ratio: auto;
     container-type: normal;
     margin-top: 44px;
   }
-  .lect-slide .lect-gfx:is([style*="--gy:420"], [style*="--gy:540"]) > * {
+  .lect-slide:not(.lect-cover):not(.ad-cover) > .lect-gfx:is([style*="--gy:420"], [style*="--gy:540"]) > * {
     position: static;
     white-space: nowrap;
   }
@@ -4774,6 +4774,7 @@ html[lang="ko"] .work[data-work="adidas"] .campaign-intro {
   .lect-gfx[style*="--gy:540"] > .t:nth-child(4n+2) { align-self: end; line-height: 1.2; }
   .lect-gfx[style*="--gy:540"] > .t br { display: none; }
   .lect-gfx[style*="--gy:540"] { column-gap: 8px; padding-left: 0; }
+  .lect-slide:not(.lect-cover):not(.ad-cover) > .lect-gfx[style*="--gy:540"] { margin-top: 28px; }
   .lect-gfx[style*="--gy:540"] > :nth-child(-n+4) { grid-column: 1; }
   .lect-gfx[style*="--gy:540"] > :nth-child(n+5):nth-child(-n+8) { grid-column: 2; }
   .lect-gfx[style*="--gy:540"] > :nth-child(n+9):nth-child(-n+12) { grid-column: 3; }
@@ -4801,14 +4802,6 @@ html[lang="ko"] .work[data-work="adidas"] .campaign-intro {
   }
 
   /* board copy in the site's body font and size, rewrapping naturally */
-  .ad-board .ad-lead,
-  .ad-board .ad-note,
-  .ad-board .ad-quote,
-  .ad-board .ad-tone p,
-  .ad-board .ad-rule p,
-  .ad-board .ad-cap {
-    font-family: 'Gill Sans', 'General Sans', 'Pretendard', -apple-system, sans-serif;
-  }
   .ad-board .ad-lead { font-size: 13px !important; line-height: 1.7 !important; font-weight: 400; color: #333; }
   .ad-board .ad-lead br,
   .ad-board .ad-note br,
@@ -4831,4 +4824,69 @@ html[lang="ko"] .work[data-work="adidas"] .campaign-intro {
 }
 @media all and (max-width: 812px) {
   .ad-credit { margin-top: 8px !important; font-size: 9px !important; }
+}
+
+/* adidas: the whole project (cover and board) set in Pretendard */
+.ad-board,
+.ad-cover {
+  font-family: 'Pretendard', -apple-system, sans-serif;
+}
+
+/* adidas board on desktop: same reading sizes as the site's body copy
+   (13px) instead of scaling with the column, tables running the project
+   image width; the 03 tone boxes / guideline cards keep a little side room.
+   The cover slide (two phones + title) is left as it is. */
+@media all and (min-width: 813px) {
+  .ad-board > * { margin-left: 0; margin-right: 0; }
+  .ad-head { padding-top: 24px; padding-bottom: 10px; font-size: 11px; }
+  .ad-sec { padding-top: 56px; }
+  .ad-sec + .ad-sec, .ad-sec + .ad-sec + .ad-sec { padding-top: 104px; }
+  .ad-sec--last { padding-bottom: 72px; }
+
+  .ad-label { font-size: 12px !important; }
+  .ad-title { margin-top: 6px !important; font-size: 26px !important; }
+  .ad-lead { margin-top: 14px !important; font-size: 13px !important; line-height: 1.7 !important; color: #333; }
+  .ad-num { font-size: 10px !important; }
+
+  /* 01 scope */
+  .ad-scope { gap: 20px; margin-top: 44px; }
+  .ad-col { padding-top: 14px; border-top-width: 2px; }
+  .ad-col h4 { margin-top: 4px; font-size: 14px; }
+  .ad-col .ad-sub { margin-top: 2px; font-size: 12px; }
+  .ad-col ul { margin-top: 16px; }
+  .ad-col li { padding: 8px 0; font-size: 12px; }
+
+  /* 02 workflow */
+  .ad-flow { margin-top: 48px; font-size: 11.5px; line-height: 1.6; }
+  .ad-flow > div { padding: 14px 10px; }
+  .ad-flow .ad-fh { padding-bottom: 10px; font-size: 12px; }
+  .ad-fh span { font-size: 10px; }
+  .ad-r1, .ad-flow .ad-span { border-top-width: 2px; }
+  .ad-r2, .ad-flow .ad-span { border-bottom-width: 2px; }
+  .ad-row strong { font-size: 13px; }
+  .ad-row small { font-size: 10px; }
+
+  /* 03 content T&M */
+  .ad-tm { width: 88%; margin: 52px auto 0; gap: 64px; }
+  .ad-cap { margin-bottom: 12px !important; font-size: 11px !important; }
+  .ad-tones { gap: 14px; }
+  .ad-tone { height: auto; aspect-ratio: 410 / 200; padding: 22px 24px; }
+  .ad-tone h5 { font-size: 16px !important; }
+  .ad-tone p { margin-top: 10px !important; font-size: 12.5px !important; line-height: 1.6 !important; }
+  .ad-note { margin-top: 14px !important; font-size: 12.5px !important; line-height: 1.7 !important; }
+  .ad-rules { gap: 12px; align-items: stretch; }
+  .ad-rule { padding: 20px 18px; border-radius: 6px; }
+  .ad-rule h5 { margin-top: 6px !important; font-size: 15px !important; }
+  .ad-rule p:not(.ad-num):not(.ad-arrow) { margin: 8px 0 16px !important; white-space: normal; font-size: 12.5px !important; line-height: 1.6 !important; }
+  .ad-rule .ad-arrow { margin-top: auto !important; padding-top: 12px; font-size: 12.5px !important; }
+  .ad-credit { margin-top: 10px !important; font-size: 10px !important; }
+  .ad-tone p br, .ad-rule p br { display: none; }
+
+  /* 04 */
+  .ad-quote { margin-top: 28px !important; font-size: 15px !important; }
+  .ad-quote + .ad-lead { margin-top: 10px !important; }
+
+  /* IRL descriptions follow the board's body copy */
+  .work[data-work="adidas"] .campaign-intro,
+  html[lang="ko"] .work[data-work="adidas"] .campaign-intro { font-size: 13px; line-height: 1.7; }
 }
