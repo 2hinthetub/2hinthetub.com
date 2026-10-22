@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
     'title-summer-idx': '넌 어떤 여름을 떠올릴까?',
     'work-desc-4': 'Summer Nostalgia를 전하는 이 프로젝트는 누군가의 지나간 여름을 짧은 글과 일러스트로 엮어낸 에디토리얼 북과, 지금의 여름을 담을 일회용 필름 카메라, 여름의 조각을 모은 스티커로 구성됩니다.\n\n책 속 사진은 오래된 디지털카메라로 찍은 듯한 여름의 장면을 Midjourney로 생성해, 누구의 것인지 모를 기억 속에서 저마다의 여름을 떠올리도록 했습니다.',
     'work-cat-5': '브랜드 캠페인 기획<br>비주얼 디렉션<br>콘텐츠 기획 &amp; 디자인',
-    'metiers-role-desc': '26 Métiers d’art 컬렉션의 서울 개최를 맞아, 내부 직원을 위한 공방 컬렉션 교육 프로그램 기획에 참여했습니다. ONE HOUSE Staff Engagement를 뉴욕의 아침에서 서울의 저녁으로 이어지는 여정으로 구성해, 몰입감 있는 경험을 통해 교육에 집중할 수 있도록 구성했습니다.\n\n팀 내부에서 현장 매니지먼트, 영상 비주얼 디렉션, AI 촬영 컨셉 디벨롭, 공간 디테일 디자인, GWP 비주얼 디렉션을 중점적으로 맡았습니다.',
+    'metiers-role-desc': '26 Métiers d’art 컬렉션의 서울 개최를 맞아, 내부 직원을 위한 공방 컬렉션 교육 프로그램 기획에 참여했습니다. ONE HOUSE Engagement Journey를 뉴욕의 아침에서 서울의 저녁으로 이어지는 여정으로 구성해, 몰입감 있는 경험을 통해 교육에 집중할 수 있도록 구성했습니다.\n\n팀 내부에서 현장 매니지먼트, 영상 비주얼 디렉션, AI 촬영 컨셉 디벨롭, 공간 디테일 디자인, GWP 비주얼 디렉션을 중점적으로 맡았습니다.',
     'work-desc-5': 'AMOMENTO 26FW &amp; 캐시미어 컬렉션의 윈터 시즌 캠페인, Project No.51을 가정한 개인 프로젝트입니다.\n\n캠페인 콘셉트부터 에디토리얼 키비주얼, 티징 영상, 소셜 콘텐츠까지 하나의 톤으로 이어지는 브랜드 콘텐츠를 기획하고 제작했습니다.',
     'ph-1': 'PLAB <span class="ko-small">소셜 채널 운영</span> (Smore Market / LECT House), <span class="role">PM</span>',
     'ph-2': '<span class="ko-small">하우스 오브 토이스토리 성수</span>, <span class="role">PM</span>',
@@ -1612,6 +1612,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // The whole viewport, minus a small margin on every side.
     function computeBounds() {
+      // smaller fish on phones (matches the max-width: 812px rule in style.css)
+      spriteW = window.innerWidth <= 812 ? 44 : 64;
+      spriteH = spriteW * (1027 / 550);
       bounds.minX = margin;
       bounds.maxX = Math.max(margin, window.innerWidth - spriteW - margin);
       bounds.minY = margin;
@@ -2325,4 +2328,15 @@ document.addEventListener('DOMContentLoaded', function () {
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitSideColumns);
   window.addEventListener('load', fitSideColumns);
   setTimeout(fitSideColumns, 300);
+})();
+
+// discourage saving images and films: block the right-click / long-press menu and dragging them out
+(function () {
+  function isMedia(el) { return el && el.closest && el.closest('img, video, picture, .obj-media'); }
+  document.addEventListener('contextmenu', function (e) { if (isMedia(e.target)) e.preventDefault(); });
+  document.addEventListener('dragstart', function (e) { if (isMedia(e.target)) e.preventDefault(); });
+  document.querySelectorAll('video').forEach(function (v) {
+    v.setAttribute('controlslist', 'nodownload');
+    v.setAttribute('disablepictureinpicture', '');
+  });
 })();

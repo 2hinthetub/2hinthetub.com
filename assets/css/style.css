@@ -5,10 +5,10 @@
   --font-size: 16px;
   --line-height: 1.5;
 
-  --c-bg-neutral: #ededed;
+  --c-bg-neutral: #fcfcfb;
   --c-page1: #c3f0ef;
   --c-visited: #c3f0ef;
-  --c-active: #ededed;
+  --c-active: #fcfcfb;
   --c-accent-text: #8be3e1;
   --c-text: #111;
 }
@@ -4402,7 +4402,7 @@ html[lang="ko"] .work-about-text {
   inset: 0;
   z-index: 20;
   /* see-through: the home view stays visible behind it, blurred */
-  background: rgba(237, 237, 237, 0.55);
+  background: rgba(252, 252, 251, 0.55);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
   font-family: 'Pretendard', -apple-system, sans-serif;
@@ -4575,3 +4575,16 @@ body.about-open .home-contact {
 
 /* the About label is hidden on every project but keeps its space, so the text below stays put */
 .work-about-label { visibility: hidden; }
+
+/* discourage saving images: no long-press save sheet on iOS, no drag-out */
+img, video {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* smaller Ranchu on phones (main.js uses the same 44px for its swim bounds) */
+@media all and (max-width: 812px) {
+  .ranchu-swimmer { width: 44px; }
+}
