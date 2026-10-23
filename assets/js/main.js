@@ -1924,9 +1924,25 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Some works show a friendlier name in the URL than their id
+  // (#work/exposure for AMOMENTO, #work/métiersdart for CHANEL); the old
+  // ids and a plain-ASCII spelling still open them.
+  var WORK_SLUG = { warm: 'exposure', chanel: 'métiersdart' };
+  var SLUG_WORK = { exposure: 'warm', 'métiersdart': 'chanel', metiersdart: 'chanel', journey: 'chanel' };
+  function readHash() {
+    var h = location.hash.replace(/^#/, '');
+    try { h = decodeURIComponent(h); } catch (e) {}
+    return h;
+  }
+
   function route() {
-    var hash = location.hash.replace(/^#/, '');
+    var hash = readHash();
     var workMatch = hash.match(/^work\/(.+)$/);
+    if (workMatch && SLUG_WORK[workMatch[1]]) workMatch[1] = SLUG_WORK[workMatch[1]];
+    else if (workMatch && WORK_SLUG[workMatch[1]]) {
+      // an old link (#work/warm): show the friendly name instead
+      history.replaceState(null, '', '#work/' + WORK_SLUG[workMatch[1]]);
+    }
     var currentId = workMatch ? workMatch[1] : null;
     document.body.setAttribute('data-work', currentId || '');
     document.querySelectorAll('.idx-item').forEach(function (item) {
@@ -1947,7 +1963,9 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function go(hash) {
-    if (location.hash.replace(/^#/, '') === hash) { route(); return; }
+    var m = hash.match(/^work\/(.+)$/);
+    if (m && WORK_SLUG[m[1]]) hash = 'work/' + WORK_SLUG[m[1]];
+    if (readHash() === hash) { route(); return; }
     if (hash) {
       location.hash = hash;
     } else {
