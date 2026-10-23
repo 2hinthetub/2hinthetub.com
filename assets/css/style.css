@@ -3430,7 +3430,7 @@ html[lang="ko"] .work-about-text {
   position: fixed;
   top: 0;
   left: 0;
-  width: 64px;
+  width: 46px;
   aspect-ratio: 550 / 1027;
   z-index: 60;
   pointer-events: none;
@@ -3508,7 +3508,7 @@ html[lang="ko"] .work-about-text {
 
 /* out only while the Ranchu project is the open work */
 body.page2active[data-work="ranchu"] .ranchu-swimmer {
-  opacity: 1;
+  opacity: 0.5;
 }
 
 .ranchu-part {
@@ -4603,7 +4603,7 @@ img, video {
 
 /* smaller Ranchu on phones (main.js uses the same 44px for its swim bounds) */
 @media all and (max-width: 812px) {
-  .ranchu-swimmer { width: 44px; }
+  .ranchu-swimmer { width: 32px; }
 }
 
 /* adidas: campaign descriptions follow the board's body text (.ad-lead = 25 board px, board = column width) */

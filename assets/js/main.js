@@ -1603,7 +1603,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // fixed 64px display width (matches .ranchu-swimmer in style.css) —
     // keeps the aspect ratio in sync here without needing to measure the
     // loaded image.
-    var spriteW = 64;
+    var spriteW = 46;
     var spriteH = spriteW * (1027 / 550);
     var margin = 24;
     var bounds = { minX: margin, maxX: 100, minY: margin, maxY: 100 };
@@ -1613,7 +1613,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // The whole viewport, minus a small margin on every side.
     function computeBounds() {
       // smaller fish on phones (matches the max-width: 812px rule in style.css)
-      spriteW = window.innerWidth <= 812 ? 44 : 64;
+      spriteW = window.innerWidth <= 812 ? 32 : 46;
       spriteH = spriteW * (1027 / 550);
       bounds.minX = margin;
       bounds.maxX = Math.max(margin, window.innerWidth - spriteW - margin);
